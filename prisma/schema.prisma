@@ -1,0 +1,284 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String         @id @default(uuid())
+  username     String         @unique
+  email        String         @unique
+  passwordHash String
+  fullName     String
+  phone        String?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  lastLogin    DateTime?
+  isActive     Boolean        @default(true)
+  Role         UserRole       @relation(fields: [userRoleId], references: [id])
+  Session      LoginSession[]
+
+  // Relations
+  handledOrders         Order[]                @relation("HandledBy")
+  payments              Payment[]
+  inventoryTransactions InventoryTransaction[] @relation("RecordedBy")
+  settings              Setting[]              @relation("UpdatedBy")
+  userRoleId            String
+
+  @@map("users")
+}
+
+model LoginSession {
+  id        String   @id @default(uuid())
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  expire    DateTime
+  User      User     @relation(fields: [userId], references: [id])
+
+  @@map("login_sessions")
+}
+
+model UserRole {
+  id   String @id @default(uuid())
+  name String @unique
+  User User[]
+
+  @@map("user_roles")
+}
+
+model Customer {
+  id                String   @id @default(uuid())
+  firstName         String
+  lastName          String
+  email             String?  @unique
+  phone             Int
+  address           String?
+  loyaltyPoints     Int      @default(0)
+  notes             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  preferredServices String[]
+  totalOrders       Int      @default(0)
+  totalSpent        Decimal  @default(0)
+
+  // Relations
+  orders        Order[]
+  notifications Notification[]
+
+  @@map("customers")
+}
+
+model Service {
+  id                 String          @id @default(uuid())
+  name               String
+  description        String?
+  pricePerUnit       Decimal
+  unitType           UnitType
+  estimatedTimeHours Int
+  category           ServiceCategory
+  isActive           Boolean         @default(true)
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  // Relations
+  orderItems OrderItem[]
+
+  @@map("services")
+}
+
+enum UnitType {
+  KG
+  PIECE
+  SET
+}
+
+enum ServiceCategory {
+  WASH
+  DRY_CLEAN
+  IRON
+  FOLD
+  PACKAGE
+}
+
+model Order {
+  id           String      @id @default(uuid())
+  orderNumber  String      @unique
+  status       OrderStatus @relation(fields: [orderStatusId], references: [id])
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  pickupDate   DateTime?
+  deliveryDate DateTime?
+  totalAmount  Decimal
+  paidAmount   Decimal     @default(0)
+
+  notes           String?
+  deliveryMethod  DeliveryMethod
+  deliveryAddress String?
+  priority        OrderPriority  @relation(fields: [orderPriorityId], references: [id])
+
+  // Relations
+  customer        Customer       @relation(fields: [customerId], references: [id])
+  customerId      String
+  handledBy       User?          @relation("HandledBy", fields: [handledById], references: [id])
+  handledById     String?
+  orderItems      OrderItem[]
+  payments        Payment[]
+  notifications   Notification[]
+  orderPriorityId String
+  orderStatusId   String
+
+  @@map("orders")
+}
+
+model OrderStatus {
+  id    String  @id @default(uuid())
+  name  String
+  Order Order[]
+}
+
+enum DeliveryMethod {
+  PICKUP
+  DELIVERY
+}
+
+model OrderPriority {
+  id    String  @id @default(uuid())
+  name  String  @unique
+  Order Order[]
+}
+
+model OrderItem {
+  id                  String          @id @default(uuid())
+  quantity            Decimal
+  unitPrice           Decimal
+  subtotal            Decimal
+  specialInstructions String?
+  status              OrderItemStatus @default(PENDING)
+  itemDescription     String?
+
+  // Relations
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId   String
+  service   Service @relation(fields: [serviceId], references: [id])
+  serviceId String
+
+  @@map("order_items")
+}
+
+enum OrderItemStatus {
+  PENDING
+  COMPLETED
+}
+
+model Inventory {
+  id              String            @id @default(uuid())
+  itemName        String
+  description     String?
+  category        InventoryCategory @relation(fields: [inventoryCategoryId], references: [id])
+  quantity        Decimal
+  unit            String
+  reorderLevel    Decimal
+  costPerUnit     Decimal
+  supplier        String?
+  lastRestockDate DateTime?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  // Relations
+  transactions        InventoryTransaction[]
+  inventoryCategoryId String
+
+  @@map("inventory")
+}
+
+model InventoryCategory {
+  id        String      @id @default(uuid())
+  name      String      @unique
+  Inventory Inventory[]
+}
+
+model InventoryTransaction {
+  id              String   @id @default(uuid())
+  quantity        Decimal
+  transactionDate DateTime @default(now())
+  notes           String?
+
+  // Relations
+  inventory    Inventory @relation(fields: [inventoryId], references: [id])
+  inventoryId  String
+  recordedBy   User      @relation("RecordedBy", fields: [recordedById], references: [id])
+  recordedById String
+
+  @@map("inventory_transactions")
+}
+
+model Payment {
+  id          String   @id @default(uuid())
+  amount      Decimal
+  paymentDate DateTime @default(now())
+  notes       String?
+
+  // Relations
+  order        Order  @relation(fields: [orderId], references: [id])
+  orderId      String
+  receivedBy   User   @relation(fields: [receivedById], references: [id])
+  receivedById String
+
+  @@map("payments")
+}
+
+model Notification {
+  id      String           @id @default(uuid())
+  type    NotificationType
+  content String
+  sentAt  DateTime?
+
+  // Relations
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId String
+  order      Order    @relation(fields: [orderId], references: [id])
+  orderId    String
+
+  @@map("notifications")
+}
+
+enum NotificationType {
+  ORDER_RECEIVED
+  ORDER_READY
+  ORDER_DELIVERED
+  PAYMENT_RECEIVED
+}
+
+model Setting {
+  id           String   @id @default(uuid())
+  settingKey   String   @unique
+  settingValue String
+  description  String?
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  updatedBy   User   @relation("UpdatedBy", fields: [updatedById], references: [id])
+  updatedById String
+
+  @@map("settings")
+}
+
+model BusinessHour {
+  id        String  @id @default(uuid())
+  dayOfWeek Int // 0 = Sunday, 6 = Saturday
+  openTime  String? // Stored as "HH:MM" format
+  closeTime String? // Stored as "HH:MM" format
+  isClosed  Boolean @default(false)
+
+  @@map("business_hours")
+}
