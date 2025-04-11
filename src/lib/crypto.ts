@@ -8,7 +8,7 @@ export async function Hash(string: string) {
 }
 
 const key = "vwpP5A5u98RX9/QbCPpLzw==";
-const iv = process.env.SECRET_KEY as string;
+const iv = "v7Si/vLL78/31tZlz2383w==";
 
 export async function Cipher(string: string) {
 	const cipher = createCipheriv(
