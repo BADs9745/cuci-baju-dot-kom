@@ -58,7 +58,9 @@ export async function Login(data: LoginSchema) {
 				expire: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // Set expiration to 24 hours from now
 			},
 		});
-		cookie.set("token", session.id);
+		cookie.set("token", session.id, {
+			expires: session.expire,
+		}); // Set expiration to 24 hours from now
 	}
 	return isPasswordMatch;
 }

@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { nunito } from "@/font";
 import ThemeAdapter from "@/lib/themeAdapter";
+import SessionProvider from "@/components/counterpart/auth/sessionProvider";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -19,12 +20,13 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<ThemeAdapter />
 			<body className={`antialiased ${nunito.className} relative`}>
 				<header className="sticky top-0 z-10">{header}</header>
 				<main>{children}</main>
 				<footer>{footer}</footer>
 			</body>
+			<ThemeAdapter />
+			<SessionProvider />
 		</html>
 	);
 }

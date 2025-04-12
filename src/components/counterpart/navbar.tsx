@@ -13,6 +13,7 @@ import {
 	DropdownMenuGroup,
 	DropdownMenuItem,
 	DropdownMenuLabel,
+	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import {
@@ -25,7 +26,7 @@ import AvatarProfile from "../custom/avatar";
 
 export default function Navbar() {
 	return (
-		<nav className="p-10 bg-muted flex justify-between ">
+		<nav className="p-10 bg-muted flex justify-between items-center">
 			<h1 className={`${playwrite.className} italic font-black text-4xl`}>
 				Cuci Baju Dot Kom
 			</h1>
@@ -33,22 +34,21 @@ export default function Navbar() {
 			<div className="flex gap-5">
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild className="group">
-						<Button
-							className={`${varelaRound.className} text-2xl py-7 px-10 rounded-xl`}
-						>
+						<Button className={`${varelaRound.className} text-base`}>
 							Services
 							<ChevronDownIcon
 								className={
-									"group-aria-expanded:rotate-z-180 duration-300 ms-2 size-7 stroke-3"
+									"group-aria-expanded:rotate-z-180 duration-300 size-5 stroke-3"
 								}
 							/>
 						</Button>
 					</DropdownMenuTrigger>
-					<DropdownMenuContent className="bg-popover text-center ring-1 ring-ring">
-						<DropdownMenuLabel className="text-lg font-black">
+					<DropdownMenuContent className="bg-popover text-center">
+						<DropdownMenuLabel className="text-base font-semibold">
 							Menu Reservasi
 						</DropdownMenuLabel>
-						<DropdownMenuGroup className="*:px-3 font-bold *:text-base">
+						<DropdownMenuSeparator />
+						<DropdownMenuGroup className="*:px-3">
 							<DropdownMenuItem>Jadwal Pengambilan</DropdownMenuItem>
 							<DropdownMenuItem>Cek Status</DropdownMenuItem>
 							<DropdownMenuItem>Layanan Pengantaran</DropdownMenuItem>
@@ -56,13 +56,11 @@ export default function Navbar() {
 						</DropdownMenuGroup>
 					</DropdownMenuContent>
 				</DropdownMenu>
-				<Button
-					className={`${varelaRound.className} text-2xl py-7 px-10 rounded-xl`}
-				>
-					Reservasi <CalendarDaysIcon className="size-7 ms-2" />
+				<Button className={`${varelaRound.className} text-base`}>
+					Reservasi <CalendarDaysIcon className="size-5 ms-2" />
 				</Button>
+				<AvatarProfile />
 			</div>
-			<AvatarProfile />
 		</nav>
 	);
 }
@@ -84,7 +82,7 @@ function NavigationList() {
 						<Link href={url} passHref legacyBehavior>
 							<NavigationMenuLink
 								className={clsx(
-									"text-2xl font-bold",
+									"text-base font-bold",
 									"hover:text-primary transition-colors duration-300",
 								)}
 							>

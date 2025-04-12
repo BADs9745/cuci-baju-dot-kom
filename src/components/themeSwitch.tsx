@@ -12,11 +12,11 @@ export default function ThemeSwitch() {
 
 	return (
 		<div className="flex items-center gap-3 px-4 py-2 rounded-full bg-background">
-			<span className="text-lg text-foreground">
+			<span className="text-foreground">
 				{theme === "dark" ? "Dark" : "Light"} Mode
 			</span>
 			<button
-				className="flex items-center w-14 p-1 duration-300 rounded-full bg-foreground"
+				className="flex items-center w-12 p-1 duration-300 rounded-full bg-foreground"
 				type="button"
 				onClick={() => {
 					setTheme((prev) => (prev === "light" ? "dark" : "light"));
@@ -37,9 +37,9 @@ export default function ThemeSwitch() {
 					layout
 				>
 					{theme === "dark" ? (
-						<MoonIcon className="size-5 text-foreground" />
+						<MoonIcon className="size-4 text-foreground" />
 					) : (
-						<SunIcon className="size-5 text-foreground" />
+						<SunIcon className="size-4 text-foreground" />
 					)}
 				</m.div>
 			</button>

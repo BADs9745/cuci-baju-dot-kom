@@ -1,5 +1,4 @@
 "use server";
-
 import { cookies } from "next/headers";
 import { prisma } from "./prisma";
 import type { User } from "@prisma/client";
@@ -10,6 +9,28 @@ export async function isLogin() {
 	const token = cookie.get("token");
 	if (token) return token.value;
 	return false;
+}
+
+export async function ReNewSession(token: string) {
+	const cookie = await cookies();
+	try {
+		const session = await prisma.loginSession.update({
+			where: {
+				id: token,
+			},
+			data: {
+				expire: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+			},
+		});
+		cookie.set("token", session.id, {
+			expires: session.expire,
+		});
+	} catch (error) {
+		const { meta } = error as unknown as PrismaClientError;
+		if (meta.modelName === "LoginSession") {
+			cookie.delete("token");
+		}
+	}
 }
 
 export async function GetProfile(token: string) {
