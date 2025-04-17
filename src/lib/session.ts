@@ -1,7 +1,7 @@
 "use server";
 import { cookies } from "next/headers";
 import { prisma } from "./prisma";
-import type { User } from "@prisma/client";
+import type { User } from "@/prisma/client";
 import type { PrismaClientError } from "./types/db";
 
 export async function isLogin() {
@@ -20,6 +20,11 @@ export async function ReNewSession(token: string) {
 			},
 			data: {
 				expire: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+				User: {
+					update: {
+						lastLogin: new Date(),
+					},
+				},
 			},
 		});
 		cookie.set("token", session.id, {

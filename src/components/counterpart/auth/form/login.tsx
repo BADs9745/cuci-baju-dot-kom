@@ -3,12 +3,8 @@ import { Button } from "@/components/ui/button";
 import { FormField, FormItem, FormLabel, Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Login } from "@/lib/auth";
+import type { LoginSchema } from "@/lib/types/auth";
 import { useForm } from "react-hook-form";
-
-export type LoginSchema = {
-	usernameOrEmail: string;
-	password: string;
-};
 
 export function LoginContent() {
 	const form = useForm<LoginSchema>({

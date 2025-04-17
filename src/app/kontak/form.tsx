@@ -9,26 +9,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import type { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-
-const kontakSchema = z.object({
-	name: z
-		.string()
-		.min(5, { message: "Name must be at least 5 characters long" }),
-	email: z.string().email(),
-	subject: z
-		.string()
-		.min(5, { message: "Subject must be at least 5 characters long" }),
-	phone: z.string(),
-	message: z
-		.string()
-		.min(10, { message: "Message must be at least 10 characters long" }),
-});
-type kontakType = keyof z.infer<typeof kontakSchema>;
-const formInput = Object.keys(kontakSchema.shape) as kontakType[];
+import { formInput, kontakSchema } from "@/lib/types/kontak";
 
 export default function KontakForm() {
 	const form = useForm<z.infer<typeof kontakSchema>>({

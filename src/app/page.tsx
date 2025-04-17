@@ -1,10 +1,11 @@
 import HomeModalList from "@/components/counterpart/home/modal";
 import InteractiveWeight from "@/components/counterpart/home/weight";
-import { Button } from "@/components/ui/button";
+import { GetPaketList } from "@/lib/cucian";
 import { tw } from "@/lib/utils";
 
 const sectionStyle = tw`justify-center py-20 px-50 gap-10`;
 export default function HomePage() {
+	const paketList = GetPaketList();
 	return (
 		<>
 			<section
@@ -29,12 +30,7 @@ export default function HomePage() {
 					malas yang sangat mengerumninmu. Tapi jangan risau kami bisa mencuci
 					baju mu dengan harga yang terjakau dengan sistem kiloan
 				</p>
-				<div className="flex flex-col justify-center bg-accent rounded-sm p-10 mt-10">
-					<InteractiveWeight />
-					<Button className="mt-10 text-xl p-5 w-fit self-end">
-						Cuci Sekarang
-					</Button>
-				</div>
+				<InteractiveWeight paket={paketList} />
 			</section>
 		</>
 	);

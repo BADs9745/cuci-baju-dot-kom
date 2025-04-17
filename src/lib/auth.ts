@@ -1,13 +1,12 @@
 "use server";
 import "server-only";
-import type { RegisterType } from "@/components/counterpart/auth/form/register";
 import { GetFormDatas } from "./utils";
 import { Hash } from "./crypto";
 import { prisma } from "./prisma";
-import type { LoginSchema } from "@/components/counterpart/auth/form/login";
-import type { User } from "@prisma/client";
+import type { User } from "@/prisma/client";
 import { cookies } from "next/headers";
 import type { PrismaClientError } from "./types/db";
+import type { LoginSchema, RegisterType } from "./types/auth";
 
 export async function Register(formData: FormData) {
 	const data = GetFormDatas<RegisterType>(formData);

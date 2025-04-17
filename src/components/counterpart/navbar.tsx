@@ -26,7 +26,7 @@ import AvatarProfile from "../custom/avatar";
 
 export default function Navbar() {
 	return (
-		<nav className="p-10 bg-muted flex justify-between items-center">
+		<nav className="py-10 flex justify-between items-center">
 			<h1 className={`${playwrite.className} italic font-black text-4xl`}>
 				Cuci Baju Dot Kom
 			</h1>
@@ -82,7 +82,7 @@ function NavigationList() {
 						<Link href={url} passHref legacyBehavior>
 							<NavigationMenuLink
 								className={clsx(
-									"text-base font-bold",
+									"text-xl font-bold",
 									"hover:text-primary transition-colors duration-300",
 								)}
 							>

@@ -11,20 +11,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Register } from "@/lib/auth";
 import { stupidPassword } from "@/lib/stupidPassword";
+import { type RegisterType, registerSchema } from "@/lib/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import type { z } from "zod";
 
-const registerSchema = z.object({
-	fullname: z.string().min(5, "Nama Lengkap minimal setidaknya 5 huruf"),
-	username: z.string().min(5, "Username minimal setidaknya 5 huruf"),
-	email: z.string().email(),
-	password: z.string().min(8, "Password minimal setidaknya 8 karakter"),
-	confirm_password: z.string().min(8, "Password minimal setidaknya 8 karakter"),
-	phone: z.string(),
-});
-
-export type RegisterType = z.infer<typeof registerSchema>;
 export function RegisterContent() {
 	const form = useForm<RegisterType>({
 		defaultValues: {

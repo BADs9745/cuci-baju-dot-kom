@@ -1,0 +1,181 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String         @id @default(uuid())
+  username     String         @unique
+  email        String         @unique
+  passwordHash String
+  fullName     String
+  phone        String?
+  alamat       String?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  lastLogin    DateTime?
+  isActive     Boolean        @default(true)
+  Role         UserRole       @relation(fields: [UserRoleId], references: [id])
+  Session      LoginSession[]
+
+  // Relations
+  Payments              Payment[]
+  InventoryTransactions InventoryTransaction[] @relation("RecordedBy")
+  Settings              Setting[]              @relation("UpdatedBy")
+  UserRoleId            String
+  CucianOrder           CucianOrder[]
+
+  @@map("users")
+}
+
+model LoginSession {
+  id        String   @id @default(uuid())
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  expire    DateTime
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("login_sessions")
+}
+
+model UserRole {
+  id   String @id @default(uuid())
+  name String @unique
+  User User[]
+
+  @@map("user_roles")
+}
+
+model CucianOrder {
+  id        String  @id @default(uuid())
+  User      User?   @relation(fields: [userId], references: [id])
+  userId    String?
+  nama      String
+  alamat    String?
+  phone     String?
+  paket     Package @relation(fields: [packageId], references: [id])
+  packageId String
+
+  @@map("cucian_orders")
+}
+
+model Service {
+  id                 String          @id @default(uuid())
+  name               String
+  description        String?
+  pricePerUnit       Decimal
+  estimatedTimeHours Int
+  ServiceCategory    ServiceCategory
+  isActive           Boolean         @default(true)
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  // Relations
+
+  @@map("services")
+}
+
+enum ServiceCategory {
+  WASH
+  DRY_CLEAN
+  IRON
+  FOLD
+  PACKAGE
+}
+
+model Package {
+  id           String        @id @default(uuid())
+  name         String
+  description  String
+  pricePerUnit BigInt
+  CucianOrder  CucianOrder[]
+
+  @@map("packages")
+}
+
+enum DeliveryMethod {
+  PICKUP
+  DELIVERY
+}
+
+model Inventory {
+  id                 String            @id @default(uuid())
+  itemName           String
+  description        String?
+  InverntoryCategory InventoryCategory @relation(fields: [inventoryCategoryId], references: [id])
+  quantity           Decimal
+  unit               String
+  reorderLevel       Decimal
+  costPerUnit        Decimal
+  supplier           String?
+  lastRestockDate    DateTime?
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+
+  // Relations
+  InvertoryTransactions InventoryTransaction[]
+  inventoryCategoryId   String
+
+  @@map("inventory")
+}
+
+model InventoryCategory {
+  id        String      @id @default(uuid())
+  name      String      @unique
+  Inventory Inventory[]
+
+  @@map("inventory_categories")
+}
+
+model InventoryTransaction {
+  id              String   @id @default(uuid())
+  quantity        Decimal
+  transactionDate DateTime @default(now())
+  notes           String?
+
+  // Relations
+  Inventory    Inventory @relation(fields: [inventoryId], references: [id])
+  inventoryId  String
+  User         User      @relation("RecordedBy", fields: [recordedById], references: [id])
+  recordedById String
+
+  @@map("inventory_transactions")
+}
+
+model Payment {
+  id          String   @id @default(uuid())
+  amount      Decimal
+  paymentDate DateTime @default(now())
+  notes       String?
+
+  // Relations
+  orderId      String
+  User         User   @relation(fields: [receivedById], references: [id])
+  receivedById String
+
+  @@map("payments")
+}
+
+model Setting {
+  id         String   @id @default(uuid())
+  settingKey String   @unique
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  User        User   @relation("UpdatedBy", fields: [updatedById], references: [id])
+  updatedById String
+
+  @@map("settings")
+}
