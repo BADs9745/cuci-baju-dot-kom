@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { prisma } from "./prisma";
 import type { User } from "@/prisma/client";
 import type { PrismaClientError } from "./types/db";
+import { revalidatePath } from "next/cache";
 
 export async function isLogin() {
 	const cookie = await cookies();
@@ -38,7 +39,7 @@ export async function ReNewSession(token: string) {
 	}
 }
 
-export async function GetProfile(token: string) {
+export async function GetProfileByToken(token: string) {
 	try {
 		const profileData = await prisma.user.findFirstOrThrow({
 			where: {
@@ -55,13 +56,46 @@ export async function GetProfile(token: string) {
 				Role: {
 					select: {
 						name: true,
+						id: true,
 					},
 				},
 			},
 		});
-		return profileData as unknown as User & PrismaClientError;
+		return profileData as unknown as User &
+			PrismaClientError & {
+				Role: {
+					name: string;
+					id: string;
+				};
+			};
 	} catch (error) {
 		const { meta } = error as unknown as PrismaClientError;
-		return { meta } as unknown as PrismaClientError & User;
+		return { meta } as unknown as PrismaClientError &
+			User & {
+				Role: {
+					name: string;
+					id: string;
+				};
+			};
+	}
+}
+
+export async function LogOut() {
+	const token = await isLogin();
+	if (token) {
+		try {
+			await prisma.loginSession.delete({
+				where: {
+					id: token,
+				},
+				select: {
+					id: true,
+				},
+			});
+			revalidatePath("/");
+		} catch (error) {
+			const { meta } = error as unknown as PrismaClientError;
+			return { meta };
+		}
 	}
 }

@@ -1,10 +1,15 @@
 import { playwrite } from "@/font/font";
 import LoginForm from "../../components/counterpart/auth/loginForm";
-
-export default function AuthPage({
+import { isLogin } from "@/lib/session";
+import { redirect, RedirectType } from "next/navigation";
+export default async function AuthPage({
 	searchParams,
-}: { searchParams: { opt: string } }) {
-	const option = searchParams.opt;
+}: { searchParams: Promise<{ opt: string }> }) {
+	const option = (await searchParams).opt;
+	const islogin = await isLogin();
+	if (islogin) {
+		redirect("/", RedirectType.replace);
+	}
 	return (
 		<div className="p-30 flex flex-col items-center">
 			<h1

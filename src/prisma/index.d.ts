@@ -63,11 +63,6 @@ export type InventoryTransaction = $Result.DefaultSelection<Prisma.$InventoryTra
  * 
  */
 export type Payment = $Result.DefaultSelection<Prisma.$PaymentPayload>
-/**
- * Model Setting
- * 
- */
-export type Setting = $Result.DefaultSelection<Prisma.$SettingPayload>
 
 /**
  * Enums
@@ -325,16 +320,6 @@ export class PrismaClient<
     * ```
     */
   get payment(): Prisma.PaymentDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.setting`: Exposes CRUD operations for the **Setting** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Settings
-    * const settings = await prisma.setting.findMany()
-    * ```
-    */
-  get setting(): Prisma.SettingDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -784,8 +769,7 @@ export namespace Prisma {
     Inventory: 'Inventory',
     InventoryCategory: 'InventoryCategory',
     InventoryTransaction: 'InventoryTransaction',
-    Payment: 'Payment',
-    Setting: 'Setting'
+    Payment: 'Payment'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -804,7 +788,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "loginSession" | "userRole" | "cucianOrder" | "service" | "package" | "inventory" | "inventoryCategory" | "inventoryTransaction" | "payment" | "setting"
+      modelProps: "user" | "loginSession" | "userRole" | "cucianOrder" | "service" | "package" | "inventory" | "inventoryCategory" | "inventoryTransaction" | "payment"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1548,80 +1532,6 @@ export namespace Prisma {
           }
         }
       }
-      Setting: {
-        payload: Prisma.$SettingPayload<ExtArgs>
-        fields: Prisma.SettingFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.SettingFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SettingPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.SettingFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SettingPayload>
-          }
-          findFirst: {
-            args: Prisma.SettingFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SettingPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.SettingFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SettingPayload>
-          }
-          findMany: {
-            args: Prisma.SettingFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SettingPayload>[]
-          }
-          create: {
-            args: Prisma.SettingCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SettingPayload>
-          }
-          createMany: {
-            args: Prisma.SettingCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.SettingCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SettingPayload>[]
-          }
-          delete: {
-            args: Prisma.SettingDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SettingPayload>
-          }
-          update: {
-            args: Prisma.SettingUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SettingPayload>
-          }
-          deleteMany: {
-            args: Prisma.SettingDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.SettingUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.SettingUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SettingPayload>[]
-          }
-          upsert: {
-            args: Prisma.SettingUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SettingPayload>
-          }
-          aggregate: {
-            args: Prisma.SettingAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateSetting>
-          }
-          groupBy: {
-            args: Prisma.SettingGroupByArgs<ExtArgs>
-            result: $Utils.Optional<SettingGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.SettingCountArgs<ExtArgs>
-            result: $Utils.Optional<SettingCountAggregateOutputType> | number
-          }
-        }
-      }
     }
   } & {
     other: {
@@ -1716,7 +1626,6 @@ export namespace Prisma {
     inventoryCategory?: InventoryCategoryOmit
     inventoryTransaction?: InventoryTransactionOmit
     payment?: PaymentOmit
-    setting?: SettingOmit
   }
 
   /* Types for Logging */
@@ -1814,7 +1723,6 @@ export namespace Prisma {
     Session: number
     Payments: number
     InventoryTransactions: number
-    Settings: number
     CucianOrder: number
   }
 
@@ -1822,7 +1730,6 @@ export namespace Prisma {
     Session?: boolean | UserCountOutputTypeCountSessionArgs
     Payments?: boolean | UserCountOutputTypeCountPaymentsArgs
     InventoryTransactions?: boolean | UserCountOutputTypeCountInventoryTransactionsArgs
-    Settings?: boolean | UserCountOutputTypeCountSettingsArgs
     CucianOrder?: boolean | UserCountOutputTypeCountCucianOrderArgs
   }
 
@@ -1856,13 +1763,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountInventoryTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InventoryTransactionWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountSettingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SettingWhereInput
   }
 
   /**
@@ -2053,6 +1953,7 @@ export namespace Prisma {
     updatedAt: number
     lastLogin: number
     isActive: number
+    Settings: number
     UserRoleId: number
     _all: number
   }
@@ -2100,6 +2001,7 @@ export namespace Prisma {
     updatedAt?: true
     lastLogin?: true
     isActive?: true
+    Settings?: true
     UserRoleId?: true
     _all?: true
   }
@@ -2188,6 +2090,7 @@ export namespace Prisma {
     updatedAt: Date
     lastLogin: Date | null
     isActive: boolean
+    Settings: JsonValue | null
     UserRoleId: string
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
@@ -2220,12 +2123,12 @@ export namespace Prisma {
     updatedAt?: boolean
     lastLogin?: boolean
     isActive?: boolean
+    Settings?: boolean
     UserRoleId?: boolean
     Role?: boolean | UserRoleDefaultArgs<ExtArgs>
     Session?: boolean | User$SessionArgs<ExtArgs>
     Payments?: boolean | User$PaymentsArgs<ExtArgs>
     InventoryTransactions?: boolean | User$InventoryTransactionsArgs<ExtArgs>
-    Settings?: boolean | User$SettingsArgs<ExtArgs>
     CucianOrder?: boolean | User$CucianOrderArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -2242,6 +2145,7 @@ export namespace Prisma {
     updatedAt?: boolean
     lastLogin?: boolean
     isActive?: boolean
+    Settings?: boolean
     UserRoleId?: boolean
     Role?: boolean | UserRoleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -2258,6 +2162,7 @@ export namespace Prisma {
     updatedAt?: boolean
     lastLogin?: boolean
     isActive?: boolean
+    Settings?: boolean
     UserRoleId?: boolean
     Role?: boolean | UserRoleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -2274,16 +2179,16 @@ export namespace Prisma {
     updatedAt?: boolean
     lastLogin?: boolean
     isActive?: boolean
+    Settings?: boolean
     UserRoleId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "passwordHash" | "fullName" | "phone" | "alamat" | "createdAt" | "updatedAt" | "lastLogin" | "isActive" | "UserRoleId", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "passwordHash" | "fullName" | "phone" | "alamat" | "createdAt" | "updatedAt" | "lastLogin" | "isActive" | "Settings" | "UserRoleId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Role?: boolean | UserRoleDefaultArgs<ExtArgs>
     Session?: boolean | User$SessionArgs<ExtArgs>
     Payments?: boolean | User$PaymentsArgs<ExtArgs>
     InventoryTransactions?: boolean | User$InventoryTransactionsArgs<ExtArgs>
-    Settings?: boolean | User$SettingsArgs<ExtArgs>
     CucianOrder?: boolean | User$CucianOrderArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -2301,7 +2206,6 @@ export namespace Prisma {
       Session: Prisma.$LoginSessionPayload<ExtArgs>[]
       Payments: Prisma.$PaymentPayload<ExtArgs>[]
       InventoryTransactions: Prisma.$InventoryTransactionPayload<ExtArgs>[]
-      Settings: Prisma.$SettingPayload<ExtArgs>[]
       CucianOrder: Prisma.$CucianOrderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -2316,6 +2220,7 @@ export namespace Prisma {
       updatedAt: Date
       lastLogin: Date | null
       isActive: boolean
+      Settings: Prisma.JsonValue | null
       UserRoleId: string
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -2715,7 +2620,6 @@ export namespace Prisma {
     Session<T extends User$SessionArgs<ExtArgs> = {}>(args?: Subset<T, User$SessionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LoginSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Payments<T extends User$PaymentsArgs<ExtArgs> = {}>(args?: Subset<T, User$PaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     InventoryTransactions<T extends User$InventoryTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$InventoryTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    Settings<T extends User$SettingsArgs<ExtArgs> = {}>(args?: Subset<T, User$SettingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     CucianOrder<T extends User$CucianOrderArgs<ExtArgs> = {}>(args?: Subset<T, User$CucianOrderArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CucianOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2757,6 +2661,7 @@ export namespace Prisma {
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly lastLogin: FieldRef<"User", 'DateTime'>
     readonly isActive: FieldRef<"User", 'Boolean'>
+    readonly Settings: FieldRef<"User", 'Json'>
     readonly UserRoleId: FieldRef<"User", 'String'>
   }
     
@@ -3223,30 +3128,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: InventoryTransactionScalarFieldEnum | InventoryTransactionScalarFieldEnum[]
-  }
-
-  /**
-   * User.Settings
-   */
-  export type User$SettingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Setting
-     */
-    select?: SettingSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Setting
-     */
-    omit?: SettingOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SettingInclude<ExtArgs> | null
-    where?: SettingWhereInput
-    orderBy?: SettingOrderByWithRelationInput | SettingOrderByWithRelationInput[]
-    cursor?: SettingWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SettingScalarFieldEnum | SettingScalarFieldEnum[]
   }
 
   /**
@@ -13126,1051 +13007,6 @@ export namespace Prisma {
 
 
   /**
-   * Model Setting
-   */
-
-  export type AggregateSetting = {
-    _count: SettingCountAggregateOutputType | null
-    _min: SettingMinAggregateOutputType | null
-    _max: SettingMaxAggregateOutputType | null
-  }
-
-  export type SettingMinAggregateOutputType = {
-    id: string | null
-    settingKey: string | null
-    updatedAt: Date | null
-    updatedById: string | null
-  }
-
-  export type SettingMaxAggregateOutputType = {
-    id: string | null
-    settingKey: string | null
-    updatedAt: Date | null
-    updatedById: string | null
-  }
-
-  export type SettingCountAggregateOutputType = {
-    id: number
-    settingKey: number
-    updatedAt: number
-    updatedById: number
-    _all: number
-  }
-
-
-  export type SettingMinAggregateInputType = {
-    id?: true
-    settingKey?: true
-    updatedAt?: true
-    updatedById?: true
-  }
-
-  export type SettingMaxAggregateInputType = {
-    id?: true
-    settingKey?: true
-    updatedAt?: true
-    updatedById?: true
-  }
-
-  export type SettingCountAggregateInputType = {
-    id?: true
-    settingKey?: true
-    updatedAt?: true
-    updatedById?: true
-    _all?: true
-  }
-
-  export type SettingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Setting to aggregate.
-     */
-    where?: SettingWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Settings to fetch.
-     */
-    orderBy?: SettingOrderByWithRelationInput | SettingOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: SettingWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Settings from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Settings.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Settings
-    **/
-    _count?: true | SettingCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: SettingMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: SettingMaxAggregateInputType
-  }
-
-  export type GetSettingAggregateType<T extends SettingAggregateArgs> = {
-        [P in keyof T & keyof AggregateSetting]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateSetting[P]>
-      : GetScalarType<T[P], AggregateSetting[P]>
-  }
-
-
-
-
-  export type SettingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SettingWhereInput
-    orderBy?: SettingOrderByWithAggregationInput | SettingOrderByWithAggregationInput[]
-    by: SettingScalarFieldEnum[] | SettingScalarFieldEnum
-    having?: SettingScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: SettingCountAggregateInputType | true
-    _min?: SettingMinAggregateInputType
-    _max?: SettingMaxAggregateInputType
-  }
-
-  export type SettingGroupByOutputType = {
-    id: string
-    settingKey: string
-    updatedAt: Date
-    updatedById: string
-    _count: SettingCountAggregateOutputType | null
-    _min: SettingMinAggregateOutputType | null
-    _max: SettingMaxAggregateOutputType | null
-  }
-
-  type GetSettingGroupByPayload<T extends SettingGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<SettingGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof SettingGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], SettingGroupByOutputType[P]>
-            : GetScalarType<T[P], SettingGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type SettingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    settingKey?: boolean
-    updatedAt?: boolean
-    updatedById?: boolean
-    User?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["setting"]>
-
-  export type SettingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    settingKey?: boolean
-    updatedAt?: boolean
-    updatedById?: boolean
-    User?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["setting"]>
-
-  export type SettingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    settingKey?: boolean
-    updatedAt?: boolean
-    updatedById?: boolean
-    User?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["setting"]>
-
-  export type SettingSelectScalar = {
-    id?: boolean
-    settingKey?: boolean
-    updatedAt?: boolean
-    updatedById?: boolean
-  }
-
-  export type SettingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "settingKey" | "updatedAt" | "updatedById", ExtArgs["result"]["setting"]>
-  export type SettingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    User?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type SettingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    User?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type SettingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    User?: boolean | UserDefaultArgs<ExtArgs>
-  }
-
-  export type $SettingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Setting"
-    objects: {
-      User: Prisma.$UserPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      settingKey: string
-      updatedAt: Date
-      updatedById: string
-    }, ExtArgs["result"]["setting"]>
-    composites: {}
-  }
-
-  type SettingGetPayload<S extends boolean | null | undefined | SettingDefaultArgs> = $Result.GetResult<Prisma.$SettingPayload, S>
-
-  type SettingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<SettingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: SettingCountAggregateInputType | true
-    }
-
-  export interface SettingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Setting'], meta: { name: 'Setting' } }
-    /**
-     * Find zero or one Setting that matches the filter.
-     * @param {SettingFindUniqueArgs} args - Arguments to find a Setting
-     * @example
-     * // Get one Setting
-     * const setting = await prisma.setting.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends SettingFindUniqueArgs>(args: SelectSubset<T, SettingFindUniqueArgs<ExtArgs>>): Prisma__SettingClient<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Setting that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {SettingFindUniqueOrThrowArgs} args - Arguments to find a Setting
-     * @example
-     * // Get one Setting
-     * const setting = await prisma.setting.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends SettingFindUniqueOrThrowArgs>(args: SelectSubset<T, SettingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SettingClient<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Setting that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SettingFindFirstArgs} args - Arguments to find a Setting
-     * @example
-     * // Get one Setting
-     * const setting = await prisma.setting.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends SettingFindFirstArgs>(args?: SelectSubset<T, SettingFindFirstArgs<ExtArgs>>): Prisma__SettingClient<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Setting that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SettingFindFirstOrThrowArgs} args - Arguments to find a Setting
-     * @example
-     * // Get one Setting
-     * const setting = await prisma.setting.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends SettingFindFirstOrThrowArgs>(args?: SelectSubset<T, SettingFindFirstOrThrowArgs<ExtArgs>>): Prisma__SettingClient<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Settings that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SettingFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Settings
-     * const settings = await prisma.setting.findMany()
-     * 
-     * // Get first 10 Settings
-     * const settings = await prisma.setting.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const settingWithIdOnly = await prisma.setting.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends SettingFindManyArgs>(args?: SelectSubset<T, SettingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Setting.
-     * @param {SettingCreateArgs} args - Arguments to create a Setting.
-     * @example
-     * // Create one Setting
-     * const Setting = await prisma.setting.create({
-     *   data: {
-     *     // ... data to create a Setting
-     *   }
-     * })
-     * 
-     */
-    create<T extends SettingCreateArgs>(args: SelectSubset<T, SettingCreateArgs<ExtArgs>>): Prisma__SettingClient<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Settings.
-     * @param {SettingCreateManyArgs} args - Arguments to create many Settings.
-     * @example
-     * // Create many Settings
-     * const setting = await prisma.setting.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends SettingCreateManyArgs>(args?: SelectSubset<T, SettingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Settings and returns the data saved in the database.
-     * @param {SettingCreateManyAndReturnArgs} args - Arguments to create many Settings.
-     * @example
-     * // Create many Settings
-     * const setting = await prisma.setting.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Settings and only return the `id`
-     * const settingWithIdOnly = await prisma.setting.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends SettingCreateManyAndReturnArgs>(args?: SelectSubset<T, SettingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Setting.
-     * @param {SettingDeleteArgs} args - Arguments to delete one Setting.
-     * @example
-     * // Delete one Setting
-     * const Setting = await prisma.setting.delete({
-     *   where: {
-     *     // ... filter to delete one Setting
-     *   }
-     * })
-     * 
-     */
-    delete<T extends SettingDeleteArgs>(args: SelectSubset<T, SettingDeleteArgs<ExtArgs>>): Prisma__SettingClient<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Setting.
-     * @param {SettingUpdateArgs} args - Arguments to update one Setting.
-     * @example
-     * // Update one Setting
-     * const setting = await prisma.setting.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends SettingUpdateArgs>(args: SelectSubset<T, SettingUpdateArgs<ExtArgs>>): Prisma__SettingClient<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Settings.
-     * @param {SettingDeleteManyArgs} args - Arguments to filter Settings to delete.
-     * @example
-     * // Delete a few Settings
-     * const { count } = await prisma.setting.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends SettingDeleteManyArgs>(args?: SelectSubset<T, SettingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Settings.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SettingUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Settings
-     * const setting = await prisma.setting.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends SettingUpdateManyArgs>(args: SelectSubset<T, SettingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Settings and returns the data updated in the database.
-     * @param {SettingUpdateManyAndReturnArgs} args - Arguments to update many Settings.
-     * @example
-     * // Update many Settings
-     * const setting = await prisma.setting.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Settings and only return the `id`
-     * const settingWithIdOnly = await prisma.setting.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends SettingUpdateManyAndReturnArgs>(args: SelectSubset<T, SettingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Setting.
-     * @param {SettingUpsertArgs} args - Arguments to update or create a Setting.
-     * @example
-     * // Update or create a Setting
-     * const setting = await prisma.setting.upsert({
-     *   create: {
-     *     // ... data to create a Setting
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Setting we want to update
-     *   }
-     * })
-     */
-    upsert<T extends SettingUpsertArgs>(args: SelectSubset<T, SettingUpsertArgs<ExtArgs>>): Prisma__SettingClient<$Result.GetResult<Prisma.$SettingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Settings.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SettingCountArgs} args - Arguments to filter Settings to count.
-     * @example
-     * // Count the number of Settings
-     * const count = await prisma.setting.count({
-     *   where: {
-     *     // ... the filter for the Settings we want to count
-     *   }
-     * })
-    **/
-    count<T extends SettingCountArgs>(
-      args?: Subset<T, SettingCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], SettingCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Setting.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SettingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends SettingAggregateArgs>(args: Subset<T, SettingAggregateArgs>): Prisma.PrismaPromise<GetSettingAggregateType<T>>
-
-    /**
-     * Group by Setting.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SettingGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends SettingGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: SettingGroupByArgs['orderBy'] }
-        : { orderBy?: SettingGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, SettingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSettingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Setting model
-   */
-  readonly fields: SettingFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Setting.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__SettingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    User<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Setting model
-   */
-  interface SettingFieldRefs {
-    readonly id: FieldRef<"Setting", 'String'>
-    readonly settingKey: FieldRef<"Setting", 'String'>
-    readonly updatedAt: FieldRef<"Setting", 'DateTime'>
-    readonly updatedById: FieldRef<"Setting", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Setting findUnique
-   */
-  export type SettingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Setting
-     */
-    select?: SettingSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Setting
-     */
-    omit?: SettingOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SettingInclude<ExtArgs> | null
-    /**
-     * Filter, which Setting to fetch.
-     */
-    where: SettingWhereUniqueInput
-  }
-
-  /**
-   * Setting findUniqueOrThrow
-   */
-  export type SettingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Setting
-     */
-    select?: SettingSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Setting
-     */
-    omit?: SettingOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SettingInclude<ExtArgs> | null
-    /**
-     * Filter, which Setting to fetch.
-     */
-    where: SettingWhereUniqueInput
-  }
-
-  /**
-   * Setting findFirst
-   */
-  export type SettingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Setting
-     */
-    select?: SettingSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Setting
-     */
-    omit?: SettingOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SettingInclude<ExtArgs> | null
-    /**
-     * Filter, which Setting to fetch.
-     */
-    where?: SettingWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Settings to fetch.
-     */
-    orderBy?: SettingOrderByWithRelationInput | SettingOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Settings.
-     */
-    cursor?: SettingWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Settings from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Settings.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Settings.
-     */
-    distinct?: SettingScalarFieldEnum | SettingScalarFieldEnum[]
-  }
-
-  /**
-   * Setting findFirstOrThrow
-   */
-  export type SettingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Setting
-     */
-    select?: SettingSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Setting
-     */
-    omit?: SettingOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SettingInclude<ExtArgs> | null
-    /**
-     * Filter, which Setting to fetch.
-     */
-    where?: SettingWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Settings to fetch.
-     */
-    orderBy?: SettingOrderByWithRelationInput | SettingOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Settings.
-     */
-    cursor?: SettingWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Settings from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Settings.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Settings.
-     */
-    distinct?: SettingScalarFieldEnum | SettingScalarFieldEnum[]
-  }
-
-  /**
-   * Setting findMany
-   */
-  export type SettingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Setting
-     */
-    select?: SettingSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Setting
-     */
-    omit?: SettingOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SettingInclude<ExtArgs> | null
-    /**
-     * Filter, which Settings to fetch.
-     */
-    where?: SettingWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Settings to fetch.
-     */
-    orderBy?: SettingOrderByWithRelationInput | SettingOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Settings.
-     */
-    cursor?: SettingWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Settings from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Settings.
-     */
-    skip?: number
-    distinct?: SettingScalarFieldEnum | SettingScalarFieldEnum[]
-  }
-
-  /**
-   * Setting create
-   */
-  export type SettingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Setting
-     */
-    select?: SettingSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Setting
-     */
-    omit?: SettingOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SettingInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Setting.
-     */
-    data: XOR<SettingCreateInput, SettingUncheckedCreateInput>
-  }
-
-  /**
-   * Setting createMany
-   */
-  export type SettingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Settings.
-     */
-    data: SettingCreateManyInput | SettingCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Setting createManyAndReturn
-   */
-  export type SettingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Setting
-     */
-    select?: SettingSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Setting
-     */
-    omit?: SettingOmit<ExtArgs> | null
-    /**
-     * The data used to create many Settings.
-     */
-    data: SettingCreateManyInput | SettingCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SettingIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Setting update
-   */
-  export type SettingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Setting
-     */
-    select?: SettingSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Setting
-     */
-    omit?: SettingOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SettingInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Setting.
-     */
-    data: XOR<SettingUpdateInput, SettingUncheckedUpdateInput>
-    /**
-     * Choose, which Setting to update.
-     */
-    where: SettingWhereUniqueInput
-  }
-
-  /**
-   * Setting updateMany
-   */
-  export type SettingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Settings.
-     */
-    data: XOR<SettingUpdateManyMutationInput, SettingUncheckedUpdateManyInput>
-    /**
-     * Filter which Settings to update
-     */
-    where?: SettingWhereInput
-    /**
-     * Limit how many Settings to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Setting updateManyAndReturn
-   */
-  export type SettingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Setting
-     */
-    select?: SettingSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Setting
-     */
-    omit?: SettingOmit<ExtArgs> | null
-    /**
-     * The data used to update Settings.
-     */
-    data: XOR<SettingUpdateManyMutationInput, SettingUncheckedUpdateManyInput>
-    /**
-     * Filter which Settings to update
-     */
-    where?: SettingWhereInput
-    /**
-     * Limit how many Settings to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SettingIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Setting upsert
-   */
-  export type SettingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Setting
-     */
-    select?: SettingSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Setting
-     */
-    omit?: SettingOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SettingInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Setting to update in case it exists.
-     */
-    where: SettingWhereUniqueInput
-    /**
-     * In case the Setting found by the `where` argument doesn't exist, create a new Setting with this data.
-     */
-    create: XOR<SettingCreateInput, SettingUncheckedCreateInput>
-    /**
-     * In case the Setting was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<SettingUpdateInput, SettingUncheckedUpdateInput>
-  }
-
-  /**
-   * Setting delete
-   */
-  export type SettingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Setting
-     */
-    select?: SettingSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Setting
-     */
-    omit?: SettingOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SettingInclude<ExtArgs> | null
-    /**
-     * Filter which Setting to delete.
-     */
-    where: SettingWhereUniqueInput
-  }
-
-  /**
-   * Setting deleteMany
-   */
-  export type SettingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Settings to delete
-     */
-    where?: SettingWhereInput
-    /**
-     * Limit how many Settings to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Setting without action
-   */
-  export type SettingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Setting
-     */
-    select?: SettingSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Setting
-     */
-    omit?: SettingOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SettingInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Enums
    */
 
@@ -14196,6 +13032,7 @@ export namespace Prisma {
     updatedAt: 'updatedAt',
     lastLogin: 'lastLogin',
     isActive: 'isActive',
+    Settings: 'Settings',
     UserRoleId: 'UserRoleId'
   };
 
@@ -14308,16 +13145,6 @@ export namespace Prisma {
   export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
-  export const SettingScalarFieldEnum: {
-    id: 'id',
-    settingKey: 'settingKey',
-    updatedAt: 'updatedAt',
-    updatedById: 'updatedById'
-  };
-
-  export type SettingScalarFieldEnum = (typeof SettingScalarFieldEnum)[keyof typeof SettingScalarFieldEnum]
-
-
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -14326,12 +13153,29 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   export const NullsOrder: {
@@ -14379,6 +13223,20 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -14470,12 +13328,12 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     isActive?: BoolFilter<"User"> | boolean
+    Settings?: JsonNullableFilter<"User">
     UserRoleId?: StringFilter<"User"> | string
     Role?: XOR<UserRoleScalarRelationFilter, UserRoleWhereInput>
     Session?: LoginSessionListRelationFilter
     Payments?: PaymentListRelationFilter
     InventoryTransactions?: InventoryTransactionListRelationFilter
-    Settings?: SettingListRelationFilter
     CucianOrder?: CucianOrderListRelationFilter
   }
 
@@ -14491,12 +13349,12 @@ export namespace Prisma {
     updatedAt?: SortOrder
     lastLogin?: SortOrderInput | SortOrder
     isActive?: SortOrder
+    Settings?: SortOrderInput | SortOrder
     UserRoleId?: SortOrder
     Role?: UserRoleOrderByWithRelationInput
     Session?: LoginSessionOrderByRelationAggregateInput
     Payments?: PaymentOrderByRelationAggregateInput
     InventoryTransactions?: InventoryTransactionOrderByRelationAggregateInput
-    Settings?: SettingOrderByRelationAggregateInput
     CucianOrder?: CucianOrderOrderByRelationAggregateInput
   }
 
@@ -14515,12 +13373,12 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     isActive?: BoolFilter<"User"> | boolean
+    Settings?: JsonNullableFilter<"User">
     UserRoleId?: StringFilter<"User"> | string
     Role?: XOR<UserRoleScalarRelationFilter, UserRoleWhereInput>
     Session?: LoginSessionListRelationFilter
     Payments?: PaymentListRelationFilter
     InventoryTransactions?: InventoryTransactionListRelationFilter
-    Settings?: SettingListRelationFilter
     CucianOrder?: CucianOrderListRelationFilter
   }, "id" | "username" | "email">
 
@@ -14536,6 +13394,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     lastLogin?: SortOrderInput | SortOrder
     isActive?: SortOrder
+    Settings?: SortOrderInput | SortOrder
     UserRoleId?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -14557,6 +13416,7 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     lastLogin?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     isActive?: BoolWithAggregatesFilter<"User"> | boolean
+    Settings?: JsonNullableWithAggregatesFilter<"User">
     UserRoleId?: StringWithAggregatesFilter<"User"> | string
   }
 
@@ -15106,56 +13966,6 @@ export namespace Prisma {
     receivedById?: StringWithAggregatesFilter<"Payment"> | string
   }
 
-  export type SettingWhereInput = {
-    AND?: SettingWhereInput | SettingWhereInput[]
-    OR?: SettingWhereInput[]
-    NOT?: SettingWhereInput | SettingWhereInput[]
-    id?: StringFilter<"Setting"> | string
-    settingKey?: StringFilter<"Setting"> | string
-    updatedAt?: DateTimeFilter<"Setting"> | Date | string
-    updatedById?: StringFilter<"Setting"> | string
-    User?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }
-
-  export type SettingOrderByWithRelationInput = {
-    id?: SortOrder
-    settingKey?: SortOrder
-    updatedAt?: SortOrder
-    updatedById?: SortOrder
-    User?: UserOrderByWithRelationInput
-  }
-
-  export type SettingWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    settingKey?: string
-    AND?: SettingWhereInput | SettingWhereInput[]
-    OR?: SettingWhereInput[]
-    NOT?: SettingWhereInput | SettingWhereInput[]
-    updatedAt?: DateTimeFilter<"Setting"> | Date | string
-    updatedById?: StringFilter<"Setting"> | string
-    User?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id" | "settingKey">
-
-  export type SettingOrderByWithAggregationInput = {
-    id?: SortOrder
-    settingKey?: SortOrder
-    updatedAt?: SortOrder
-    updatedById?: SortOrder
-    _count?: SettingCountOrderByAggregateInput
-    _max?: SettingMaxOrderByAggregateInput
-    _min?: SettingMinOrderByAggregateInput
-  }
-
-  export type SettingScalarWhereWithAggregatesInput = {
-    AND?: SettingScalarWhereWithAggregatesInput | SettingScalarWhereWithAggregatesInput[]
-    OR?: SettingScalarWhereWithAggregatesInput[]
-    NOT?: SettingScalarWhereWithAggregatesInput | SettingScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Setting"> | string
-    settingKey?: StringWithAggregatesFilter<"Setting"> | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Setting"> | Date | string
-    updatedById?: StringWithAggregatesFilter<"Setting"> | string
-  }
-
   export type UserCreateInput = {
     id?: string
     username: string
@@ -15168,11 +13978,11 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLogin?: Date | string | null
     isActive?: boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     Role: UserRoleCreateNestedOneWithoutUserInput
     Session?: LoginSessionCreateNestedManyWithoutUserInput
     Payments?: PaymentCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionCreateNestedManyWithoutUserInput
-    Settings?: SettingCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderCreateNestedManyWithoutUserInput
   }
 
@@ -15188,11 +13998,11 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLogin?: Date | string | null
     isActive?: boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     UserRoleId: string
     Session?: LoginSessionUncheckedCreateNestedManyWithoutUserInput
     Payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionUncheckedCreateNestedManyWithoutUserInput
-    Settings?: SettingUncheckedCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -15208,11 +14018,11 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     Role?: UserRoleUpdateOneRequiredWithoutUserNestedInput
     Session?: LoginSessionUpdateManyWithoutUserNestedInput
     Payments?: PaymentUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUpdateManyWithoutUserNestedInput
-    Settings?: SettingUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUpdateManyWithoutUserNestedInput
   }
 
@@ -15228,11 +14038,11 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     UserRoleId?: StringFieldUpdateOperationsInput | string
     Session?: LoginSessionUncheckedUpdateManyWithoutUserNestedInput
     Payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUncheckedUpdateManyWithoutUserNestedInput
-    Settings?: SettingUncheckedUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -15248,6 +14058,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLogin?: Date | string | null
     isActive?: boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     UserRoleId: string
   }
 
@@ -15263,6 +14074,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -15277,6 +14089,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     UserRoleId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -15842,54 +14655,6 @@ export namespace Prisma {
     receivedById?: StringFieldUpdateOperationsInput | string
   }
 
-  export type SettingCreateInput = {
-    id?: string
-    settingKey: string
-    updatedAt?: Date | string
-    User: UserCreateNestedOneWithoutSettingsInput
-  }
-
-  export type SettingUncheckedCreateInput = {
-    id?: string
-    settingKey: string
-    updatedAt?: Date | string
-    updatedById: string
-  }
-
-  export type SettingUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    settingKey?: StringFieldUpdateOperationsInput | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    User?: UserUpdateOneRequiredWithoutSettingsNestedInput
-  }
-
-  export type SettingUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    settingKey?: StringFieldUpdateOperationsInput | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedById?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type SettingCreateManyInput = {
-    id?: string
-    settingKey: string
-    updatedAt?: Date | string
-    updatedById: string
-  }
-
-  export type SettingUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    settingKey?: StringFieldUpdateOperationsInput | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SettingUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    settingKey?: StringFieldUpdateOperationsInput | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedById?: StringFieldUpdateOperationsInput | string
-  }
-
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -15946,6 +14711,29 @@ export namespace Prisma {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type UserRoleScalarRelationFilter = {
     is?: UserRoleWhereInput
@@ -15968,12 +14756,6 @@ export namespace Prisma {
     every?: InventoryTransactionWhereInput
     some?: InventoryTransactionWhereInput
     none?: InventoryTransactionWhereInput
-  }
-
-  export type SettingListRelationFilter = {
-    every?: SettingWhereInput
-    some?: SettingWhereInput
-    none?: SettingWhereInput
   }
 
   export type CucianOrderListRelationFilter = {
@@ -15999,10 +14781,6 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type SettingOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type CucianOrderOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -16019,6 +14797,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     lastLogin?: SortOrder
     isActive?: SortOrder
+    Settings?: SortOrder
     UserRoleId?: SortOrder
   }
 
@@ -16122,6 +14901,32 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type UserScalarRelationFilter = {
@@ -16550,27 +15355,6 @@ export namespace Prisma {
     amount?: SortOrder
   }
 
-  export type SettingCountOrderByAggregateInput = {
-    id?: SortOrder
-    settingKey?: SortOrder
-    updatedAt?: SortOrder
-    updatedById?: SortOrder
-  }
-
-  export type SettingMaxOrderByAggregateInput = {
-    id?: SortOrder
-    settingKey?: SortOrder
-    updatedAt?: SortOrder
-    updatedById?: SortOrder
-  }
-
-  export type SettingMinOrderByAggregateInput = {
-    id?: SortOrder
-    settingKey?: SortOrder
-    updatedAt?: SortOrder
-    updatedById?: SortOrder
-  }
-
   export type UserRoleCreateNestedOneWithoutUserInput = {
     create?: XOR<UserRoleCreateWithoutUserInput, UserRoleUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserRoleCreateOrConnectWithoutUserInput
@@ -16596,13 +15380,6 @@ export namespace Prisma {
     connectOrCreate?: InventoryTransactionCreateOrConnectWithoutUserInput | InventoryTransactionCreateOrConnectWithoutUserInput[]
     createMany?: InventoryTransactionCreateManyUserInputEnvelope
     connect?: InventoryTransactionWhereUniqueInput | InventoryTransactionWhereUniqueInput[]
-  }
-
-  export type SettingCreateNestedManyWithoutUserInput = {
-    create?: XOR<SettingCreateWithoutUserInput, SettingUncheckedCreateWithoutUserInput> | SettingCreateWithoutUserInput[] | SettingUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SettingCreateOrConnectWithoutUserInput | SettingCreateOrConnectWithoutUserInput[]
-    createMany?: SettingCreateManyUserInputEnvelope
-    connect?: SettingWhereUniqueInput | SettingWhereUniqueInput[]
   }
 
   export type CucianOrderCreateNestedManyWithoutUserInput = {
@@ -16631,13 +15408,6 @@ export namespace Prisma {
     connectOrCreate?: InventoryTransactionCreateOrConnectWithoutUserInput | InventoryTransactionCreateOrConnectWithoutUserInput[]
     createMany?: InventoryTransactionCreateManyUserInputEnvelope
     connect?: InventoryTransactionWhereUniqueInput | InventoryTransactionWhereUniqueInput[]
-  }
-
-  export type SettingUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<SettingCreateWithoutUserInput, SettingUncheckedCreateWithoutUserInput> | SettingCreateWithoutUserInput[] | SettingUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SettingCreateOrConnectWithoutUserInput | SettingCreateOrConnectWithoutUserInput[]
-    createMany?: SettingCreateManyUserInputEnvelope
-    connect?: SettingWhereUniqueInput | SettingWhereUniqueInput[]
   }
 
   export type CucianOrderUncheckedCreateNestedManyWithoutUserInput = {
@@ -16717,20 +15487,6 @@ export namespace Prisma {
     deleteMany?: InventoryTransactionScalarWhereInput | InventoryTransactionScalarWhereInput[]
   }
 
-  export type SettingUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SettingCreateWithoutUserInput, SettingUncheckedCreateWithoutUserInput> | SettingCreateWithoutUserInput[] | SettingUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SettingCreateOrConnectWithoutUserInput | SettingCreateOrConnectWithoutUserInput[]
-    upsert?: SettingUpsertWithWhereUniqueWithoutUserInput | SettingUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SettingCreateManyUserInputEnvelope
-    set?: SettingWhereUniqueInput | SettingWhereUniqueInput[]
-    disconnect?: SettingWhereUniqueInput | SettingWhereUniqueInput[]
-    delete?: SettingWhereUniqueInput | SettingWhereUniqueInput[]
-    connect?: SettingWhereUniqueInput | SettingWhereUniqueInput[]
-    update?: SettingUpdateWithWhereUniqueWithoutUserInput | SettingUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SettingUpdateManyWithWhereWithoutUserInput | SettingUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: SettingScalarWhereInput | SettingScalarWhereInput[]
-  }
-
   export type CucianOrderUpdateManyWithoutUserNestedInput = {
     create?: XOR<CucianOrderCreateWithoutUserInput, CucianOrderUncheckedCreateWithoutUserInput> | CucianOrderCreateWithoutUserInput[] | CucianOrderUncheckedCreateWithoutUserInput[]
     connectOrCreate?: CucianOrderCreateOrConnectWithoutUserInput | CucianOrderCreateOrConnectWithoutUserInput[]
@@ -16785,20 +15541,6 @@ export namespace Prisma {
     update?: InventoryTransactionUpdateWithWhereUniqueWithoutUserInput | InventoryTransactionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: InventoryTransactionUpdateManyWithWhereWithoutUserInput | InventoryTransactionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: InventoryTransactionScalarWhereInput | InventoryTransactionScalarWhereInput[]
-  }
-
-  export type SettingUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SettingCreateWithoutUserInput, SettingUncheckedCreateWithoutUserInput> | SettingCreateWithoutUserInput[] | SettingUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SettingCreateOrConnectWithoutUserInput | SettingCreateOrConnectWithoutUserInput[]
-    upsert?: SettingUpsertWithWhereUniqueWithoutUserInput | SettingUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SettingCreateManyUserInputEnvelope
-    set?: SettingWhereUniqueInput | SettingWhereUniqueInput[]
-    disconnect?: SettingWhereUniqueInput | SettingWhereUniqueInput[]
-    delete?: SettingWhereUniqueInput | SettingWhereUniqueInput[]
-    connect?: SettingWhereUniqueInput | SettingWhereUniqueInput[]
-    update?: SettingUpdateWithWhereUniqueWithoutUserInput | SettingUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SettingUpdateManyWithWhereWithoutUserInput | SettingUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: SettingScalarWhereInput | SettingScalarWhereInput[]
   }
 
   export type CucianOrderUncheckedUpdateManyWithoutUserNestedInput = {
@@ -17111,20 +15853,6 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPaymentsInput, UserUpdateWithoutPaymentsInput>, UserUncheckedUpdateWithoutPaymentsInput>
   }
 
-  export type UserCreateNestedOneWithoutSettingsInput = {
-    create?: XOR<UserCreateWithoutSettingsInput, UserUncheckedCreateWithoutSettingsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSettingsInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type UserUpdateOneRequiredWithoutSettingsNestedInput = {
-    create?: XOR<UserCreateWithoutSettingsInput, UserUncheckedCreateWithoutSettingsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSettingsInput
-    upsert?: UserUpsertWithoutSettingsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSettingsInput, UserUpdateWithoutSettingsInput>, UserUncheckedUpdateWithoutSettingsInput>
-  }
-
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -17270,6 +15998,29 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type NestedDecimalFilter<$PrismaModel = never> = {
@@ -17461,28 +16212,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type SettingCreateWithoutUserInput = {
-    id?: string
-    settingKey: string
-    updatedAt?: Date | string
-  }
-
-  export type SettingUncheckedCreateWithoutUserInput = {
-    id?: string
-    settingKey: string
-    updatedAt?: Date | string
-  }
-
-  export type SettingCreateOrConnectWithoutUserInput = {
-    where: SettingWhereUniqueInput
-    create: XOR<SettingCreateWithoutUserInput, SettingUncheckedCreateWithoutUserInput>
-  }
-
-  export type SettingCreateManyUserInputEnvelope = {
-    data: SettingCreateManyUserInput | SettingCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type CucianOrderCreateWithoutUserInput = {
     id?: string
     nama: string
@@ -17613,32 +16342,6 @@ export namespace Prisma {
     recordedById?: StringFilter<"InventoryTransaction"> | string
   }
 
-  export type SettingUpsertWithWhereUniqueWithoutUserInput = {
-    where: SettingWhereUniqueInput
-    update: XOR<SettingUpdateWithoutUserInput, SettingUncheckedUpdateWithoutUserInput>
-    create: XOR<SettingCreateWithoutUserInput, SettingUncheckedCreateWithoutUserInput>
-  }
-
-  export type SettingUpdateWithWhereUniqueWithoutUserInput = {
-    where: SettingWhereUniqueInput
-    data: XOR<SettingUpdateWithoutUserInput, SettingUncheckedUpdateWithoutUserInput>
-  }
-
-  export type SettingUpdateManyWithWhereWithoutUserInput = {
-    where: SettingScalarWhereInput
-    data: XOR<SettingUpdateManyMutationInput, SettingUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type SettingScalarWhereInput = {
-    AND?: SettingScalarWhereInput | SettingScalarWhereInput[]
-    OR?: SettingScalarWhereInput[]
-    NOT?: SettingScalarWhereInput | SettingScalarWhereInput[]
-    id?: StringFilter<"Setting"> | string
-    settingKey?: StringFilter<"Setting"> | string
-    updatedAt?: DateTimeFilter<"Setting"> | Date | string
-    updatedById?: StringFilter<"Setting"> | string
-  }
-
   export type CucianOrderUpsertWithWhereUniqueWithoutUserInput = {
     where: CucianOrderWhereUniqueInput
     update: XOR<CucianOrderUpdateWithoutUserInput, CucianOrderUncheckedUpdateWithoutUserInput>
@@ -17679,10 +16382,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLogin?: Date | string | null
     isActive?: boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     Role: UserRoleCreateNestedOneWithoutUserInput
     Payments?: PaymentCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionCreateNestedManyWithoutUserInput
-    Settings?: SettingCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderCreateNestedManyWithoutUserInput
   }
 
@@ -17698,10 +16401,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLogin?: Date | string | null
     isActive?: boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     UserRoleId: string
     Payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionUncheckedCreateNestedManyWithoutUserInput
-    Settings?: SettingUncheckedCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -17733,10 +16436,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     Role?: UserRoleUpdateOneRequiredWithoutUserNestedInput
     Payments?: PaymentUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUpdateManyWithoutUserNestedInput
-    Settings?: SettingUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUpdateManyWithoutUserNestedInput
   }
 
@@ -17752,10 +16455,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     UserRoleId?: StringFieldUpdateOperationsInput | string
     Payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUncheckedUpdateManyWithoutUserNestedInput
-    Settings?: SettingUncheckedUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -17771,10 +16474,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLogin?: Date | string | null
     isActive?: boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     Session?: LoginSessionCreateNestedManyWithoutUserInput
     Payments?: PaymentCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionCreateNestedManyWithoutUserInput
-    Settings?: SettingCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderCreateNestedManyWithoutUserInput
   }
 
@@ -17790,10 +16493,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLogin?: Date | string | null
     isActive?: boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     Session?: LoginSessionUncheckedCreateNestedManyWithoutUserInput
     Payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionUncheckedCreateNestedManyWithoutUserInput
-    Settings?: SettingUncheckedCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -17838,6 +16541,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     isActive?: BoolFilter<"User"> | boolean
+    Settings?: JsonNullableFilter<"User">
     UserRoleId?: StringFilter<"User"> | string
   }
 
@@ -17853,11 +16557,11 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLogin?: Date | string | null
     isActive?: boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     Role: UserRoleCreateNestedOneWithoutUserInput
     Session?: LoginSessionCreateNestedManyWithoutUserInput
     Payments?: PaymentCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionCreateNestedManyWithoutUserInput
-    Settings?: SettingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCucianOrderInput = {
@@ -17872,11 +16576,11 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLogin?: Date | string | null
     isActive?: boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     UserRoleId: string
     Session?: LoginSessionUncheckedCreateNestedManyWithoutUserInput
     Payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionUncheckedCreateNestedManyWithoutUserInput
-    Settings?: SettingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCucianOrderInput = {
@@ -17926,11 +16630,11 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     Role?: UserRoleUpdateOneRequiredWithoutUserNestedInput
     Session?: LoginSessionUpdateManyWithoutUserNestedInput
     Payments?: PaymentUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUpdateManyWithoutUserNestedInput
-    Settings?: SettingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCucianOrderInput = {
@@ -17945,11 +16649,11 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     UserRoleId?: StringFieldUpdateOperationsInput | string
     Session?: LoginSessionUncheckedUpdateManyWithoutUserNestedInput
     Payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUncheckedUpdateManyWithoutUserNestedInput
-    Settings?: SettingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PackageUpsertWithoutCucianOrderInput = {
@@ -18218,10 +16922,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLogin?: Date | string | null
     isActive?: boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     Role: UserRoleCreateNestedOneWithoutUserInput
     Session?: LoginSessionCreateNestedManyWithoutUserInput
     Payments?: PaymentCreateNestedManyWithoutUserInput
-    Settings?: SettingCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderCreateNestedManyWithoutUserInput
   }
 
@@ -18237,10 +16941,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLogin?: Date | string | null
     isActive?: boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     UserRoleId: string
     Session?: LoginSessionUncheckedCreateNestedManyWithoutUserInput
     Payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
-    Settings?: SettingUncheckedCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -18313,10 +17017,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     Role?: UserRoleUpdateOneRequiredWithoutUserNestedInput
     Session?: LoginSessionUpdateManyWithoutUserNestedInput
     Payments?: PaymentUpdateManyWithoutUserNestedInput
-    Settings?: SettingUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUpdateManyWithoutUserNestedInput
   }
 
@@ -18332,10 +17036,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     UserRoleId?: StringFieldUpdateOperationsInput | string
     Session?: LoginSessionUncheckedUpdateManyWithoutUserNestedInput
     Payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
-    Settings?: SettingUncheckedUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -18351,10 +17055,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLogin?: Date | string | null
     isActive?: boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     Role: UserRoleCreateNestedOneWithoutUserInput
     Session?: LoginSessionCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionCreateNestedManyWithoutUserInput
-    Settings?: SettingCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderCreateNestedManyWithoutUserInput
   }
 
@@ -18370,10 +17074,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLogin?: Date | string | null
     isActive?: boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     UserRoleId: string
     Session?: LoginSessionUncheckedCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionUncheckedCreateNestedManyWithoutUserInput
-    Settings?: SettingUncheckedCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -18405,10 +17109,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     Role?: UserRoleUpdateOneRequiredWithoutUserNestedInput
     Session?: LoginSessionUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUpdateManyWithoutUserNestedInput
-    Settings?: SettingUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUpdateManyWithoutUserNestedInput
   }
 
@@ -18424,101 +17128,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     UserRoleId?: StringFieldUpdateOperationsInput | string
     Session?: LoginSessionUncheckedUpdateManyWithoutUserNestedInput
-    InventoryTransactions?: InventoryTransactionUncheckedUpdateManyWithoutUserNestedInput
-    Settings?: SettingUncheckedUpdateManyWithoutUserNestedInput
-    CucianOrder?: CucianOrderUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserCreateWithoutSettingsInput = {
-    id?: string
-    username: string
-    email: string
-    passwordHash: string
-    fullName: string
-    phone?: string | null
-    alamat?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    lastLogin?: Date | string | null
-    isActive?: boolean
-    Role: UserRoleCreateNestedOneWithoutUserInput
-    Session?: LoginSessionCreateNestedManyWithoutUserInput
-    Payments?: PaymentCreateNestedManyWithoutUserInput
-    InventoryTransactions?: InventoryTransactionCreateNestedManyWithoutUserInput
-    CucianOrder?: CucianOrderCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutSettingsInput = {
-    id?: string
-    username: string
-    email: string
-    passwordHash: string
-    fullName: string
-    phone?: string | null
-    alamat?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    lastLogin?: Date | string | null
-    isActive?: boolean
-    UserRoleId: string
-    Session?: LoginSessionUncheckedCreateNestedManyWithoutUserInput
-    Payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
-    InventoryTransactions?: InventoryTransactionUncheckedCreateNestedManyWithoutUserInput
-    CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutSettingsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutSettingsInput, UserUncheckedCreateWithoutSettingsInput>
-  }
-
-  export type UserUpsertWithoutSettingsInput = {
-    update: XOR<UserUpdateWithoutSettingsInput, UserUncheckedUpdateWithoutSettingsInput>
-    create: XOR<UserCreateWithoutSettingsInput, UserUncheckedCreateWithoutSettingsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutSettingsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutSettingsInput, UserUncheckedUpdateWithoutSettingsInput>
-  }
-
-  export type UserUpdateWithoutSettingsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    fullName?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    alamat?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    Role?: UserRoleUpdateOneRequiredWithoutUserNestedInput
-    Session?: LoginSessionUpdateManyWithoutUserNestedInput
-    Payments?: PaymentUpdateManyWithoutUserNestedInput
-    InventoryTransactions?: InventoryTransactionUpdateManyWithoutUserNestedInput
-    CucianOrder?: CucianOrderUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutSettingsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    fullName?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    alamat?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    UserRoleId?: StringFieldUpdateOperationsInput | string
-    Session?: LoginSessionUncheckedUpdateManyWithoutUserNestedInput
-    Payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUncheckedUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -18544,12 +17156,6 @@ export namespace Prisma {
     transactionDate?: Date | string
     notes?: string | null
     inventoryId: string
-  }
-
-  export type SettingCreateManyUserInput = {
-    id?: string
-    settingKey: string
-    updatedAt?: Date | string
   }
 
   export type CucianOrderCreateManyUserInput = {
@@ -18629,24 +17235,6 @@ export namespace Prisma {
     inventoryId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type SettingUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    settingKey?: StringFieldUpdateOperationsInput | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SettingUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    settingKey?: StringFieldUpdateOperationsInput | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SettingUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    settingKey?: StringFieldUpdateOperationsInput | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type CucianOrderUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
@@ -18683,6 +17271,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLogin?: Date | string | null
     isActive?: boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type UserUpdateWithoutRoleInput = {
@@ -18697,10 +17286,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     Session?: LoginSessionUpdateManyWithoutUserNestedInput
     Payments?: PaymentUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUpdateManyWithoutUserNestedInput
-    Settings?: SettingUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUpdateManyWithoutUserNestedInput
   }
 
@@ -18716,10 +17305,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
     Session?: LoginSessionUncheckedUpdateManyWithoutUserNestedInput
     Payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUncheckedUpdateManyWithoutUserNestedInput
-    Settings?: SettingUncheckedUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -18735,6 +17324,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type CucianOrderCreateManyPaketInput = {

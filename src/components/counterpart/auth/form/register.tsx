@@ -14,6 +14,7 @@ import { stupidPassword } from "@/lib/stupidPassword";
 import { type RegisterType, registerSchema } from "@/lib/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import type { z } from "zod";
 
 export function RegisterContent() {
@@ -29,7 +30,7 @@ export function RegisterContent() {
 		resolver: zodResolver(registerSchema),
 	});
 
-	const onSubmit = async (data: z.infer<typeof registerSchema>) => {
+	async function onSubmit(data: z.infer<typeof registerSchema>) {
 		if (data.password !== data.confirm_password) {
 			form.setError("password", { message: "Password tidak sama" });
 			form.setError("confirm_password", { message: "Password tidak sama" });
@@ -48,16 +49,23 @@ export function RegisterContent() {
 			formData.append(el, data[el as keyof typeof data]);
 		}
 		const res = await Register(formData);
-		console.log(res);
-		if (res.meta) {
+		if (res?.meta) {
 			if (res.meta.target?.includes("username")) {
 				form.setError("username", { message: "Username sudah terdaftar" });
+				return;
 			}
 			if (res.meta.target?.includes("email")) {
 				form.setError("email", { message: "Email sudah terdaftar" });
+				return;
 			}
 		}
-	};
+		if (res) {
+			toast("Berhasil mendaftar");
+			// setTimeout(() => {
+			// 	globalThis.location.replace("/");
+			// }, 3000);
+		}
+	}
 
 	return (
 		<Form {...form}>

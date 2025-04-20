@@ -1,6 +1,6 @@
 "use client";
 
-import { GetProfile, isLogin } from "@/lib/session";
+import { GetProfileByToken, isLogin, LogOut } from "@/lib/session";
 import type { User } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
@@ -14,14 +14,24 @@ import {
 	DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import Link from "next/link";
-import { CircleUserRoundIcon, SettingsIcon } from "lucide-react";
+import {
+	CircleUserRoundIcon,
+	EyeIcon,
+	LogOutIcon,
+	SettingsIcon,
+} from "lucide-react";
+import {
+	HoverCard,
+	HoverCardContent,
+	HoverCardTrigger,
+} from "../ui/hover-card";
 
 export default function AvatarProfile() {
 	const [profile, setProfile] = useState({} as User);
 	useEffect(() => {
 		async function ProfileInitializer() {
 			const token = await isLogin();
-			const profile = await GetProfile(token as string);
+			const profile = await GetProfileByToken(token as string);
 			console.log(profile);
 			setProfile(profile);
 		}
@@ -36,24 +46,52 @@ function LoginAvatar({ profile }: { profile: User }) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button className="text-base text-ellipsis">
+				<Button className="text-base">
 					<CircleUserRoundIcon className="size-5" />
-					<span>{profile.fullName.split(" ")[0]}</span>
+					<div className="truncate max-w-20">{profile.fullName.trim()}</div>
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent>
+			<DropdownMenuContent className="max-w-30 **:truncate">
 				<DropdownMenuLabel>
-					{profile.fullName} <br />{" "}
-					<span className="text-muted-foreground">{profile.username}</span>
+					{" "}
+					<HoverCard>
+						<HoverCardTrigger>
+							<div>{profile.fullName.trim()}</div>
+							<div>{profile.username.trim()}</div>
+						</HoverCardTrigger>
+						<HoverCardContent>
+							<div>{profile.fullName.trim()}</div>
+							<div>{profile.username.trim()}</div>
+						</HoverCardContent>
+					</HoverCard>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
-					<Link href="/profile">
-						<DropdownMenuItem>
-							<SettingsIcon className="" />
-							Edit Profile{" "}
-						</DropdownMenuItem>
-					</Link>
+					<DropdownMenuItem asChild>
+						<Link href={`/user/${profile.id}/settings`}>
+							<SettingsIcon />
+							Edit Profile
+						</Link>
+					</DropdownMenuItem>
+					<DropdownMenuItem asChild>
+						<Link href={`/user/${profile.id}`}>
+							<EyeIcon />
+							View Profile
+						</Link>
+					</DropdownMenuItem>
+					<DropdownMenuItem asChild>
+						<button
+							type="button"
+							className="w-full"
+							onClick={async () => {
+								await LogOut();
+								globalThis.location.reload();
+							}}
+						>
+							<LogOutIcon />
+							Log Out
+						</button>
+					</DropdownMenuItem>
 				</DropdownMenuGroup>
 			</DropdownMenuContent>
 		</DropdownMenu>

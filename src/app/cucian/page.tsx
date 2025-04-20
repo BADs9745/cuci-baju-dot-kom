@@ -1,4 +1,4 @@
-import { GetProfile, isLogin } from "@/lib/session";
+import { GetProfileByToken, isLogin } from "@/lib/session";
 import CucianForm from "./form";
 import type { CucianFormSchema, CucianSearchParam } from "@/lib/types/cucian";
 import type { z } from "zod";
@@ -9,7 +9,7 @@ export default async function CucianPage({
 }: { searchParams: Promise<CucianSearchParam> }) {
 	const cucian = await searchParams;
 	const token = await isLogin();
-	const profile = await GetProfile(token as string);
+	const profile = await GetProfileByToken(token as string);
 	const cucianForm: z.infer<typeof CucianFormSchema> = {
 		paket: cucian.paket,
 		email: profile.email,

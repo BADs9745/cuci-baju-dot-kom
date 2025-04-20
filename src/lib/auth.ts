@@ -3,14 +3,15 @@ import "server-only";
 import { GetFormDatas } from "./utils";
 import { Hash } from "./crypto";
 import { prisma } from "./prisma";
-import type { User } from "@/prisma/client";
 import { cookies } from "next/headers";
 import type { PrismaClientError } from "./types/db";
 import type { LoginSchema, RegisterType } from "./types/auth";
 
 export async function Register(formData: FormData) {
-	const data = GetFormDatas<RegisterType>(formData);
-	data.password = await Hash(data.password);
+	const data = GetFormDatas<RegisterType & { hashedPassword: string }>(
+		formData,
+	);
+	data.hashedPassword = await Hash(data.password);
 
 	try {
 		const user = await prisma.user.create({
@@ -18,7 +19,7 @@ export async function Register(formData: FormData) {
 				username: data.username.toLocaleLowerCase(),
 				email: data.email.toLocaleLowerCase(),
 				fullName: data.fullname,
-				passwordHash: data.password,
+				passwordHash: data.hashedPassword,
 				phone: data.phone,
 				Role: {
 					connectOrCreate: {
@@ -27,17 +28,25 @@ export async function Register(formData: FormData) {
 					},
 				},
 			},
+			select: {
+				username: true,
+			},
 		});
-
-		return user as User & PrismaClientError;
+		const login = await Login({
+			usernameOrEmail: user.username,
+			password: data.password,
+		});
+		return login as unknown as PrismaClientError & boolean;
 	} catch (error) {
 		const { meta } = error as unknown as PrismaClientError;
-		return { meta } as PrismaClientError & User;
+		return { meta } as PrismaClientError & boolean;
 	}
 }
 
-export async function Login(data: LoginSchema) {
-	const user = await prisma.user.findFirstOrThrow({
+export async function Login(
+	data: LoginSchema,
+): Promise<"user-not-found" | "wrong-password" | "success"> {
+	const user = await prisma.user.findFirst({
 		where: {
 			OR: [
 				{ email: data.usernameOrEmail.toLocaleLowerCase() },
@@ -47,7 +56,7 @@ export async function Login(data: LoginSchema) {
 			],
 		},
 	});
-	if (!user) return null;
+	if (!user) return "user-not-found";
 	const isPasswordMatch = (await Hash(data.password)) === user.passwordHash;
 	if (isPasswordMatch) {
 		const cookie = await cookies();
@@ -61,5 +70,5 @@ export async function Login(data: LoginSchema) {
 			expires: session.expire,
 		}); // Set expiration to 24 hours from now
 	}
-	return isPasswordMatch;
+	return isPasswordMatch ? "success" : "wrong-password";
 }

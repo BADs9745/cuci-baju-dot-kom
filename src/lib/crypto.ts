@@ -7,8 +7,8 @@ export async function Hash(string: string) {
 	return createHash("sha256").update(string).digest("base64");
 }
 
-const key = "vwpP5A5u98RX9/QbCPpLzw==";
-const iv = "v7Si/vLL78/31tZlz2383w==";
+const key = process.env.CRYPTO_KEY as string;
+const iv = process.env.INITIAL_VECTOR as string;
 
 export async function Cipher(string: string) {
 	const cipher = createCipheriv(

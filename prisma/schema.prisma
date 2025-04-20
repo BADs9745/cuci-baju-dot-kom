@@ -32,7 +32,7 @@ model User {
   // Relations
   Payments              Payment[]
   InventoryTransactions InventoryTransaction[] @relation("RecordedBy")
-  Settings              Setting[]              @relation("UpdatedBy")
+  Settings              Json?
   UserRoleId            String
   CucianOrder           CucianOrder[]
 
@@ -166,16 +166,4 @@ model Payment {
   receivedById String
 
   @@map("payments")
-}
-
-model Setting {
-  id         String   @id @default(uuid())
-  settingKey String   @unique
-  updatedAt  DateTime @updatedAt
-
-  // Relations
-  User        User   @relation("UpdatedBy", fields: [updatedById], references: [id])
-  updatedById String
-
-  @@map("settings")
 }

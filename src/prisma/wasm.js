@@ -129,6 +129,7 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt',
   lastLogin: 'lastLogin',
   isActive: 'isActive',
+  Settings: 'Settings',
   UserRoleId: 'UserRoleId'
 };
 
@@ -211,21 +212,25 @@ exports.Prisma.PaymentScalarFieldEnum = {
   receivedById: 'receivedById'
 };
 
-exports.Prisma.SettingScalarFieldEnum = {
-  id: 'id',
-  settingKey: 'settingKey',
-  updatedAt: 'updatedAt',
-  updatedById: 'updatedById'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
 };
 
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 
 exports.Prisma.NullsOrder = {
@@ -250,8 +255,7 @@ exports.Prisma.ModelName = {
   Inventory: 'Inventory',
   InventoryCategory: 'InventoryCategory',
   InventoryTransaction: 'InventoryTransaction',
-  Payment: 'Payment',
-  Setting: 'Setting'
+  Payment: 'Payment'
 };
 
 /**

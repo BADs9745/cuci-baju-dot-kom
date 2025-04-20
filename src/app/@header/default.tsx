@@ -1,9 +1,5 @@
-import Navbar from "@/components/counterpart/navbar";
+import RootHeader from "./page";
 
-export default function RootHeader() {
-	return (
-		<div className="bg-muted px-30">
-			<Navbar />
-		</div>
-	);
+export default function DefaultHeader() {
+	return RootHeader();
 }
