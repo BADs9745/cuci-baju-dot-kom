@@ -5,6 +5,7 @@ import { useState } from "react";
 import clsx from "clsx";
 
 const domAnimation = () => import("motion/react").then((e) => e.domAnimation);
+
 export default function HomeModalList() {
 	const [open, setOpen] = useState("");
 	return (
@@ -106,7 +107,7 @@ const modalItem: modalType[] = [
 		desc: "Jasa laundry satuan seperti kemeja, jas dll. Sangat cocok untuk pakaian spesial anda. Pengerjaan yang detail, bersih dengan harga terjangkau.",
 	},
 	{
-		label: "Laundry Expess",
+		label: "Laundry Express",
 		img: "/img/engin-akyurt-yCYVV8-kQNM-unsplash-compressed.webp",
 		desc: "Jasa laundry satuan seperti kemeja, jas dll. Sangat cocok untuk pakaian spesial anda. Pengerjaan yang detail, bersih dengan harga terjangkau.",
 	},

@@ -152,7 +152,18 @@ exports.Prisma.CucianOrderScalarFieldEnum = {
   nama: 'nama',
   alamat: 'alamat',
   phone: 'phone',
-  packageId: 'packageId'
+  packageId: 'packageId',
+  tahap: 'tahap',
+  status: 'status',
+  createAt: 'createAt',
+  selesaiAt: 'selesaiAt'
+};
+
+exports.Prisma.ReservasiPengambilanScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  cucianOrderId: 'cucianOrderId'
 };
 
 exports.Prisma.ServiceScalarFieldEnum = {
@@ -161,10 +172,10 @@ exports.Prisma.ServiceScalarFieldEnum = {
   description: 'description',
   pricePerUnit: 'pricePerUnit',
   estimatedTimeHours: 'estimatedTimeHours',
-  ServiceCategory: 'ServiceCategory',
-  isActive: 'isActive',
+  priority: 'priority',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  packageId: 'packageId'
 };
 
 exports.Prisma.PackageScalarFieldEnum = {
@@ -237,12 +248,11 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.ServiceCategory = exports.$Enums.ServiceCategory = {
-  WASH: 'WASH',
-  DRY_CLEAN: 'DRY_CLEAN',
-  IRON: 'IRON',
-  FOLD: 'FOLD',
-  PACKAGE: 'PACKAGE'
+exports.StatusOrder = exports.$Enums.StatusOrder = {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
 };
 
 exports.Prisma.ModelName = {
@@ -250,6 +260,7 @@ exports.Prisma.ModelName = {
   LoginSession: 'LoginSession',
   UserRole: 'UserRole',
   CucianOrder: 'CucianOrder',
+  ReservasiPengambilan: 'ReservasiPengambilan',
   Service: 'Service',
   Package: 'Package',
   Inventory: 'Inventory',

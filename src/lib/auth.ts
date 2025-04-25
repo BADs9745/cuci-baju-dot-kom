@@ -55,6 +55,7 @@ export async function Login(
 				},
 			],
 		},
+		omit: {},
 	});
 	if (!user) return "user-not-found";
 	const isPasswordMatch = (await Hash(data.password)) === user.passwordHash;

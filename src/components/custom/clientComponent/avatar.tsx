@@ -1,9 +1,8 @@
 "use client";
 
-import { GetProfileByToken, isLogin, LogOut } from "@/lib/session";
+import { LogOut } from "@/lib/session";
 import type { User } from "@prisma/client";
-import { useEffect, useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -12,7 +11,7 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "../../ui/dropdown-menu";
 import Link from "next/link";
 import {
 	CircleUserRoundIcon,
@@ -24,22 +23,10 @@ import {
 	HoverCard,
 	HoverCardContent,
 	HoverCardTrigger,
-} from "../ui/hover-card";
+} from "../../ui/hover-card";
 
-export default function AvatarProfile() {
-	const [profile, setProfile] = useState({} as User);
-	useEffect(() => {
-		async function ProfileInitializer() {
-			const token = await isLogin();
-			const profile = await GetProfileByToken(token as string);
-			console.log(profile);
-			setProfile(profile);
-		}
-		ProfileInitializer();
-		return () => {};
-	}, []);
-
-	return profile.id ? <LoginAvatar profile={profile} /> : <LoginBtn />;
+export default function AvatarProfile({ profile }: { profile?: User }) {
+	return profile?.id ? <LoginAvatar profile={profile} /> : <LoginBtn />;
 }
 
 function LoginAvatar({ profile }: { profile: User }) {
@@ -79,7 +66,7 @@ function LoginAvatar({ profile }: { profile: User }) {
 							View Profile
 						</Link>
 					</DropdownMenuItem>
-					<DropdownMenuItem asChild>
+					<DropdownMenuItem asChild variant="destructive">
 						<button
 							type="button"
 							className="w-full"

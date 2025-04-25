@@ -15,17 +15,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import type { Package } from "@/prisma/client";
-import { use } from "react";
+import { use, useEffect, useState } from "react";
 import { PostCucianOrder } from "@/lib/cucian";
 import { nanoid } from "nanoid";
+import { toast } from "sonner";
+import { Eye } from "lucide-react";
+import { tw } from "@/lib/utils";
 
 export default function CucianForm({
 	isLogin,
 	paketList,
+	limit,
 	...prop
 }: z.infer<typeof CucianFormSchema> & {
 	isLogin: boolean;
 	paketList: Promise<Package[]>;
+	limit: boolean;
 }) {
 	const {
 		fullName = "",
@@ -44,13 +49,52 @@ export default function CucianForm({
 		},
 		resolver: zodResolver(CucianFormSchema),
 	});
+	const [submitBtn, setSubmitBtn] = useState(true);
+	const pakets = use(paketList);
+
+	useEffect(() => {
+		if (limit) {
+			setSubmitBtn(false);
+		}
+
+		return () => {
+			if (limit) {
+				setSubmitBtn(false);
+			}
+		};
+	}, [limit]);
 
 	async function onSubmit(data: z.infer<typeof CucianFormSchema>) {
+		if (limit) return;
 		console.log(data);
 		const res = await PostCucianOrder(data);
-		console.log(res);
+		if (res.success === true) {
+			setSubmitBtn(false);
+			toast(<strong>Berhasil Membuat Pesanan</strong>, {
+				description: (
+					<span className="text-muted-foreground">
+						Id Pesanan Anda{" "}
+						<span className="text-chart-2">{res.cucianOrderId}</span>
+					</span>
+				),
+				action: {
+					label: (
+						<div className="flex gap-2 items-center">
+							<Eye className="size-4" />
+							<span>Detail</span>
+						</div>
+					),
+					onClick: async () => {},
+				},
+				classNames: {
+					actionButton: tw`p-4!`,
+				},
+			});
+		}
+		setTimeout(() => {
+			globalThis.location.reload();
+		}, 3000);
 	}
-	const pakets = use(paketList);
 
 	return (
 		<>
@@ -167,7 +211,9 @@ export default function CucianForm({
 						>
 							Reset
 						</Button>
-						<Button type="submit">Pesan</Button>
+						<Button type="submit" disabled={!submitBtn}>
+							Pesan
+						</Button>
 					</div>
 				</form>
 			</Form>

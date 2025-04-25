@@ -34,6 +34,11 @@ export type UserRole = $Result.DefaultSelection<Prisma.$UserRolePayload>
  */
 export type CucianOrder = $Result.DefaultSelection<Prisma.$CucianOrderPayload>
 /**
+ * Model ReservasiPengambilan
+ * 
+ */
+export type ReservasiPengambilan = $Result.DefaultSelection<Prisma.$ReservasiPengambilanPayload>
+/**
  * Model Service
  * 
  */
@@ -68,15 +73,14 @@ export type Payment = $Result.DefaultSelection<Prisma.$PaymentPayload>
  * Enums
  */
 export namespace $Enums {
-  export const ServiceCategory: {
-  WASH: 'WASH',
-  DRY_CLEAN: 'DRY_CLEAN',
-  IRON: 'IRON',
-  FOLD: 'FOLD',
-  PACKAGE: 'PACKAGE'
+  export const StatusOrder: {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
 };
 
-export type ServiceCategory = (typeof ServiceCategory)[keyof typeof ServiceCategory]
+export type StatusOrder = (typeof StatusOrder)[keyof typeof StatusOrder]
 
 
 export const DeliveryMethod: {
@@ -88,9 +92,9 @@ export type DeliveryMethod = (typeof DeliveryMethod)[keyof typeof DeliveryMethod
 
 }
 
-export type ServiceCategory = $Enums.ServiceCategory
+export type StatusOrder = $Enums.StatusOrder
 
-export const ServiceCategory: typeof $Enums.ServiceCategory
+export const StatusOrder: typeof $Enums.StatusOrder
 
 export type DeliveryMethod = $Enums.DeliveryMethod
 
@@ -260,6 +264,16 @@ export class PrismaClient<
     * ```
     */
   get cucianOrder(): Prisma.CucianOrderDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.reservasiPengambilan`: Exposes CRUD operations for the **ReservasiPengambilan** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ReservasiPengambilans
+    * const reservasiPengambilans = await prisma.reservasiPengambilan.findMany()
+    * ```
+    */
+  get reservasiPengambilan(): Prisma.ReservasiPengambilanDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.service`: Exposes CRUD operations for the **Service** model.
@@ -764,6 +778,7 @@ export namespace Prisma {
     LoginSession: 'LoginSession',
     UserRole: 'UserRole',
     CucianOrder: 'CucianOrder',
+    ReservasiPengambilan: 'ReservasiPengambilan',
     Service: 'Service',
     Package: 'Package',
     Inventory: 'Inventory',
@@ -788,7 +803,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "loginSession" | "userRole" | "cucianOrder" | "service" | "package" | "inventory" | "inventoryCategory" | "inventoryTransaction" | "payment"
+      modelProps: "user" | "loginSession" | "userRole" | "cucianOrder" | "reservasiPengambilan" | "service" | "package" | "inventory" | "inventoryCategory" | "inventoryTransaction" | "payment"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1085,6 +1100,80 @@ export namespace Prisma {
           count: {
             args: Prisma.CucianOrderCountArgs<ExtArgs>
             result: $Utils.Optional<CucianOrderCountAggregateOutputType> | number
+          }
+        }
+      }
+      ReservasiPengambilan: {
+        payload: Prisma.$ReservasiPengambilanPayload<ExtArgs>
+        fields: Prisma.ReservasiPengambilanFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ReservasiPengambilanFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReservasiPengambilanPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ReservasiPengambilanFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReservasiPengambilanPayload>
+          }
+          findFirst: {
+            args: Prisma.ReservasiPengambilanFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReservasiPengambilanPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ReservasiPengambilanFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReservasiPengambilanPayload>
+          }
+          findMany: {
+            args: Prisma.ReservasiPengambilanFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReservasiPengambilanPayload>[]
+          }
+          create: {
+            args: Prisma.ReservasiPengambilanCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReservasiPengambilanPayload>
+          }
+          createMany: {
+            args: Prisma.ReservasiPengambilanCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ReservasiPengambilanCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReservasiPengambilanPayload>[]
+          }
+          delete: {
+            args: Prisma.ReservasiPengambilanDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReservasiPengambilanPayload>
+          }
+          update: {
+            args: Prisma.ReservasiPengambilanUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReservasiPengambilanPayload>
+          }
+          deleteMany: {
+            args: Prisma.ReservasiPengambilanDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ReservasiPengambilanUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ReservasiPengambilanUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReservasiPengambilanPayload>[]
+          }
+          upsert: {
+            args: Prisma.ReservasiPengambilanUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReservasiPengambilanPayload>
+          }
+          aggregate: {
+            args: Prisma.ReservasiPengambilanAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateReservasiPengambilan>
+          }
+          groupBy: {
+            args: Prisma.ReservasiPengambilanGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ReservasiPengambilanGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ReservasiPengambilanCountArgs<ExtArgs>
+            result: $Utils.Optional<ReservasiPengambilanCountAggregateOutputType> | number
           }
         }
       }
@@ -1620,6 +1709,7 @@ export namespace Prisma {
     loginSession?: LoginSessionOmit
     userRole?: UserRoleOmit
     cucianOrder?: CucianOrderOmit
+    reservasiPengambilan?: ReservasiPengambilanOmit
     service?: ServiceOmit
     package?: PackageOmit
     inventory?: InventoryOmit
@@ -1724,6 +1814,7 @@ export namespace Prisma {
     Payments: number
     InventoryTransactions: number
     CucianOrder: number
+    ReservasiPengambilan: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1731,6 +1822,7 @@ export namespace Prisma {
     Payments?: boolean | UserCountOutputTypeCountPaymentsArgs
     InventoryTransactions?: boolean | UserCountOutputTypeCountInventoryTransactionsArgs
     CucianOrder?: boolean | UserCountOutputTypeCountCucianOrderArgs
+    ReservasiPengambilan?: boolean | UserCountOutputTypeCountReservasiPengambilanArgs
   }
 
   // Custom InputTypes
@@ -1772,6 +1864,13 @@ export namespace Prisma {
     where?: CucianOrderWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReservasiPengambilanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReservasiPengambilanWhereInput
+  }
+
 
   /**
    * Count Type UserRoleCountOutputType
@@ -1805,15 +1904,88 @@ export namespace Prisma {
 
 
   /**
+   * Count Type CucianOrderCountOutputType
+   */
+
+  export type CucianOrderCountOutputType = {
+    ReservasiPengambilan: number
+    Service: number
+  }
+
+  export type CucianOrderCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ReservasiPengambilan?: boolean | CucianOrderCountOutputTypeCountReservasiPengambilanArgs
+    Service?: boolean | CucianOrderCountOutputTypeCountServiceArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CucianOrderCountOutputType without action
+   */
+  export type CucianOrderCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CucianOrderCountOutputType
+     */
+    select?: CucianOrderCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CucianOrderCountOutputType without action
+   */
+  export type CucianOrderCountOutputTypeCountReservasiPengambilanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReservasiPengambilanWhereInput
+  }
+
+  /**
+   * CucianOrderCountOutputType without action
+   */
+  export type CucianOrderCountOutputTypeCountServiceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServiceWhereInput
+  }
+
+
+  /**
+   * Count Type ServiceCountOutputType
+   */
+
+  export type ServiceCountOutputType = {
+    CucianOrder: number
+  }
+
+  export type ServiceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    CucianOrder?: boolean | ServiceCountOutputTypeCountCucianOrderArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ServiceCountOutputType without action
+   */
+  export type ServiceCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceCountOutputType
+     */
+    select?: ServiceCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ServiceCountOutputType without action
+   */
+  export type ServiceCountOutputTypeCountCucianOrderArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CucianOrderWhereInput
+  }
+
+
+  /**
    * Count Type PackageCountOutputType
    */
 
   export type PackageCountOutputType = {
     CucianOrder: number
+    Service: number
   }
 
   export type PackageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     CucianOrder?: boolean | PackageCountOutputTypeCountCucianOrderArgs
+    Service?: boolean | PackageCountOutputTypeCountServiceArgs
   }
 
   // Custom InputTypes
@@ -1832,6 +2004,13 @@ export namespace Prisma {
    */
   export type PackageCountOutputTypeCountCucianOrderArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CucianOrderWhereInput
+  }
+
+  /**
+   * PackageCountOutputType without action
+   */
+  export type PackageCountOutputTypeCountServiceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServiceWhereInput
   }
 
 
@@ -2130,6 +2309,7 @@ export namespace Prisma {
     Payments?: boolean | User$PaymentsArgs<ExtArgs>
     InventoryTransactions?: boolean | User$InventoryTransactionsArgs<ExtArgs>
     CucianOrder?: boolean | User$CucianOrderArgs<ExtArgs>
+    ReservasiPengambilan?: boolean | User$ReservasiPengambilanArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2190,6 +2370,7 @@ export namespace Prisma {
     Payments?: boolean | User$PaymentsArgs<ExtArgs>
     InventoryTransactions?: boolean | User$InventoryTransactionsArgs<ExtArgs>
     CucianOrder?: boolean | User$CucianOrderArgs<ExtArgs>
+    ReservasiPengambilan?: boolean | User$ReservasiPengambilanArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2207,6 +2388,7 @@ export namespace Prisma {
       Payments: Prisma.$PaymentPayload<ExtArgs>[]
       InventoryTransactions: Prisma.$InventoryTransactionPayload<ExtArgs>[]
       CucianOrder: Prisma.$CucianOrderPayload<ExtArgs>[]
+      ReservasiPengambilan: Prisma.$ReservasiPengambilanPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2621,6 +2803,7 @@ export namespace Prisma {
     Payments<T extends User$PaymentsArgs<ExtArgs> = {}>(args?: Subset<T, User$PaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     InventoryTransactions<T extends User$InventoryTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$InventoryTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     CucianOrder<T extends User$CucianOrderArgs<ExtArgs> = {}>(args?: Subset<T, User$CucianOrderArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CucianOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    ReservasiPengambilan<T extends User$ReservasiPengambilanArgs<ExtArgs> = {}>(args?: Subset<T, User$ReservasiPengambilanArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReservasiPengambilanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3152,6 +3335,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CucianOrderScalarFieldEnum | CucianOrderScalarFieldEnum[]
+  }
+
+  /**
+   * User.ReservasiPengambilan
+   */
+  export type User$ReservasiPengambilanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReservasiPengambilan
+     */
+    select?: ReservasiPengambilanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReservasiPengambilan
+     */
+    omit?: ReservasiPengambilanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReservasiPengambilanInclude<ExtArgs> | null
+    where?: ReservasiPengambilanWhereInput
+    orderBy?: ReservasiPengambilanOrderByWithRelationInput | ReservasiPengambilanOrderByWithRelationInput[]
+    cursor?: ReservasiPengambilanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReservasiPengambilanScalarFieldEnum | ReservasiPengambilanScalarFieldEnum[]
   }
 
   /**
@@ -5268,8 +5475,18 @@ export namespace Prisma {
 
   export type AggregateCucianOrder = {
     _count: CucianOrderCountAggregateOutputType | null
+    _avg: CucianOrderAvgAggregateOutputType | null
+    _sum: CucianOrderSumAggregateOutputType | null
     _min: CucianOrderMinAggregateOutputType | null
     _max: CucianOrderMaxAggregateOutputType | null
+  }
+
+  export type CucianOrderAvgAggregateOutputType = {
+    tahap: number | null
+  }
+
+  export type CucianOrderSumAggregateOutputType = {
+    tahap: number | null
   }
 
   export type CucianOrderMinAggregateOutputType = {
@@ -5279,6 +5496,10 @@ export namespace Prisma {
     alamat: string | null
     phone: string | null
     packageId: string | null
+    tahap: number | null
+    status: $Enums.StatusOrder | null
+    createAt: Date | null
+    selesaiAt: Date | null
   }
 
   export type CucianOrderMaxAggregateOutputType = {
@@ -5288,6 +5509,10 @@ export namespace Prisma {
     alamat: string | null
     phone: string | null
     packageId: string | null
+    tahap: number | null
+    status: $Enums.StatusOrder | null
+    createAt: Date | null
+    selesaiAt: Date | null
   }
 
   export type CucianOrderCountAggregateOutputType = {
@@ -5297,9 +5522,21 @@ export namespace Prisma {
     alamat: number
     phone: number
     packageId: number
+    tahap: number
+    status: number
+    createAt: number
+    selesaiAt: number
     _all: number
   }
 
+
+  export type CucianOrderAvgAggregateInputType = {
+    tahap?: true
+  }
+
+  export type CucianOrderSumAggregateInputType = {
+    tahap?: true
+  }
 
   export type CucianOrderMinAggregateInputType = {
     id?: true
@@ -5308,6 +5545,10 @@ export namespace Prisma {
     alamat?: true
     phone?: true
     packageId?: true
+    tahap?: true
+    status?: true
+    createAt?: true
+    selesaiAt?: true
   }
 
   export type CucianOrderMaxAggregateInputType = {
@@ -5317,6 +5558,10 @@ export namespace Prisma {
     alamat?: true
     phone?: true
     packageId?: true
+    tahap?: true
+    status?: true
+    createAt?: true
+    selesaiAt?: true
   }
 
   export type CucianOrderCountAggregateInputType = {
@@ -5326,6 +5571,10 @@ export namespace Prisma {
     alamat?: true
     phone?: true
     packageId?: true
+    tahap?: true
+    status?: true
+    createAt?: true
+    selesaiAt?: true
     _all?: true
   }
 
@@ -5367,6 +5616,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: CucianOrderAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CucianOrderSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: CucianOrderMinAggregateInputType
@@ -5397,6 +5658,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: CucianOrderCountAggregateInputType | true
+    _avg?: CucianOrderAvgAggregateInputType
+    _sum?: CucianOrderSumAggregateInputType
     _min?: CucianOrderMinAggregateInputType
     _max?: CucianOrderMaxAggregateInputType
   }
@@ -5408,7 +5671,13 @@ export namespace Prisma {
     alamat: string | null
     phone: string | null
     packageId: string
+    tahap: number | null
+    status: $Enums.StatusOrder
+    createAt: Date
+    selesaiAt: Date | null
     _count: CucianOrderCountAggregateOutputType | null
+    _avg: CucianOrderAvgAggregateOutputType | null
+    _sum: CucianOrderSumAggregateOutputType | null
     _min: CucianOrderMinAggregateOutputType | null
     _max: CucianOrderMaxAggregateOutputType | null
   }
@@ -5434,8 +5703,15 @@ export namespace Prisma {
     alamat?: boolean
     phone?: boolean
     packageId?: boolean
+    tahap?: boolean
+    status?: boolean
+    createAt?: boolean
+    selesaiAt?: boolean
     User?: boolean | CucianOrder$UserArgs<ExtArgs>
-    paket?: boolean | PackageDefaultArgs<ExtArgs>
+    Paket?: boolean | PackageDefaultArgs<ExtArgs>
+    ReservasiPengambilan?: boolean | CucianOrder$ReservasiPengambilanArgs<ExtArgs>
+    Service?: boolean | CucianOrder$ServiceArgs<ExtArgs>
+    _count?: boolean | CucianOrderCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["cucianOrder"]>
 
   export type CucianOrderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5445,8 +5721,12 @@ export namespace Prisma {
     alamat?: boolean
     phone?: boolean
     packageId?: boolean
+    tahap?: boolean
+    status?: boolean
+    createAt?: boolean
+    selesaiAt?: boolean
     User?: boolean | CucianOrder$UserArgs<ExtArgs>
-    paket?: boolean | PackageDefaultArgs<ExtArgs>
+    Paket?: boolean | PackageDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["cucianOrder"]>
 
   export type CucianOrderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5456,8 +5736,12 @@ export namespace Prisma {
     alamat?: boolean
     phone?: boolean
     packageId?: boolean
+    tahap?: boolean
+    status?: boolean
+    createAt?: boolean
+    selesaiAt?: boolean
     User?: boolean | CucianOrder$UserArgs<ExtArgs>
-    paket?: boolean | PackageDefaultArgs<ExtArgs>
+    Paket?: boolean | PackageDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["cucianOrder"]>
 
   export type CucianOrderSelectScalar = {
@@ -5467,27 +5751,36 @@ export namespace Prisma {
     alamat?: boolean
     phone?: boolean
     packageId?: boolean
+    tahap?: boolean
+    status?: boolean
+    createAt?: boolean
+    selesaiAt?: boolean
   }
 
-  export type CucianOrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "nama" | "alamat" | "phone" | "packageId", ExtArgs["result"]["cucianOrder"]>
+  export type CucianOrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "nama" | "alamat" | "phone" | "packageId" | "tahap" | "status" | "createAt" | "selesaiAt", ExtArgs["result"]["cucianOrder"]>
   export type CucianOrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     User?: boolean | CucianOrder$UserArgs<ExtArgs>
-    paket?: boolean | PackageDefaultArgs<ExtArgs>
+    Paket?: boolean | PackageDefaultArgs<ExtArgs>
+    ReservasiPengambilan?: boolean | CucianOrder$ReservasiPengambilanArgs<ExtArgs>
+    Service?: boolean | CucianOrder$ServiceArgs<ExtArgs>
+    _count?: boolean | CucianOrderCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CucianOrderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     User?: boolean | CucianOrder$UserArgs<ExtArgs>
-    paket?: boolean | PackageDefaultArgs<ExtArgs>
+    Paket?: boolean | PackageDefaultArgs<ExtArgs>
   }
   export type CucianOrderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     User?: boolean | CucianOrder$UserArgs<ExtArgs>
-    paket?: boolean | PackageDefaultArgs<ExtArgs>
+    Paket?: boolean | PackageDefaultArgs<ExtArgs>
   }
 
   export type $CucianOrderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "CucianOrder"
     objects: {
       User: Prisma.$UserPayload<ExtArgs> | null
-      paket: Prisma.$PackagePayload<ExtArgs>
+      Paket: Prisma.$PackagePayload<ExtArgs>
+      ReservasiPengambilan: Prisma.$ReservasiPengambilanPayload<ExtArgs>[]
+      Service: Prisma.$ServicePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5496,6 +5789,10 @@ export namespace Prisma {
       alamat: string | null
       phone: string | null
       packageId: string
+      tahap: number | null
+      status: $Enums.StatusOrder
+      createAt: Date
+      selesaiAt: Date | null
     }, ExtArgs["result"]["cucianOrder"]>
     composites: {}
   }
@@ -5891,7 +6188,9 @@ export namespace Prisma {
   export interface Prisma__CucianOrderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     User<T extends CucianOrder$UserArgs<ExtArgs> = {}>(args?: Subset<T, CucianOrder$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    paket<T extends PackageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PackageDefaultArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    Paket<T extends PackageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PackageDefaultArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    ReservasiPengambilan<T extends CucianOrder$ReservasiPengambilanArgs<ExtArgs> = {}>(args?: Subset<T, CucianOrder$ReservasiPengambilanArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReservasiPengambilanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Service<T extends CucianOrder$ServiceArgs<ExtArgs> = {}>(args?: Subset<T, CucianOrder$ServiceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5927,6 +6226,10 @@ export namespace Prisma {
     readonly alamat: FieldRef<"CucianOrder", 'String'>
     readonly phone: FieldRef<"CucianOrder", 'String'>
     readonly packageId: FieldRef<"CucianOrder", 'String'>
+    readonly tahap: FieldRef<"CucianOrder", 'Int'>
+    readonly status: FieldRef<"CucianOrder", 'StatusOrder'>
+    readonly createAt: FieldRef<"CucianOrder", 'DateTime'>
+    readonly selesaiAt: FieldRef<"CucianOrder", 'DateTime'>
   }
     
 
@@ -6342,6 +6645,54 @@ export namespace Prisma {
   }
 
   /**
+   * CucianOrder.ReservasiPengambilan
+   */
+  export type CucianOrder$ReservasiPengambilanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReservasiPengambilan
+     */
+    select?: ReservasiPengambilanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReservasiPengambilan
+     */
+    omit?: ReservasiPengambilanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReservasiPengambilanInclude<ExtArgs> | null
+    where?: ReservasiPengambilanWhereInput
+    orderBy?: ReservasiPengambilanOrderByWithRelationInput | ReservasiPengambilanOrderByWithRelationInput[]
+    cursor?: ReservasiPengambilanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReservasiPengambilanScalarFieldEnum | ReservasiPengambilanScalarFieldEnum[]
+  }
+
+  /**
+   * CucianOrder.Service
+   */
+  export type CucianOrder$ServiceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    where?: ServiceWhereInput
+    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
+    cursor?: ServiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
+  }
+
+  /**
    * CucianOrder without action
    */
   export type CucianOrderDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6361,6 +6712,1059 @@ export namespace Prisma {
 
 
   /**
+   * Model ReservasiPengambilan
+   */
+
+  export type AggregateReservasiPengambilan = {
+    _count: ReservasiPengambilanCountAggregateOutputType | null
+    _min: ReservasiPengambilanMinAggregateOutputType | null
+    _max: ReservasiPengambilanMaxAggregateOutputType | null
+  }
+
+  export type ReservasiPengambilanMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    date: Date | null
+    cucianOrderId: string | null
+  }
+
+  export type ReservasiPengambilanMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    date: Date | null
+    cucianOrderId: string | null
+  }
+
+  export type ReservasiPengambilanCountAggregateOutputType = {
+    id: number
+    userId: number
+    date: number
+    cucianOrderId: number
+    _all: number
+  }
+
+
+  export type ReservasiPengambilanMinAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    cucianOrderId?: true
+  }
+
+  export type ReservasiPengambilanMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    cucianOrderId?: true
+  }
+
+  export type ReservasiPengambilanCountAggregateInputType = {
+    id?: true
+    userId?: true
+    date?: true
+    cucianOrderId?: true
+    _all?: true
+  }
+
+  export type ReservasiPengambilanAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ReservasiPengambilan to aggregate.
+     */
+    where?: ReservasiPengambilanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReservasiPengambilans to fetch.
+     */
+    orderBy?: ReservasiPengambilanOrderByWithRelationInput | ReservasiPengambilanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ReservasiPengambilanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReservasiPengambilans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReservasiPengambilans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ReservasiPengambilans
+    **/
+    _count?: true | ReservasiPengambilanCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ReservasiPengambilanMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ReservasiPengambilanMaxAggregateInputType
+  }
+
+  export type GetReservasiPengambilanAggregateType<T extends ReservasiPengambilanAggregateArgs> = {
+        [P in keyof T & keyof AggregateReservasiPengambilan]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateReservasiPengambilan[P]>
+      : GetScalarType<T[P], AggregateReservasiPengambilan[P]>
+  }
+
+
+
+
+  export type ReservasiPengambilanGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReservasiPengambilanWhereInput
+    orderBy?: ReservasiPengambilanOrderByWithAggregationInput | ReservasiPengambilanOrderByWithAggregationInput[]
+    by: ReservasiPengambilanScalarFieldEnum[] | ReservasiPengambilanScalarFieldEnum
+    having?: ReservasiPengambilanScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ReservasiPengambilanCountAggregateInputType | true
+    _min?: ReservasiPengambilanMinAggregateInputType
+    _max?: ReservasiPengambilanMaxAggregateInputType
+  }
+
+  export type ReservasiPengambilanGroupByOutputType = {
+    id: string
+    userId: string
+    date: Date
+    cucianOrderId: string
+    _count: ReservasiPengambilanCountAggregateOutputType | null
+    _min: ReservasiPengambilanMinAggregateOutputType | null
+    _max: ReservasiPengambilanMaxAggregateOutputType | null
+  }
+
+  type GetReservasiPengambilanGroupByPayload<T extends ReservasiPengambilanGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ReservasiPengambilanGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ReservasiPengambilanGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ReservasiPengambilanGroupByOutputType[P]>
+            : GetScalarType<T[P], ReservasiPengambilanGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ReservasiPengambilanSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    cucianOrderId?: boolean
+    User?: boolean | UserDefaultArgs<ExtArgs>
+    CucianOrder?: boolean | CucianOrderDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reservasiPengambilan"]>
+
+  export type ReservasiPengambilanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    cucianOrderId?: boolean
+    User?: boolean | UserDefaultArgs<ExtArgs>
+    CucianOrder?: boolean | CucianOrderDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reservasiPengambilan"]>
+
+  export type ReservasiPengambilanSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    cucianOrderId?: boolean
+    User?: boolean | UserDefaultArgs<ExtArgs>
+    CucianOrder?: boolean | CucianOrderDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reservasiPengambilan"]>
+
+  export type ReservasiPengambilanSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    date?: boolean
+    cucianOrderId?: boolean
+  }
+
+  export type ReservasiPengambilanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "date" | "cucianOrderId", ExtArgs["result"]["reservasiPengambilan"]>
+  export type ReservasiPengambilanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | UserDefaultArgs<ExtArgs>
+    CucianOrder?: boolean | CucianOrderDefaultArgs<ExtArgs>
+  }
+  export type ReservasiPengambilanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | UserDefaultArgs<ExtArgs>
+    CucianOrder?: boolean | CucianOrderDefaultArgs<ExtArgs>
+  }
+  export type ReservasiPengambilanIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | UserDefaultArgs<ExtArgs>
+    CucianOrder?: boolean | CucianOrderDefaultArgs<ExtArgs>
+  }
+
+  export type $ReservasiPengambilanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ReservasiPengambilan"
+    objects: {
+      User: Prisma.$UserPayload<ExtArgs>
+      CucianOrder: Prisma.$CucianOrderPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      date: Date
+      cucianOrderId: string
+    }, ExtArgs["result"]["reservasiPengambilan"]>
+    composites: {}
+  }
+
+  type ReservasiPengambilanGetPayload<S extends boolean | null | undefined | ReservasiPengambilanDefaultArgs> = $Result.GetResult<Prisma.$ReservasiPengambilanPayload, S>
+
+  type ReservasiPengambilanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ReservasiPengambilanFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ReservasiPengambilanCountAggregateInputType | true
+    }
+
+  export interface ReservasiPengambilanDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ReservasiPengambilan'], meta: { name: 'ReservasiPengambilan' } }
+    /**
+     * Find zero or one ReservasiPengambilan that matches the filter.
+     * @param {ReservasiPengambilanFindUniqueArgs} args - Arguments to find a ReservasiPengambilan
+     * @example
+     * // Get one ReservasiPengambilan
+     * const reservasiPengambilan = await prisma.reservasiPengambilan.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ReservasiPengambilanFindUniqueArgs>(args: SelectSubset<T, ReservasiPengambilanFindUniqueArgs<ExtArgs>>): Prisma__ReservasiPengambilanClient<$Result.GetResult<Prisma.$ReservasiPengambilanPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ReservasiPengambilan that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ReservasiPengambilanFindUniqueOrThrowArgs} args - Arguments to find a ReservasiPengambilan
+     * @example
+     * // Get one ReservasiPengambilan
+     * const reservasiPengambilan = await prisma.reservasiPengambilan.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ReservasiPengambilanFindUniqueOrThrowArgs>(args: SelectSubset<T, ReservasiPengambilanFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ReservasiPengambilanClient<$Result.GetResult<Prisma.$ReservasiPengambilanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ReservasiPengambilan that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReservasiPengambilanFindFirstArgs} args - Arguments to find a ReservasiPengambilan
+     * @example
+     * // Get one ReservasiPengambilan
+     * const reservasiPengambilan = await prisma.reservasiPengambilan.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ReservasiPengambilanFindFirstArgs>(args?: SelectSubset<T, ReservasiPengambilanFindFirstArgs<ExtArgs>>): Prisma__ReservasiPengambilanClient<$Result.GetResult<Prisma.$ReservasiPengambilanPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ReservasiPengambilan that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReservasiPengambilanFindFirstOrThrowArgs} args - Arguments to find a ReservasiPengambilan
+     * @example
+     * // Get one ReservasiPengambilan
+     * const reservasiPengambilan = await prisma.reservasiPengambilan.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ReservasiPengambilanFindFirstOrThrowArgs>(args?: SelectSubset<T, ReservasiPengambilanFindFirstOrThrowArgs<ExtArgs>>): Prisma__ReservasiPengambilanClient<$Result.GetResult<Prisma.$ReservasiPengambilanPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ReservasiPengambilans that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReservasiPengambilanFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ReservasiPengambilans
+     * const reservasiPengambilans = await prisma.reservasiPengambilan.findMany()
+     * 
+     * // Get first 10 ReservasiPengambilans
+     * const reservasiPengambilans = await prisma.reservasiPengambilan.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const reservasiPengambilanWithIdOnly = await prisma.reservasiPengambilan.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ReservasiPengambilanFindManyArgs>(args?: SelectSubset<T, ReservasiPengambilanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReservasiPengambilanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ReservasiPengambilan.
+     * @param {ReservasiPengambilanCreateArgs} args - Arguments to create a ReservasiPengambilan.
+     * @example
+     * // Create one ReservasiPengambilan
+     * const ReservasiPengambilan = await prisma.reservasiPengambilan.create({
+     *   data: {
+     *     // ... data to create a ReservasiPengambilan
+     *   }
+     * })
+     * 
+     */
+    create<T extends ReservasiPengambilanCreateArgs>(args: SelectSubset<T, ReservasiPengambilanCreateArgs<ExtArgs>>): Prisma__ReservasiPengambilanClient<$Result.GetResult<Prisma.$ReservasiPengambilanPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ReservasiPengambilans.
+     * @param {ReservasiPengambilanCreateManyArgs} args - Arguments to create many ReservasiPengambilans.
+     * @example
+     * // Create many ReservasiPengambilans
+     * const reservasiPengambilan = await prisma.reservasiPengambilan.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ReservasiPengambilanCreateManyArgs>(args?: SelectSubset<T, ReservasiPengambilanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ReservasiPengambilans and returns the data saved in the database.
+     * @param {ReservasiPengambilanCreateManyAndReturnArgs} args - Arguments to create many ReservasiPengambilans.
+     * @example
+     * // Create many ReservasiPengambilans
+     * const reservasiPengambilan = await prisma.reservasiPengambilan.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ReservasiPengambilans and only return the `id`
+     * const reservasiPengambilanWithIdOnly = await prisma.reservasiPengambilan.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ReservasiPengambilanCreateManyAndReturnArgs>(args?: SelectSubset<T, ReservasiPengambilanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReservasiPengambilanPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ReservasiPengambilan.
+     * @param {ReservasiPengambilanDeleteArgs} args - Arguments to delete one ReservasiPengambilan.
+     * @example
+     * // Delete one ReservasiPengambilan
+     * const ReservasiPengambilan = await prisma.reservasiPengambilan.delete({
+     *   where: {
+     *     // ... filter to delete one ReservasiPengambilan
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ReservasiPengambilanDeleteArgs>(args: SelectSubset<T, ReservasiPengambilanDeleteArgs<ExtArgs>>): Prisma__ReservasiPengambilanClient<$Result.GetResult<Prisma.$ReservasiPengambilanPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ReservasiPengambilan.
+     * @param {ReservasiPengambilanUpdateArgs} args - Arguments to update one ReservasiPengambilan.
+     * @example
+     * // Update one ReservasiPengambilan
+     * const reservasiPengambilan = await prisma.reservasiPengambilan.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ReservasiPengambilanUpdateArgs>(args: SelectSubset<T, ReservasiPengambilanUpdateArgs<ExtArgs>>): Prisma__ReservasiPengambilanClient<$Result.GetResult<Prisma.$ReservasiPengambilanPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ReservasiPengambilans.
+     * @param {ReservasiPengambilanDeleteManyArgs} args - Arguments to filter ReservasiPengambilans to delete.
+     * @example
+     * // Delete a few ReservasiPengambilans
+     * const { count } = await prisma.reservasiPengambilan.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ReservasiPengambilanDeleteManyArgs>(args?: SelectSubset<T, ReservasiPengambilanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ReservasiPengambilans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReservasiPengambilanUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ReservasiPengambilans
+     * const reservasiPengambilan = await prisma.reservasiPengambilan.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ReservasiPengambilanUpdateManyArgs>(args: SelectSubset<T, ReservasiPengambilanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ReservasiPengambilans and returns the data updated in the database.
+     * @param {ReservasiPengambilanUpdateManyAndReturnArgs} args - Arguments to update many ReservasiPengambilans.
+     * @example
+     * // Update many ReservasiPengambilans
+     * const reservasiPengambilan = await prisma.reservasiPengambilan.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ReservasiPengambilans and only return the `id`
+     * const reservasiPengambilanWithIdOnly = await prisma.reservasiPengambilan.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ReservasiPengambilanUpdateManyAndReturnArgs>(args: SelectSubset<T, ReservasiPengambilanUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReservasiPengambilanPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ReservasiPengambilan.
+     * @param {ReservasiPengambilanUpsertArgs} args - Arguments to update or create a ReservasiPengambilan.
+     * @example
+     * // Update or create a ReservasiPengambilan
+     * const reservasiPengambilan = await prisma.reservasiPengambilan.upsert({
+     *   create: {
+     *     // ... data to create a ReservasiPengambilan
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ReservasiPengambilan we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ReservasiPengambilanUpsertArgs>(args: SelectSubset<T, ReservasiPengambilanUpsertArgs<ExtArgs>>): Prisma__ReservasiPengambilanClient<$Result.GetResult<Prisma.$ReservasiPengambilanPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ReservasiPengambilans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReservasiPengambilanCountArgs} args - Arguments to filter ReservasiPengambilans to count.
+     * @example
+     * // Count the number of ReservasiPengambilans
+     * const count = await prisma.reservasiPengambilan.count({
+     *   where: {
+     *     // ... the filter for the ReservasiPengambilans we want to count
+     *   }
+     * })
+    **/
+    count<T extends ReservasiPengambilanCountArgs>(
+      args?: Subset<T, ReservasiPengambilanCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ReservasiPengambilanCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ReservasiPengambilan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReservasiPengambilanAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ReservasiPengambilanAggregateArgs>(args: Subset<T, ReservasiPengambilanAggregateArgs>): Prisma.PrismaPromise<GetReservasiPengambilanAggregateType<T>>
+
+    /**
+     * Group by ReservasiPengambilan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReservasiPengambilanGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ReservasiPengambilanGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ReservasiPengambilanGroupByArgs['orderBy'] }
+        : { orderBy?: ReservasiPengambilanGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ReservasiPengambilanGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReservasiPengambilanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ReservasiPengambilan model
+   */
+  readonly fields: ReservasiPengambilanFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ReservasiPengambilan.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ReservasiPengambilanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    User<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    CucianOrder<T extends CucianOrderDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CucianOrderDefaultArgs<ExtArgs>>): Prisma__CucianOrderClient<$Result.GetResult<Prisma.$CucianOrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ReservasiPengambilan model
+   */
+  interface ReservasiPengambilanFieldRefs {
+    readonly id: FieldRef<"ReservasiPengambilan", 'String'>
+    readonly userId: FieldRef<"ReservasiPengambilan", 'String'>
+    readonly date: FieldRef<"ReservasiPengambilan", 'DateTime'>
+    readonly cucianOrderId: FieldRef<"ReservasiPengambilan", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ReservasiPengambilan findUnique
+   */
+  export type ReservasiPengambilanFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReservasiPengambilan
+     */
+    select?: ReservasiPengambilanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReservasiPengambilan
+     */
+    omit?: ReservasiPengambilanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReservasiPengambilanInclude<ExtArgs> | null
+    /**
+     * Filter, which ReservasiPengambilan to fetch.
+     */
+    where: ReservasiPengambilanWhereUniqueInput
+  }
+
+  /**
+   * ReservasiPengambilan findUniqueOrThrow
+   */
+  export type ReservasiPengambilanFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReservasiPengambilan
+     */
+    select?: ReservasiPengambilanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReservasiPengambilan
+     */
+    omit?: ReservasiPengambilanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReservasiPengambilanInclude<ExtArgs> | null
+    /**
+     * Filter, which ReservasiPengambilan to fetch.
+     */
+    where: ReservasiPengambilanWhereUniqueInput
+  }
+
+  /**
+   * ReservasiPengambilan findFirst
+   */
+  export type ReservasiPengambilanFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReservasiPengambilan
+     */
+    select?: ReservasiPengambilanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReservasiPengambilan
+     */
+    omit?: ReservasiPengambilanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReservasiPengambilanInclude<ExtArgs> | null
+    /**
+     * Filter, which ReservasiPengambilan to fetch.
+     */
+    where?: ReservasiPengambilanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReservasiPengambilans to fetch.
+     */
+    orderBy?: ReservasiPengambilanOrderByWithRelationInput | ReservasiPengambilanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ReservasiPengambilans.
+     */
+    cursor?: ReservasiPengambilanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReservasiPengambilans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReservasiPengambilans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ReservasiPengambilans.
+     */
+    distinct?: ReservasiPengambilanScalarFieldEnum | ReservasiPengambilanScalarFieldEnum[]
+  }
+
+  /**
+   * ReservasiPengambilan findFirstOrThrow
+   */
+  export type ReservasiPengambilanFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReservasiPengambilan
+     */
+    select?: ReservasiPengambilanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReservasiPengambilan
+     */
+    omit?: ReservasiPengambilanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReservasiPengambilanInclude<ExtArgs> | null
+    /**
+     * Filter, which ReservasiPengambilan to fetch.
+     */
+    where?: ReservasiPengambilanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReservasiPengambilans to fetch.
+     */
+    orderBy?: ReservasiPengambilanOrderByWithRelationInput | ReservasiPengambilanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ReservasiPengambilans.
+     */
+    cursor?: ReservasiPengambilanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReservasiPengambilans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReservasiPengambilans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ReservasiPengambilans.
+     */
+    distinct?: ReservasiPengambilanScalarFieldEnum | ReservasiPengambilanScalarFieldEnum[]
+  }
+
+  /**
+   * ReservasiPengambilan findMany
+   */
+  export type ReservasiPengambilanFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReservasiPengambilan
+     */
+    select?: ReservasiPengambilanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReservasiPengambilan
+     */
+    omit?: ReservasiPengambilanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReservasiPengambilanInclude<ExtArgs> | null
+    /**
+     * Filter, which ReservasiPengambilans to fetch.
+     */
+    where?: ReservasiPengambilanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ReservasiPengambilans to fetch.
+     */
+    orderBy?: ReservasiPengambilanOrderByWithRelationInput | ReservasiPengambilanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ReservasiPengambilans.
+     */
+    cursor?: ReservasiPengambilanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ReservasiPengambilans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ReservasiPengambilans.
+     */
+    skip?: number
+    distinct?: ReservasiPengambilanScalarFieldEnum | ReservasiPengambilanScalarFieldEnum[]
+  }
+
+  /**
+   * ReservasiPengambilan create
+   */
+  export type ReservasiPengambilanCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReservasiPengambilan
+     */
+    select?: ReservasiPengambilanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReservasiPengambilan
+     */
+    omit?: ReservasiPengambilanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReservasiPengambilanInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ReservasiPengambilan.
+     */
+    data: XOR<ReservasiPengambilanCreateInput, ReservasiPengambilanUncheckedCreateInput>
+  }
+
+  /**
+   * ReservasiPengambilan createMany
+   */
+  export type ReservasiPengambilanCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ReservasiPengambilans.
+     */
+    data: ReservasiPengambilanCreateManyInput | ReservasiPengambilanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ReservasiPengambilan createManyAndReturn
+   */
+  export type ReservasiPengambilanCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReservasiPengambilan
+     */
+    select?: ReservasiPengambilanSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReservasiPengambilan
+     */
+    omit?: ReservasiPengambilanOmit<ExtArgs> | null
+    /**
+     * The data used to create many ReservasiPengambilans.
+     */
+    data: ReservasiPengambilanCreateManyInput | ReservasiPengambilanCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReservasiPengambilanIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ReservasiPengambilan update
+   */
+  export type ReservasiPengambilanUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReservasiPengambilan
+     */
+    select?: ReservasiPengambilanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReservasiPengambilan
+     */
+    omit?: ReservasiPengambilanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReservasiPengambilanInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ReservasiPengambilan.
+     */
+    data: XOR<ReservasiPengambilanUpdateInput, ReservasiPengambilanUncheckedUpdateInput>
+    /**
+     * Choose, which ReservasiPengambilan to update.
+     */
+    where: ReservasiPengambilanWhereUniqueInput
+  }
+
+  /**
+   * ReservasiPengambilan updateMany
+   */
+  export type ReservasiPengambilanUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ReservasiPengambilans.
+     */
+    data: XOR<ReservasiPengambilanUpdateManyMutationInput, ReservasiPengambilanUncheckedUpdateManyInput>
+    /**
+     * Filter which ReservasiPengambilans to update
+     */
+    where?: ReservasiPengambilanWhereInput
+    /**
+     * Limit how many ReservasiPengambilans to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ReservasiPengambilan updateManyAndReturn
+   */
+  export type ReservasiPengambilanUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReservasiPengambilan
+     */
+    select?: ReservasiPengambilanSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReservasiPengambilan
+     */
+    omit?: ReservasiPengambilanOmit<ExtArgs> | null
+    /**
+     * The data used to update ReservasiPengambilans.
+     */
+    data: XOR<ReservasiPengambilanUpdateManyMutationInput, ReservasiPengambilanUncheckedUpdateManyInput>
+    /**
+     * Filter which ReservasiPengambilans to update
+     */
+    where?: ReservasiPengambilanWhereInput
+    /**
+     * Limit how many ReservasiPengambilans to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReservasiPengambilanIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ReservasiPengambilan upsert
+   */
+  export type ReservasiPengambilanUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReservasiPengambilan
+     */
+    select?: ReservasiPengambilanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReservasiPengambilan
+     */
+    omit?: ReservasiPengambilanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReservasiPengambilanInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ReservasiPengambilan to update in case it exists.
+     */
+    where: ReservasiPengambilanWhereUniqueInput
+    /**
+     * In case the ReservasiPengambilan found by the `where` argument doesn't exist, create a new ReservasiPengambilan with this data.
+     */
+    create: XOR<ReservasiPengambilanCreateInput, ReservasiPengambilanUncheckedCreateInput>
+    /**
+     * In case the ReservasiPengambilan was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ReservasiPengambilanUpdateInput, ReservasiPengambilanUncheckedUpdateInput>
+  }
+
+  /**
+   * ReservasiPengambilan delete
+   */
+  export type ReservasiPengambilanDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReservasiPengambilan
+     */
+    select?: ReservasiPengambilanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReservasiPengambilan
+     */
+    omit?: ReservasiPengambilanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReservasiPengambilanInclude<ExtArgs> | null
+    /**
+     * Filter which ReservasiPengambilan to delete.
+     */
+    where: ReservasiPengambilanWhereUniqueInput
+  }
+
+  /**
+   * ReservasiPengambilan deleteMany
+   */
+  export type ReservasiPengambilanDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ReservasiPengambilans to delete
+     */
+    where?: ReservasiPengambilanWhereInput
+    /**
+     * Limit how many ReservasiPengambilans to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ReservasiPengambilan without action
+   */
+  export type ReservasiPengambilanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReservasiPengambilan
+     */
+    select?: ReservasiPengambilanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReservasiPengambilan
+     */
+    omit?: ReservasiPengambilanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReservasiPengambilanInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Service
    */
 
@@ -6375,11 +7779,13 @@ export namespace Prisma {
   export type ServiceAvgAggregateOutputType = {
     pricePerUnit: Decimal | null
     estimatedTimeHours: number | null
+    priority: number | null
   }
 
   export type ServiceSumAggregateOutputType = {
     pricePerUnit: Decimal | null
     estimatedTimeHours: number | null
+    priority: number | null
   }
 
   export type ServiceMinAggregateOutputType = {
@@ -6388,10 +7794,10 @@ export namespace Prisma {
     description: string | null
     pricePerUnit: Decimal | null
     estimatedTimeHours: number | null
-    ServiceCategory: $Enums.ServiceCategory | null
-    isActive: boolean | null
+    priority: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    packageId: string | null
   }
 
   export type ServiceMaxAggregateOutputType = {
@@ -6400,10 +7806,10 @@ export namespace Prisma {
     description: string | null
     pricePerUnit: Decimal | null
     estimatedTimeHours: number | null
-    ServiceCategory: $Enums.ServiceCategory | null
-    isActive: boolean | null
+    priority: number | null
     createdAt: Date | null
     updatedAt: Date | null
+    packageId: string | null
   }
 
   export type ServiceCountAggregateOutputType = {
@@ -6412,10 +7818,10 @@ export namespace Prisma {
     description: number
     pricePerUnit: number
     estimatedTimeHours: number
-    ServiceCategory: number
-    isActive: number
+    priority: number
     createdAt: number
     updatedAt: number
+    packageId: number
     _all: number
   }
 
@@ -6423,11 +7829,13 @@ export namespace Prisma {
   export type ServiceAvgAggregateInputType = {
     pricePerUnit?: true
     estimatedTimeHours?: true
+    priority?: true
   }
 
   export type ServiceSumAggregateInputType = {
     pricePerUnit?: true
     estimatedTimeHours?: true
+    priority?: true
   }
 
   export type ServiceMinAggregateInputType = {
@@ -6436,10 +7844,10 @@ export namespace Prisma {
     description?: true
     pricePerUnit?: true
     estimatedTimeHours?: true
-    ServiceCategory?: true
-    isActive?: true
+    priority?: true
     createdAt?: true
     updatedAt?: true
+    packageId?: true
   }
 
   export type ServiceMaxAggregateInputType = {
@@ -6448,10 +7856,10 @@ export namespace Prisma {
     description?: true
     pricePerUnit?: true
     estimatedTimeHours?: true
-    ServiceCategory?: true
-    isActive?: true
+    priority?: true
     createdAt?: true
     updatedAt?: true
+    packageId?: true
   }
 
   export type ServiceCountAggregateInputType = {
@@ -6460,10 +7868,10 @@ export namespace Prisma {
     description?: true
     pricePerUnit?: true
     estimatedTimeHours?: true
-    ServiceCategory?: true
-    isActive?: true
+    priority?: true
     createdAt?: true
     updatedAt?: true
+    packageId?: true
     _all?: true
   }
 
@@ -6559,10 +7967,10 @@ export namespace Prisma {
     description: string | null
     pricePerUnit: Decimal
     estimatedTimeHours: number
-    ServiceCategory: $Enums.ServiceCategory
-    isActive: boolean
+    priority: number
     createdAt: Date
     updatedAt: Date
+    packageId: string | null
     _count: ServiceCountAggregateOutputType | null
     _avg: ServiceAvgAggregateOutputType | null
     _sum: ServiceSumAggregateOutputType | null
@@ -6590,10 +7998,13 @@ export namespace Prisma {
     description?: boolean
     pricePerUnit?: boolean
     estimatedTimeHours?: boolean
-    ServiceCategory?: boolean
-    isActive?: boolean
+    priority?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    packageId?: boolean
+    CucianOrder?: boolean | Service$CucianOrderArgs<ExtArgs>
+    Package?: boolean | Service$PackageArgs<ExtArgs>
+    _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
 
   export type ServiceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6602,10 +8013,11 @@ export namespace Prisma {
     description?: boolean
     pricePerUnit?: boolean
     estimatedTimeHours?: boolean
-    ServiceCategory?: boolean
-    isActive?: boolean
+    priority?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    packageId?: boolean
+    Package?: boolean | Service$PackageArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
 
   export type ServiceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6614,10 +8026,11 @@ export namespace Prisma {
     description?: boolean
     pricePerUnit?: boolean
     estimatedTimeHours?: boolean
-    ServiceCategory?: boolean
-    isActive?: boolean
+    priority?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    packageId?: boolean
+    Package?: boolean | Service$PackageArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
 
   export type ServiceSelectScalar = {
@@ -6626,27 +8039,41 @@ export namespace Prisma {
     description?: boolean
     pricePerUnit?: boolean
     estimatedTimeHours?: boolean
-    ServiceCategory?: boolean
-    isActive?: boolean
+    priority?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    packageId?: boolean
   }
 
-  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "pricePerUnit" | "estimatedTimeHours" | "ServiceCategory" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["service"]>
+  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "pricePerUnit" | "estimatedTimeHours" | "priority" | "createdAt" | "updatedAt" | "packageId", ExtArgs["result"]["service"]>
+  export type ServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    CucianOrder?: boolean | Service$CucianOrderArgs<ExtArgs>
+    Package?: boolean | Service$PackageArgs<ExtArgs>
+    _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ServiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Package?: boolean | Service$PackageArgs<ExtArgs>
+  }
+  export type ServiceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Package?: boolean | Service$PackageArgs<ExtArgs>
+  }
 
   export type $ServicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Service"
-    objects: {}
+    objects: {
+      CucianOrder: Prisma.$CucianOrderPayload<ExtArgs>[]
+      Package: Prisma.$PackagePayload<ExtArgs> | null
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       description: string | null
       pricePerUnit: Prisma.Decimal
       estimatedTimeHours: number
-      ServiceCategory: $Enums.ServiceCategory
-      isActive: boolean
+      priority: number
       createdAt: Date
       updatedAt: Date
+      packageId: string | null
     }, ExtArgs["result"]["service"]>
     composites: {}
   }
@@ -7041,6 +8468,8 @@ export namespace Prisma {
    */
   export interface Prisma__ServiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    CucianOrder<T extends Service$CucianOrderArgs<ExtArgs> = {}>(args?: Subset<T, Service$CucianOrderArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CucianOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Package<T extends Service$PackageArgs<ExtArgs> = {}>(args?: Subset<T, Service$PackageArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7075,10 +8504,10 @@ export namespace Prisma {
     readonly description: FieldRef<"Service", 'String'>
     readonly pricePerUnit: FieldRef<"Service", 'Decimal'>
     readonly estimatedTimeHours: FieldRef<"Service", 'Int'>
-    readonly ServiceCategory: FieldRef<"Service", 'ServiceCategory'>
-    readonly isActive: FieldRef<"Service", 'Boolean'>
+    readonly priority: FieldRef<"Service", 'Int'>
     readonly createdAt: FieldRef<"Service", 'DateTime'>
     readonly updatedAt: FieldRef<"Service", 'DateTime'>
+    readonly packageId: FieldRef<"Service", 'String'>
   }
     
 
@@ -7095,6 +8524,10 @@ export namespace Prisma {
      * Omit specific fields from the Service
      */
     omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
     /**
      * Filter, which Service to fetch.
      */
@@ -7114,6 +8547,10 @@ export namespace Prisma {
      */
     omit?: ServiceOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    /**
      * Filter, which Service to fetch.
      */
     where: ServiceWhereUniqueInput
@@ -7131,6 +8568,10 @@ export namespace Prisma {
      * Omit specific fields from the Service
      */
     omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
     /**
      * Filter, which Service to fetch.
      */
@@ -7180,6 +8621,10 @@ export namespace Prisma {
      */
     omit?: ServiceOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    /**
      * Filter, which Service to fetch.
      */
     where?: ServiceWhereInput
@@ -7228,6 +8673,10 @@ export namespace Prisma {
      */
     omit?: ServiceOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    /**
      * Filter, which Services to fetch.
      */
     where?: ServiceWhereInput
@@ -7271,6 +8720,10 @@ export namespace Prisma {
      */
     omit?: ServiceOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    /**
      * The data needed to create a Service.
      */
     data: XOR<ServiceCreateInput, ServiceUncheckedCreateInput>
@@ -7304,6 +8757,10 @@ export namespace Prisma {
      */
     data: ServiceCreateManyInput | ServiceCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7318,6 +8775,10 @@ export namespace Prisma {
      * Omit specific fields from the Service
      */
     omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
     /**
      * The data needed to update a Service.
      */
@@ -7370,6 +8831,10 @@ export namespace Prisma {
      * Limit how many Services to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7384,6 +8849,10 @@ export namespace Prisma {
      * Omit specific fields from the Service
      */
     omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
     /**
      * The filter to search for the Service to update in case it exists.
      */
@@ -7411,6 +8880,10 @@ export namespace Prisma {
      */
     omit?: ServiceOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    /**
      * Filter which Service to delete.
      */
     where: ServiceWhereUniqueInput
@@ -7431,6 +8904,49 @@ export namespace Prisma {
   }
 
   /**
+   * Service.CucianOrder
+   */
+  export type Service$CucianOrderArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CucianOrder
+     */
+    select?: CucianOrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CucianOrder
+     */
+    omit?: CucianOrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CucianOrderInclude<ExtArgs> | null
+    where?: CucianOrderWhereInput
+    orderBy?: CucianOrderOrderByWithRelationInput | CucianOrderOrderByWithRelationInput[]
+    cursor?: CucianOrderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CucianOrderScalarFieldEnum | CucianOrderScalarFieldEnum[]
+  }
+
+  /**
+   * Service.Package
+   */
+  export type Service$PackageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Package
+     */
+    select?: PackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Package
+     */
+    omit?: PackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PackageInclude<ExtArgs> | null
+    where?: PackageWhereInput
+  }
+
+  /**
    * Service without action
    */
   export type ServiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7442,6 +8958,10 @@ export namespace Prisma {
      * Omit specific fields from the Service
      */
     omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
   }
 
 
@@ -7636,6 +9156,7 @@ export namespace Prisma {
     description?: boolean
     pricePerUnit?: boolean
     CucianOrder?: boolean | Package$CucianOrderArgs<ExtArgs>
+    Service?: boolean | Package$ServiceArgs<ExtArgs>
     _count?: boolean | PackageCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["package"]>
 
@@ -7663,6 +9184,7 @@ export namespace Prisma {
   export type PackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "pricePerUnit", ExtArgs["result"]["package"]>
   export type PackageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     CucianOrder?: boolean | Package$CucianOrderArgs<ExtArgs>
+    Service?: boolean | Package$ServiceArgs<ExtArgs>
     _count?: boolean | PackageCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PackageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -7672,6 +9194,7 @@ export namespace Prisma {
     name: "Package"
     objects: {
       CucianOrder: Prisma.$CucianOrderPayload<ExtArgs>[]
+      Service: Prisma.$ServicePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8073,6 +9596,7 @@ export namespace Prisma {
   export interface Prisma__PackageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     CucianOrder<T extends Package$CucianOrderArgs<ExtArgs> = {}>(args?: Subset<T, Package$CucianOrderArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CucianOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Service<T extends Package$ServiceArgs<ExtArgs> = {}>(args?: Subset<T, Package$ServiceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8515,6 +10039,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CucianOrderScalarFieldEnum | CucianOrderScalarFieldEnum[]
+  }
+
+  /**
+   * Package.Service
+   */
+  export type Package$ServiceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
+    where?: ServiceWhereInput
+    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
+    cursor?: ServiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
   }
 
   /**
@@ -13064,10 +14612,24 @@ export namespace Prisma {
     nama: 'nama',
     alamat: 'alamat',
     phone: 'phone',
-    packageId: 'packageId'
+    packageId: 'packageId',
+    tahap: 'tahap',
+    status: 'status',
+    createAt: 'createAt',
+    selesaiAt: 'selesaiAt'
   };
 
   export type CucianOrderScalarFieldEnum = (typeof CucianOrderScalarFieldEnum)[keyof typeof CucianOrderScalarFieldEnum]
+
+
+  export const ReservasiPengambilanScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    date: 'date',
+    cucianOrderId: 'cucianOrderId'
+  };
+
+  export type ReservasiPengambilanScalarFieldEnum = (typeof ReservasiPengambilanScalarFieldEnum)[keyof typeof ReservasiPengambilanScalarFieldEnum]
 
 
   export const ServiceScalarFieldEnum: {
@@ -13076,10 +14638,10 @@ export namespace Prisma {
     description: 'description',
     pricePerUnit: 'pricePerUnit',
     estimatedTimeHours: 'estimatedTimeHours',
-    ServiceCategory: 'ServiceCategory',
-    isActive: 'isActive',
+    priority: 'priority',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    packageId: 'packageId'
   };
 
   export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
@@ -13241,20 +14803,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Decimal'
-   */
-  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
-    
-
-
-  /**
-   * Reference to a field of type 'Decimal[]'
-   */
-  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -13269,16 +14817,30 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'ServiceCategory'
+   * Reference to a field of type 'StatusOrder'
    */
-  export type EnumServiceCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ServiceCategory'>
+  export type EnumStatusOrderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusOrder'>
     
 
 
   /**
-   * Reference to a field of type 'ServiceCategory[]'
+   * Reference to a field of type 'StatusOrder[]'
    */
-  export type ListEnumServiceCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ServiceCategory[]'>
+  export type ListEnumStatusOrderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusOrder[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -13335,6 +14897,7 @@ export namespace Prisma {
     Payments?: PaymentListRelationFilter
     InventoryTransactions?: InventoryTransactionListRelationFilter
     CucianOrder?: CucianOrderListRelationFilter
+    ReservasiPengambilan?: ReservasiPengambilanListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -13356,6 +14919,7 @@ export namespace Prisma {
     Payments?: PaymentOrderByRelationAggregateInput
     InventoryTransactions?: InventoryTransactionOrderByRelationAggregateInput
     CucianOrder?: CucianOrderOrderByRelationAggregateInput
+    ReservasiPengambilan?: ReservasiPengambilanOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -13380,6 +14944,7 @@ export namespace Prisma {
     Payments?: PaymentListRelationFilter
     InventoryTransactions?: InventoryTransactionListRelationFilter
     CucianOrder?: CucianOrderListRelationFilter
+    ReservasiPengambilan?: ReservasiPengambilanListRelationFilter
   }, "id" | "username" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -13525,8 +15090,14 @@ export namespace Prisma {
     alamat?: StringNullableFilter<"CucianOrder"> | string | null
     phone?: StringNullableFilter<"CucianOrder"> | string | null
     packageId?: StringFilter<"CucianOrder"> | string
+    tahap?: IntNullableFilter<"CucianOrder"> | number | null
+    status?: EnumStatusOrderFilter<"CucianOrder"> | $Enums.StatusOrder
+    createAt?: DateTimeFilter<"CucianOrder"> | Date | string
+    selesaiAt?: DateTimeNullableFilter<"CucianOrder"> | Date | string | null
     User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    paket?: XOR<PackageScalarRelationFilter, PackageWhereInput>
+    Paket?: XOR<PackageScalarRelationFilter, PackageWhereInput>
+    ReservasiPengambilan?: ReservasiPengambilanListRelationFilter
+    Service?: ServiceListRelationFilter
   }
 
   export type CucianOrderOrderByWithRelationInput = {
@@ -13536,8 +15107,14 @@ export namespace Prisma {
     alamat?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     packageId?: SortOrder
+    tahap?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createAt?: SortOrder
+    selesaiAt?: SortOrderInput | SortOrder
     User?: UserOrderByWithRelationInput
-    paket?: PackageOrderByWithRelationInput
+    Paket?: PackageOrderByWithRelationInput
+    ReservasiPengambilan?: ReservasiPengambilanOrderByRelationAggregateInput
+    Service?: ServiceOrderByRelationAggregateInput
   }
 
   export type CucianOrderWhereUniqueInput = Prisma.AtLeast<{
@@ -13550,8 +15127,14 @@ export namespace Prisma {
     alamat?: StringNullableFilter<"CucianOrder"> | string | null
     phone?: StringNullableFilter<"CucianOrder"> | string | null
     packageId?: StringFilter<"CucianOrder"> | string
+    tahap?: IntNullableFilter<"CucianOrder"> | number | null
+    status?: EnumStatusOrderFilter<"CucianOrder"> | $Enums.StatusOrder
+    createAt?: DateTimeFilter<"CucianOrder"> | Date | string
+    selesaiAt?: DateTimeNullableFilter<"CucianOrder"> | Date | string | null
     User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    paket?: XOR<PackageScalarRelationFilter, PackageWhereInput>
+    Paket?: XOR<PackageScalarRelationFilter, PackageWhereInput>
+    ReservasiPengambilan?: ReservasiPengambilanListRelationFilter
+    Service?: ServiceListRelationFilter
   }, "id">
 
   export type CucianOrderOrderByWithAggregationInput = {
@@ -13561,9 +15144,15 @@ export namespace Prisma {
     alamat?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     packageId?: SortOrder
+    tahap?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createAt?: SortOrder
+    selesaiAt?: SortOrderInput | SortOrder
     _count?: CucianOrderCountOrderByAggregateInput
+    _avg?: CucianOrderAvgOrderByAggregateInput
     _max?: CucianOrderMaxOrderByAggregateInput
     _min?: CucianOrderMinOrderByAggregateInput
+    _sum?: CucianOrderSumOrderByAggregateInput
   }
 
   export type CucianOrderScalarWhereWithAggregatesInput = {
@@ -13576,6 +15165,63 @@ export namespace Prisma {
     alamat?: StringNullableWithAggregatesFilter<"CucianOrder"> | string | null
     phone?: StringNullableWithAggregatesFilter<"CucianOrder"> | string | null
     packageId?: StringWithAggregatesFilter<"CucianOrder"> | string
+    tahap?: IntNullableWithAggregatesFilter<"CucianOrder"> | number | null
+    status?: EnumStatusOrderWithAggregatesFilter<"CucianOrder"> | $Enums.StatusOrder
+    createAt?: DateTimeWithAggregatesFilter<"CucianOrder"> | Date | string
+    selesaiAt?: DateTimeNullableWithAggregatesFilter<"CucianOrder"> | Date | string | null
+  }
+
+  export type ReservasiPengambilanWhereInput = {
+    AND?: ReservasiPengambilanWhereInput | ReservasiPengambilanWhereInput[]
+    OR?: ReservasiPengambilanWhereInput[]
+    NOT?: ReservasiPengambilanWhereInput | ReservasiPengambilanWhereInput[]
+    id?: StringFilter<"ReservasiPengambilan"> | string
+    userId?: StringFilter<"ReservasiPengambilan"> | string
+    date?: DateTimeFilter<"ReservasiPengambilan"> | Date | string
+    cucianOrderId?: StringFilter<"ReservasiPengambilan"> | string
+    User?: XOR<UserScalarRelationFilter, UserWhereInput>
+    CucianOrder?: XOR<CucianOrderScalarRelationFilter, CucianOrderWhereInput>
+  }
+
+  export type ReservasiPengambilanOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    cucianOrderId?: SortOrder
+    User?: UserOrderByWithRelationInput
+    CucianOrder?: CucianOrderOrderByWithRelationInput
+  }
+
+  export type ReservasiPengambilanWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ReservasiPengambilanWhereInput | ReservasiPengambilanWhereInput[]
+    OR?: ReservasiPengambilanWhereInput[]
+    NOT?: ReservasiPengambilanWhereInput | ReservasiPengambilanWhereInput[]
+    userId?: StringFilter<"ReservasiPengambilan"> | string
+    date?: DateTimeFilter<"ReservasiPengambilan"> | Date | string
+    cucianOrderId?: StringFilter<"ReservasiPengambilan"> | string
+    User?: XOR<UserScalarRelationFilter, UserWhereInput>
+    CucianOrder?: XOR<CucianOrderScalarRelationFilter, CucianOrderWhereInput>
+  }, "id">
+
+  export type ReservasiPengambilanOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    cucianOrderId?: SortOrder
+    _count?: ReservasiPengambilanCountOrderByAggregateInput
+    _max?: ReservasiPengambilanMaxOrderByAggregateInput
+    _min?: ReservasiPengambilanMinOrderByAggregateInput
+  }
+
+  export type ReservasiPengambilanScalarWhereWithAggregatesInput = {
+    AND?: ReservasiPengambilanScalarWhereWithAggregatesInput | ReservasiPengambilanScalarWhereWithAggregatesInput[]
+    OR?: ReservasiPengambilanScalarWhereWithAggregatesInput[]
+    NOT?: ReservasiPengambilanScalarWhereWithAggregatesInput | ReservasiPengambilanScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ReservasiPengambilan"> | string
+    userId?: StringWithAggregatesFilter<"ReservasiPengambilan"> | string
+    date?: DateTimeWithAggregatesFilter<"ReservasiPengambilan"> | Date | string
+    cucianOrderId?: StringWithAggregatesFilter<"ReservasiPengambilan"> | string
   }
 
   export type ServiceWhereInput = {
@@ -13587,10 +15233,12 @@ export namespace Prisma {
     description?: StringNullableFilter<"Service"> | string | null
     pricePerUnit?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
     estimatedTimeHours?: IntFilter<"Service"> | number
-    ServiceCategory?: EnumServiceCategoryFilter<"Service"> | $Enums.ServiceCategory
-    isActive?: BoolFilter<"Service"> | boolean
+    priority?: IntFilter<"Service"> | number
     createdAt?: DateTimeFilter<"Service"> | Date | string
     updatedAt?: DateTimeFilter<"Service"> | Date | string
+    packageId?: StringNullableFilter<"Service"> | string | null
+    CucianOrder?: CucianOrderListRelationFilter
+    Package?: XOR<PackageNullableScalarRelationFilter, PackageWhereInput> | null
   }
 
   export type ServiceOrderByWithRelationInput = {
@@ -13599,10 +15247,12 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     pricePerUnit?: SortOrder
     estimatedTimeHours?: SortOrder
-    ServiceCategory?: SortOrder
-    isActive?: SortOrder
+    priority?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    packageId?: SortOrderInput | SortOrder
+    CucianOrder?: CucianOrderOrderByRelationAggregateInput
+    Package?: PackageOrderByWithRelationInput
   }
 
   export type ServiceWhereUniqueInput = Prisma.AtLeast<{
@@ -13614,10 +15264,12 @@ export namespace Prisma {
     description?: StringNullableFilter<"Service"> | string | null
     pricePerUnit?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
     estimatedTimeHours?: IntFilter<"Service"> | number
-    ServiceCategory?: EnumServiceCategoryFilter<"Service"> | $Enums.ServiceCategory
-    isActive?: BoolFilter<"Service"> | boolean
+    priority?: IntFilter<"Service"> | number
     createdAt?: DateTimeFilter<"Service"> | Date | string
     updatedAt?: DateTimeFilter<"Service"> | Date | string
+    packageId?: StringNullableFilter<"Service"> | string | null
+    CucianOrder?: CucianOrderListRelationFilter
+    Package?: XOR<PackageNullableScalarRelationFilter, PackageWhereInput> | null
   }, "id">
 
   export type ServiceOrderByWithAggregationInput = {
@@ -13626,10 +15278,10 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     pricePerUnit?: SortOrder
     estimatedTimeHours?: SortOrder
-    ServiceCategory?: SortOrder
-    isActive?: SortOrder
+    priority?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    packageId?: SortOrderInput | SortOrder
     _count?: ServiceCountOrderByAggregateInput
     _avg?: ServiceAvgOrderByAggregateInput
     _max?: ServiceMaxOrderByAggregateInput
@@ -13646,10 +15298,10 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Service"> | string | null
     pricePerUnit?: DecimalWithAggregatesFilter<"Service"> | Decimal | DecimalJsLike | number | string
     estimatedTimeHours?: IntWithAggregatesFilter<"Service"> | number
-    ServiceCategory?: EnumServiceCategoryWithAggregatesFilter<"Service"> | $Enums.ServiceCategory
-    isActive?: BoolWithAggregatesFilter<"Service"> | boolean
+    priority?: IntWithAggregatesFilter<"Service"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Service"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Service"> | Date | string
+    packageId?: StringNullableWithAggregatesFilter<"Service"> | string | null
   }
 
   export type PackageWhereInput = {
@@ -13661,6 +15313,7 @@ export namespace Prisma {
     description?: StringFilter<"Package"> | string
     pricePerUnit?: BigIntFilter<"Package"> | bigint | number
     CucianOrder?: CucianOrderListRelationFilter
+    Service?: ServiceListRelationFilter
   }
 
   export type PackageOrderByWithRelationInput = {
@@ -13669,6 +15322,7 @@ export namespace Prisma {
     description?: SortOrder
     pricePerUnit?: SortOrder
     CucianOrder?: CucianOrderOrderByRelationAggregateInput
+    Service?: ServiceOrderByRelationAggregateInput
   }
 
   export type PackageWhereUniqueInput = Prisma.AtLeast<{
@@ -13680,6 +15334,7 @@ export namespace Prisma {
     description?: StringFilter<"Package"> | string
     pricePerUnit?: BigIntFilter<"Package"> | bigint | number
     CucianOrder?: CucianOrderListRelationFilter
+    Service?: ServiceListRelationFilter
   }, "id">
 
   export type PackageOrderByWithAggregationInput = {
@@ -13984,6 +15639,7 @@ export namespace Prisma {
     Payments?: PaymentCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderCreateNestedManyWithoutUserInput
+    ReservasiPengambilan?: ReservasiPengambilanCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -14004,6 +15660,7 @@ export namespace Prisma {
     Payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionUncheckedCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutUserInput
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -14024,6 +15681,7 @@ export namespace Prisma {
     Payments?: PaymentUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUpdateManyWithoutUserNestedInput
+    ReservasiPengambilan?: ReservasiPengambilanUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -14044,6 +15702,7 @@ export namespace Prisma {
     Payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUncheckedUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUncheckedUpdateManyWithoutUserNestedInput
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -14192,8 +15851,14 @@ export namespace Prisma {
     nama: string
     alamat?: string | null
     phone?: string | null
+    tahap?: number | null
+    status?: $Enums.StatusOrder
+    createAt?: Date | string
+    selesaiAt?: Date | string | null
     User?: UserCreateNestedOneWithoutCucianOrderInput
-    paket: PackageCreateNestedOneWithoutCucianOrderInput
+    Paket: PackageCreateNestedOneWithoutCucianOrderInput
+    ReservasiPengambilan?: ReservasiPengambilanCreateNestedManyWithoutCucianOrderInput
+    Service?: ServiceCreateNestedManyWithoutCucianOrderInput
   }
 
   export type CucianOrderUncheckedCreateInput = {
@@ -14203,6 +15868,12 @@ export namespace Prisma {
     alamat?: string | null
     phone?: string | null
     packageId: string
+    tahap?: number | null
+    status?: $Enums.StatusOrder
+    createAt?: Date | string
+    selesaiAt?: Date | string | null
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedCreateNestedManyWithoutCucianOrderInput
+    Service?: ServiceUncheckedCreateNestedManyWithoutCucianOrderInput
   }
 
   export type CucianOrderUpdateInput = {
@@ -14210,8 +15881,14 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     User?: UserUpdateOneWithoutCucianOrderNestedInput
-    paket?: PackageUpdateOneRequiredWithoutCucianOrderNestedInput
+    Paket?: PackageUpdateOneRequiredWithoutCucianOrderNestedInput
+    ReservasiPengambilan?: ReservasiPengambilanUpdateManyWithoutCucianOrderNestedInput
+    Service?: ServiceUpdateManyWithoutCucianOrderNestedInput
   }
 
   export type CucianOrderUncheckedUpdateInput = {
@@ -14221,6 +15898,12 @@ export namespace Prisma {
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     packageId?: StringFieldUpdateOperationsInput | string
+    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedUpdateManyWithoutCucianOrderNestedInput
+    Service?: ServiceUncheckedUpdateManyWithoutCucianOrderNestedInput
   }
 
   export type CucianOrderCreateManyInput = {
@@ -14230,6 +15913,10 @@ export namespace Prisma {
     alamat?: string | null
     phone?: string | null
     packageId: string
+    tahap?: number | null
+    status?: $Enums.StatusOrder
+    createAt?: Date | string
+    selesaiAt?: Date | string | null
   }
 
   export type CucianOrderUpdateManyMutationInput = {
@@ -14237,6 +15924,10 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type CucianOrderUncheckedUpdateManyInput = {
@@ -14246,6 +15937,57 @@ export namespace Prisma {
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     packageId?: StringFieldUpdateOperationsInput | string
+    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ReservasiPengambilanCreateInput = {
+    id?: string
+    date: Date | string
+    User: UserCreateNestedOneWithoutReservasiPengambilanInput
+    CucianOrder: CucianOrderCreateNestedOneWithoutReservasiPengambilanInput
+  }
+
+  export type ReservasiPengambilanUncheckedCreateInput = {
+    id?: string
+    userId: string
+    date: Date | string
+    cucianOrderId: string
+  }
+
+  export type ReservasiPengambilanUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    User?: UserUpdateOneRequiredWithoutReservasiPengambilanNestedInput
+    CucianOrder?: CucianOrderUpdateOneRequiredWithoutReservasiPengambilanNestedInput
+  }
+
+  export type ReservasiPengambilanUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    cucianOrderId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ReservasiPengambilanCreateManyInput = {
+    id?: string
+    userId: string
+    date: Date | string
+    cucianOrderId: string
+  }
+
+  export type ReservasiPengambilanUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReservasiPengambilanUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    cucianOrderId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ServiceCreateInput = {
@@ -14254,10 +15996,11 @@ export namespace Prisma {
     description?: string | null
     pricePerUnit: Decimal | DecimalJsLike | number | string
     estimatedTimeHours: number
-    ServiceCategory: $Enums.ServiceCategory
-    isActive?: boolean
+    priority: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    CucianOrder?: CucianOrderCreateNestedManyWithoutServiceInput
+    Package?: PackageCreateNestedOneWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateInput = {
@@ -14266,10 +16009,11 @@ export namespace Prisma {
     description?: string | null
     pricePerUnit: Decimal | DecimalJsLike | number | string
     estimatedTimeHours: number
-    ServiceCategory: $Enums.ServiceCategory
-    isActive?: boolean
+    priority: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    packageId?: string | null
+    CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUpdateInput = {
@@ -14278,10 +16022,11 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     estimatedTimeHours?: IntFieldUpdateOperationsInput | number
-    ServiceCategory?: EnumServiceCategoryFieldUpdateOperationsInput | $Enums.ServiceCategory
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+    priority?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CucianOrder?: CucianOrderUpdateManyWithoutServiceNestedInput
+    Package?: PackageUpdateOneWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateInput = {
@@ -14290,10 +16035,11 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     estimatedTimeHours?: IntFieldUpdateOperationsInput | number
-    ServiceCategory?: EnumServiceCategoryFieldUpdateOperationsInput | $Enums.ServiceCategory
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+    priority?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    CucianOrder?: CucianOrderUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceCreateManyInput = {
@@ -14302,10 +16048,10 @@ export namespace Prisma {
     description?: string | null
     pricePerUnit: Decimal | DecimalJsLike | number | string
     estimatedTimeHours: number
-    ServiceCategory: $Enums.ServiceCategory
-    isActive?: boolean
+    priority: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    packageId?: string | null
   }
 
   export type ServiceUpdateManyMutationInput = {
@@ -14314,8 +16060,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     estimatedTimeHours?: IntFieldUpdateOperationsInput | number
-    ServiceCategory?: EnumServiceCategoryFieldUpdateOperationsInput | $Enums.ServiceCategory
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+    priority?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14326,10 +16071,10 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     estimatedTimeHours?: IntFieldUpdateOperationsInput | number
-    ServiceCategory?: EnumServiceCategoryFieldUpdateOperationsInput | $Enums.ServiceCategory
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+    priority?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PackageCreateInput = {
@@ -14338,6 +16083,7 @@ export namespace Prisma {
     description: string
     pricePerUnit: bigint | number
     CucianOrder?: CucianOrderCreateNestedManyWithoutPaketInput
+    Service?: ServiceCreateNestedManyWithoutPackageInput
   }
 
   export type PackageUncheckedCreateInput = {
@@ -14346,6 +16092,7 @@ export namespace Prisma {
     description: string
     pricePerUnit: bigint | number
     CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutPaketInput
+    Service?: ServiceUncheckedCreateNestedManyWithoutPackageInput
   }
 
   export type PackageUpdateInput = {
@@ -14354,6 +16101,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
     CucianOrder?: CucianOrderUpdateManyWithoutPaketNestedInput
+    Service?: ServiceUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageUncheckedUpdateInput = {
@@ -14362,6 +16110,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
     CucianOrder?: CucianOrderUncheckedUpdateManyWithoutPaketNestedInput
+    Service?: ServiceUncheckedUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageCreateManyInput = {
@@ -14764,6 +16513,12 @@ export namespace Prisma {
     none?: CucianOrderWhereInput
   }
 
+  export type ReservasiPengambilanListRelationFilter = {
+    every?: ReservasiPengambilanWhereInput
+    some?: ReservasiPengambilanWhereInput
+    none?: ReservasiPengambilanWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -14782,6 +16537,10 @@ export namespace Prisma {
   }
 
   export type CucianOrderOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ReservasiPengambilanOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14983,6 +16742,24 @@ export namespace Prisma {
     name?: SortOrder
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type EnumStatusOrderFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusOrder | EnumStatusOrderFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusOrder[] | ListEnumStatusOrderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusOrder[] | ListEnumStatusOrderFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusOrderFilter<$PrismaModel> | $Enums.StatusOrder
+  }
+
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
@@ -14993,6 +16770,16 @@ export namespace Prisma {
     isNot?: PackageWhereInput
   }
 
+  export type ServiceListRelationFilter = {
+    every?: ServiceWhereInput
+    some?: ServiceWhereInput
+    none?: ServiceWhereInput
+  }
+
+  export type ServiceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type CucianOrderCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -15000,6 +16787,14 @@ export namespace Prisma {
     alamat?: SortOrder
     phone?: SortOrder
     packageId?: SortOrder
+    tahap?: SortOrder
+    status?: SortOrder
+    createAt?: SortOrder
+    selesaiAt?: SortOrder
+  }
+
+  export type CucianOrderAvgOrderByAggregateInput = {
+    tahap?: SortOrder
   }
 
   export type CucianOrderMaxOrderByAggregateInput = {
@@ -15009,6 +16804,10 @@ export namespace Prisma {
     alamat?: SortOrder
     phone?: SortOrder
     packageId?: SortOrder
+    tahap?: SortOrder
+    status?: SortOrder
+    createAt?: SortOrder
+    selesaiAt?: SortOrder
   }
 
   export type CucianOrderMinOrderByAggregateInput = {
@@ -15018,6 +16817,66 @@ export namespace Prisma {
     alamat?: SortOrder
     phone?: SortOrder
     packageId?: SortOrder
+    tahap?: SortOrder
+    status?: SortOrder
+    createAt?: SortOrder
+    selesaiAt?: SortOrder
+  }
+
+  export type CucianOrderSumOrderByAggregateInput = {
+    tahap?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumStatusOrderWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusOrder | EnumStatusOrderFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusOrder[] | ListEnumStatusOrderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusOrder[] | ListEnumStatusOrderFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusOrderWithAggregatesFilter<$PrismaModel> | $Enums.StatusOrder
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusOrderFilter<$PrismaModel>
+    _max?: NestedEnumStatusOrderFilter<$PrismaModel>
+  }
+
+  export type CucianOrderScalarRelationFilter = {
+    is?: CucianOrderWhereInput
+    isNot?: CucianOrderWhereInput
+  }
+
+  export type ReservasiPengambilanCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    cucianOrderId?: SortOrder
+  }
+
+  export type ReservasiPengambilanMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    cucianOrderId?: SortOrder
+  }
+
+  export type ReservasiPengambilanMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    date?: SortOrder
+    cucianOrderId?: SortOrder
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -15042,11 +16901,9 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type EnumServiceCategoryFilter<$PrismaModel = never> = {
-    equals?: $Enums.ServiceCategory | EnumServiceCategoryFieldRefInput<$PrismaModel>
-    in?: $Enums.ServiceCategory[] | ListEnumServiceCategoryFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ServiceCategory[] | ListEnumServiceCategoryFieldRefInput<$PrismaModel>
-    not?: NestedEnumServiceCategoryFilter<$PrismaModel> | $Enums.ServiceCategory
+  export type PackageNullableScalarRelationFilter = {
+    is?: PackageWhereInput | null
+    isNot?: PackageWhereInput | null
   }
 
   export type ServiceCountOrderByAggregateInput = {
@@ -15055,15 +16912,16 @@ export namespace Prisma {
     description?: SortOrder
     pricePerUnit?: SortOrder
     estimatedTimeHours?: SortOrder
-    ServiceCategory?: SortOrder
-    isActive?: SortOrder
+    priority?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    packageId?: SortOrder
   }
 
   export type ServiceAvgOrderByAggregateInput = {
     pricePerUnit?: SortOrder
     estimatedTimeHours?: SortOrder
+    priority?: SortOrder
   }
 
   export type ServiceMaxOrderByAggregateInput = {
@@ -15072,10 +16930,10 @@ export namespace Prisma {
     description?: SortOrder
     pricePerUnit?: SortOrder
     estimatedTimeHours?: SortOrder
-    ServiceCategory?: SortOrder
-    isActive?: SortOrder
+    priority?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    packageId?: SortOrder
   }
 
   export type ServiceMinOrderByAggregateInput = {
@@ -15084,15 +16942,16 @@ export namespace Prisma {
     description?: SortOrder
     pricePerUnit?: SortOrder
     estimatedTimeHours?: SortOrder
-    ServiceCategory?: SortOrder
-    isActive?: SortOrder
+    priority?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    packageId?: SortOrder
   }
 
   export type ServiceSumOrderByAggregateInput = {
     pricePerUnit?: SortOrder
     estimatedTimeHours?: SortOrder
+    priority?: SortOrder
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -15125,16 +16984,6 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type EnumServiceCategoryWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ServiceCategory | EnumServiceCategoryFieldRefInput<$PrismaModel>
-    in?: $Enums.ServiceCategory[] | ListEnumServiceCategoryFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ServiceCategory[] | ListEnumServiceCategoryFieldRefInput<$PrismaModel>
-    not?: NestedEnumServiceCategoryWithAggregatesFilter<$PrismaModel> | $Enums.ServiceCategory
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumServiceCategoryFilter<$PrismaModel>
-    _max?: NestedEnumServiceCategoryFilter<$PrismaModel>
   }
 
   export type BigIntFilter<$PrismaModel = never> = {
@@ -15389,6 +17238,13 @@ export namespace Prisma {
     connect?: CucianOrderWhereUniqueInput | CucianOrderWhereUniqueInput[]
   }
 
+  export type ReservasiPengambilanCreateNestedManyWithoutUserInput = {
+    create?: XOR<ReservasiPengambilanCreateWithoutUserInput, ReservasiPengambilanUncheckedCreateWithoutUserInput> | ReservasiPengambilanCreateWithoutUserInput[] | ReservasiPengambilanUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ReservasiPengambilanCreateOrConnectWithoutUserInput | ReservasiPengambilanCreateOrConnectWithoutUserInput[]
+    createMany?: ReservasiPengambilanCreateManyUserInputEnvelope
+    connect?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+  }
+
   export type LoginSessionUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<LoginSessionCreateWithoutUserInput, LoginSessionUncheckedCreateWithoutUserInput> | LoginSessionCreateWithoutUserInput[] | LoginSessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: LoginSessionCreateOrConnectWithoutUserInput | LoginSessionCreateOrConnectWithoutUserInput[]
@@ -15415,6 +17271,13 @@ export namespace Prisma {
     connectOrCreate?: CucianOrderCreateOrConnectWithoutUserInput | CucianOrderCreateOrConnectWithoutUserInput[]
     createMany?: CucianOrderCreateManyUserInputEnvelope
     connect?: CucianOrderWhereUniqueInput | CucianOrderWhereUniqueInput[]
+  }
+
+  export type ReservasiPengambilanUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ReservasiPengambilanCreateWithoutUserInput, ReservasiPengambilanUncheckedCreateWithoutUserInput> | ReservasiPengambilanCreateWithoutUserInput[] | ReservasiPengambilanUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ReservasiPengambilanCreateOrConnectWithoutUserInput | ReservasiPengambilanCreateOrConnectWithoutUserInput[]
+    createMany?: ReservasiPengambilanCreateManyUserInputEnvelope
+    connect?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -15501,6 +17364,20 @@ export namespace Prisma {
     deleteMany?: CucianOrderScalarWhereInput | CucianOrderScalarWhereInput[]
   }
 
+  export type ReservasiPengambilanUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ReservasiPengambilanCreateWithoutUserInput, ReservasiPengambilanUncheckedCreateWithoutUserInput> | ReservasiPengambilanCreateWithoutUserInput[] | ReservasiPengambilanUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ReservasiPengambilanCreateOrConnectWithoutUserInput | ReservasiPengambilanCreateOrConnectWithoutUserInput[]
+    upsert?: ReservasiPengambilanUpsertWithWhereUniqueWithoutUserInput | ReservasiPengambilanUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ReservasiPengambilanCreateManyUserInputEnvelope
+    set?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+    disconnect?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+    delete?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+    connect?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+    update?: ReservasiPengambilanUpdateWithWhereUniqueWithoutUserInput | ReservasiPengambilanUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ReservasiPengambilanUpdateManyWithWhereWithoutUserInput | ReservasiPengambilanUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ReservasiPengambilanScalarWhereInput | ReservasiPengambilanScalarWhereInput[]
+  }
+
   export type LoginSessionUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<LoginSessionCreateWithoutUserInput, LoginSessionUncheckedCreateWithoutUserInput> | LoginSessionCreateWithoutUserInput[] | LoginSessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: LoginSessionCreateOrConnectWithoutUserInput | LoginSessionCreateOrConnectWithoutUserInput[]
@@ -15555,6 +17432,20 @@ export namespace Prisma {
     update?: CucianOrderUpdateWithWhereUniqueWithoutUserInput | CucianOrderUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: CucianOrderUpdateManyWithWhereWithoutUserInput | CucianOrderUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CucianOrderScalarWhereInput | CucianOrderScalarWhereInput[]
+  }
+
+  export type ReservasiPengambilanUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ReservasiPengambilanCreateWithoutUserInput, ReservasiPengambilanUncheckedCreateWithoutUserInput> | ReservasiPengambilanCreateWithoutUserInput[] | ReservasiPengambilanUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ReservasiPengambilanCreateOrConnectWithoutUserInput | ReservasiPengambilanCreateOrConnectWithoutUserInput[]
+    upsert?: ReservasiPengambilanUpsertWithWhereUniqueWithoutUserInput | ReservasiPengambilanUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ReservasiPengambilanCreateManyUserInputEnvelope
+    set?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+    disconnect?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+    delete?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+    connect?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+    update?: ReservasiPengambilanUpdateWithWhereUniqueWithoutUserInput | ReservasiPengambilanUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ReservasiPengambilanUpdateManyWithWhereWithoutUserInput | ReservasiPengambilanUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ReservasiPengambilanScalarWhereInput | ReservasiPengambilanScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSessionInput = {
@@ -15625,6 +17516,44 @@ export namespace Prisma {
     connect?: PackageWhereUniqueInput
   }
 
+  export type ReservasiPengambilanCreateNestedManyWithoutCucianOrderInput = {
+    create?: XOR<ReservasiPengambilanCreateWithoutCucianOrderInput, ReservasiPengambilanUncheckedCreateWithoutCucianOrderInput> | ReservasiPengambilanCreateWithoutCucianOrderInput[] | ReservasiPengambilanUncheckedCreateWithoutCucianOrderInput[]
+    connectOrCreate?: ReservasiPengambilanCreateOrConnectWithoutCucianOrderInput | ReservasiPengambilanCreateOrConnectWithoutCucianOrderInput[]
+    createMany?: ReservasiPengambilanCreateManyCucianOrderInputEnvelope
+    connect?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+  }
+
+  export type ServiceCreateNestedManyWithoutCucianOrderInput = {
+    create?: XOR<ServiceCreateWithoutCucianOrderInput, ServiceUncheckedCreateWithoutCucianOrderInput> | ServiceCreateWithoutCucianOrderInput[] | ServiceUncheckedCreateWithoutCucianOrderInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutCucianOrderInput | ServiceCreateOrConnectWithoutCucianOrderInput[]
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+  }
+
+  export type ReservasiPengambilanUncheckedCreateNestedManyWithoutCucianOrderInput = {
+    create?: XOR<ReservasiPengambilanCreateWithoutCucianOrderInput, ReservasiPengambilanUncheckedCreateWithoutCucianOrderInput> | ReservasiPengambilanCreateWithoutCucianOrderInput[] | ReservasiPengambilanUncheckedCreateWithoutCucianOrderInput[]
+    connectOrCreate?: ReservasiPengambilanCreateOrConnectWithoutCucianOrderInput | ReservasiPengambilanCreateOrConnectWithoutCucianOrderInput[]
+    createMany?: ReservasiPengambilanCreateManyCucianOrderInputEnvelope
+    connect?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+  }
+
+  export type ServiceUncheckedCreateNestedManyWithoutCucianOrderInput = {
+    create?: XOR<ServiceCreateWithoutCucianOrderInput, ServiceUncheckedCreateWithoutCucianOrderInput> | ServiceCreateWithoutCucianOrderInput[] | ServiceUncheckedCreateWithoutCucianOrderInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutCucianOrderInput | ServiceCreateOrConnectWithoutCucianOrderInput[]
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type EnumStatusOrderFieldUpdateOperationsInput = {
+    set?: $Enums.StatusOrder
+  }
+
   export type UserUpdateOneWithoutCucianOrderNestedInput = {
     create?: XOR<UserCreateWithoutCucianOrderInput, UserUncheckedCreateWithoutCucianOrderInput>
     connectOrCreate?: UserCreateOrConnectWithoutCucianOrderInput
@@ -15643,6 +17572,106 @@ export namespace Prisma {
     update?: XOR<XOR<PackageUpdateToOneWithWhereWithoutCucianOrderInput, PackageUpdateWithoutCucianOrderInput>, PackageUncheckedUpdateWithoutCucianOrderInput>
   }
 
+  export type ReservasiPengambilanUpdateManyWithoutCucianOrderNestedInput = {
+    create?: XOR<ReservasiPengambilanCreateWithoutCucianOrderInput, ReservasiPengambilanUncheckedCreateWithoutCucianOrderInput> | ReservasiPengambilanCreateWithoutCucianOrderInput[] | ReservasiPengambilanUncheckedCreateWithoutCucianOrderInput[]
+    connectOrCreate?: ReservasiPengambilanCreateOrConnectWithoutCucianOrderInput | ReservasiPengambilanCreateOrConnectWithoutCucianOrderInput[]
+    upsert?: ReservasiPengambilanUpsertWithWhereUniqueWithoutCucianOrderInput | ReservasiPengambilanUpsertWithWhereUniqueWithoutCucianOrderInput[]
+    createMany?: ReservasiPengambilanCreateManyCucianOrderInputEnvelope
+    set?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+    disconnect?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+    delete?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+    connect?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+    update?: ReservasiPengambilanUpdateWithWhereUniqueWithoutCucianOrderInput | ReservasiPengambilanUpdateWithWhereUniqueWithoutCucianOrderInput[]
+    updateMany?: ReservasiPengambilanUpdateManyWithWhereWithoutCucianOrderInput | ReservasiPengambilanUpdateManyWithWhereWithoutCucianOrderInput[]
+    deleteMany?: ReservasiPengambilanScalarWhereInput | ReservasiPengambilanScalarWhereInput[]
+  }
+
+  export type ServiceUpdateManyWithoutCucianOrderNestedInput = {
+    create?: XOR<ServiceCreateWithoutCucianOrderInput, ServiceUncheckedCreateWithoutCucianOrderInput> | ServiceCreateWithoutCucianOrderInput[] | ServiceUncheckedCreateWithoutCucianOrderInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutCucianOrderInput | ServiceCreateOrConnectWithoutCucianOrderInput[]
+    upsert?: ServiceUpsertWithWhereUniqueWithoutCucianOrderInput | ServiceUpsertWithWhereUniqueWithoutCucianOrderInput[]
+    set?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    disconnect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    delete?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    update?: ServiceUpdateWithWhereUniqueWithoutCucianOrderInput | ServiceUpdateWithWhereUniqueWithoutCucianOrderInput[]
+    updateMany?: ServiceUpdateManyWithWhereWithoutCucianOrderInput | ServiceUpdateManyWithWhereWithoutCucianOrderInput[]
+    deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
+  }
+
+  export type ReservasiPengambilanUncheckedUpdateManyWithoutCucianOrderNestedInput = {
+    create?: XOR<ReservasiPengambilanCreateWithoutCucianOrderInput, ReservasiPengambilanUncheckedCreateWithoutCucianOrderInput> | ReservasiPengambilanCreateWithoutCucianOrderInput[] | ReservasiPengambilanUncheckedCreateWithoutCucianOrderInput[]
+    connectOrCreate?: ReservasiPengambilanCreateOrConnectWithoutCucianOrderInput | ReservasiPengambilanCreateOrConnectWithoutCucianOrderInput[]
+    upsert?: ReservasiPengambilanUpsertWithWhereUniqueWithoutCucianOrderInput | ReservasiPengambilanUpsertWithWhereUniqueWithoutCucianOrderInput[]
+    createMany?: ReservasiPengambilanCreateManyCucianOrderInputEnvelope
+    set?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+    disconnect?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+    delete?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+    connect?: ReservasiPengambilanWhereUniqueInput | ReservasiPengambilanWhereUniqueInput[]
+    update?: ReservasiPengambilanUpdateWithWhereUniqueWithoutCucianOrderInput | ReservasiPengambilanUpdateWithWhereUniqueWithoutCucianOrderInput[]
+    updateMany?: ReservasiPengambilanUpdateManyWithWhereWithoutCucianOrderInput | ReservasiPengambilanUpdateManyWithWhereWithoutCucianOrderInput[]
+    deleteMany?: ReservasiPengambilanScalarWhereInput | ReservasiPengambilanScalarWhereInput[]
+  }
+
+  export type ServiceUncheckedUpdateManyWithoutCucianOrderNestedInput = {
+    create?: XOR<ServiceCreateWithoutCucianOrderInput, ServiceUncheckedCreateWithoutCucianOrderInput> | ServiceCreateWithoutCucianOrderInput[] | ServiceUncheckedCreateWithoutCucianOrderInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutCucianOrderInput | ServiceCreateOrConnectWithoutCucianOrderInput[]
+    upsert?: ServiceUpsertWithWhereUniqueWithoutCucianOrderInput | ServiceUpsertWithWhereUniqueWithoutCucianOrderInput[]
+    set?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    disconnect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    delete?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    update?: ServiceUpdateWithWhereUniqueWithoutCucianOrderInput | ServiceUpdateWithWhereUniqueWithoutCucianOrderInput[]
+    updateMany?: ServiceUpdateManyWithWhereWithoutCucianOrderInput | ServiceUpdateManyWithWhereWithoutCucianOrderInput[]
+    deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutReservasiPengambilanInput = {
+    create?: XOR<UserCreateWithoutReservasiPengambilanInput, UserUncheckedCreateWithoutReservasiPengambilanInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReservasiPengambilanInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CucianOrderCreateNestedOneWithoutReservasiPengambilanInput = {
+    create?: XOR<CucianOrderCreateWithoutReservasiPengambilanInput, CucianOrderUncheckedCreateWithoutReservasiPengambilanInput>
+    connectOrCreate?: CucianOrderCreateOrConnectWithoutReservasiPengambilanInput
+    connect?: CucianOrderWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutReservasiPengambilanNestedInput = {
+    create?: XOR<UserCreateWithoutReservasiPengambilanInput, UserUncheckedCreateWithoutReservasiPengambilanInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReservasiPengambilanInput
+    upsert?: UserUpsertWithoutReservasiPengambilanInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReservasiPengambilanInput, UserUpdateWithoutReservasiPengambilanInput>, UserUncheckedUpdateWithoutReservasiPengambilanInput>
+  }
+
+  export type CucianOrderUpdateOneRequiredWithoutReservasiPengambilanNestedInput = {
+    create?: XOR<CucianOrderCreateWithoutReservasiPengambilanInput, CucianOrderUncheckedCreateWithoutReservasiPengambilanInput>
+    connectOrCreate?: CucianOrderCreateOrConnectWithoutReservasiPengambilanInput
+    upsert?: CucianOrderUpsertWithoutReservasiPengambilanInput
+    connect?: CucianOrderWhereUniqueInput
+    update?: XOR<XOR<CucianOrderUpdateToOneWithWhereWithoutReservasiPengambilanInput, CucianOrderUpdateWithoutReservasiPengambilanInput>, CucianOrderUncheckedUpdateWithoutReservasiPengambilanInput>
+  }
+
+  export type CucianOrderCreateNestedManyWithoutServiceInput = {
+    create?: XOR<CucianOrderCreateWithoutServiceInput, CucianOrderUncheckedCreateWithoutServiceInput> | CucianOrderCreateWithoutServiceInput[] | CucianOrderUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: CucianOrderCreateOrConnectWithoutServiceInput | CucianOrderCreateOrConnectWithoutServiceInput[]
+    connect?: CucianOrderWhereUniqueInput | CucianOrderWhereUniqueInput[]
+  }
+
+  export type PackageCreateNestedOneWithoutServiceInput = {
+    create?: XOR<PackageCreateWithoutServiceInput, PackageUncheckedCreateWithoutServiceInput>
+    connectOrCreate?: PackageCreateOrConnectWithoutServiceInput
+    connect?: PackageWhereUniqueInput
+  }
+
+  export type CucianOrderUncheckedCreateNestedManyWithoutServiceInput = {
+    create?: XOR<CucianOrderCreateWithoutServiceInput, CucianOrderUncheckedCreateWithoutServiceInput> | CucianOrderCreateWithoutServiceInput[] | CucianOrderUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: CucianOrderCreateOrConnectWithoutServiceInput | CucianOrderCreateOrConnectWithoutServiceInput[]
+    connect?: CucianOrderWhereUniqueInput | CucianOrderWhereUniqueInput[]
+  }
+
   export type DecimalFieldUpdateOperationsInput = {
     set?: Decimal | DecimalJsLike | number | string
     increment?: Decimal | DecimalJsLike | number | string
@@ -15659,8 +17688,40 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type EnumServiceCategoryFieldUpdateOperationsInput = {
-    set?: $Enums.ServiceCategory
+  export type CucianOrderUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<CucianOrderCreateWithoutServiceInput, CucianOrderUncheckedCreateWithoutServiceInput> | CucianOrderCreateWithoutServiceInput[] | CucianOrderUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: CucianOrderCreateOrConnectWithoutServiceInput | CucianOrderCreateOrConnectWithoutServiceInput[]
+    upsert?: CucianOrderUpsertWithWhereUniqueWithoutServiceInput | CucianOrderUpsertWithWhereUniqueWithoutServiceInput[]
+    set?: CucianOrderWhereUniqueInput | CucianOrderWhereUniqueInput[]
+    disconnect?: CucianOrderWhereUniqueInput | CucianOrderWhereUniqueInput[]
+    delete?: CucianOrderWhereUniqueInput | CucianOrderWhereUniqueInput[]
+    connect?: CucianOrderWhereUniqueInput | CucianOrderWhereUniqueInput[]
+    update?: CucianOrderUpdateWithWhereUniqueWithoutServiceInput | CucianOrderUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: CucianOrderUpdateManyWithWhereWithoutServiceInput | CucianOrderUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: CucianOrderScalarWhereInput | CucianOrderScalarWhereInput[]
+  }
+
+  export type PackageUpdateOneWithoutServiceNestedInput = {
+    create?: XOR<PackageCreateWithoutServiceInput, PackageUncheckedCreateWithoutServiceInput>
+    connectOrCreate?: PackageCreateOrConnectWithoutServiceInput
+    upsert?: PackageUpsertWithoutServiceInput
+    disconnect?: PackageWhereInput | boolean
+    delete?: PackageWhereInput | boolean
+    connect?: PackageWhereUniqueInput
+    update?: XOR<XOR<PackageUpdateToOneWithWhereWithoutServiceInput, PackageUpdateWithoutServiceInput>, PackageUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type CucianOrderUncheckedUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<CucianOrderCreateWithoutServiceInput, CucianOrderUncheckedCreateWithoutServiceInput> | CucianOrderCreateWithoutServiceInput[] | CucianOrderUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: CucianOrderCreateOrConnectWithoutServiceInput | CucianOrderCreateOrConnectWithoutServiceInput[]
+    upsert?: CucianOrderUpsertWithWhereUniqueWithoutServiceInput | CucianOrderUpsertWithWhereUniqueWithoutServiceInput[]
+    set?: CucianOrderWhereUniqueInput | CucianOrderWhereUniqueInput[]
+    disconnect?: CucianOrderWhereUniqueInput | CucianOrderWhereUniqueInput[]
+    delete?: CucianOrderWhereUniqueInput | CucianOrderWhereUniqueInput[]
+    connect?: CucianOrderWhereUniqueInput | CucianOrderWhereUniqueInput[]
+    update?: CucianOrderUpdateWithWhereUniqueWithoutServiceInput | CucianOrderUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: CucianOrderUpdateManyWithWhereWithoutServiceInput | CucianOrderUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: CucianOrderScalarWhereInput | CucianOrderScalarWhereInput[]
   }
 
   export type CucianOrderCreateNestedManyWithoutPaketInput = {
@@ -15670,11 +17731,25 @@ export namespace Prisma {
     connect?: CucianOrderWhereUniqueInput | CucianOrderWhereUniqueInput[]
   }
 
+  export type ServiceCreateNestedManyWithoutPackageInput = {
+    create?: XOR<ServiceCreateWithoutPackageInput, ServiceUncheckedCreateWithoutPackageInput> | ServiceCreateWithoutPackageInput[] | ServiceUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutPackageInput | ServiceCreateOrConnectWithoutPackageInput[]
+    createMany?: ServiceCreateManyPackageInputEnvelope
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+  }
+
   export type CucianOrderUncheckedCreateNestedManyWithoutPaketInput = {
     create?: XOR<CucianOrderCreateWithoutPaketInput, CucianOrderUncheckedCreateWithoutPaketInput> | CucianOrderCreateWithoutPaketInput[] | CucianOrderUncheckedCreateWithoutPaketInput[]
     connectOrCreate?: CucianOrderCreateOrConnectWithoutPaketInput | CucianOrderCreateOrConnectWithoutPaketInput[]
     createMany?: CucianOrderCreateManyPaketInputEnvelope
     connect?: CucianOrderWhereUniqueInput | CucianOrderWhereUniqueInput[]
+  }
+
+  export type ServiceUncheckedCreateNestedManyWithoutPackageInput = {
+    create?: XOR<ServiceCreateWithoutPackageInput, ServiceUncheckedCreateWithoutPackageInput> | ServiceCreateWithoutPackageInput[] | ServiceUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutPackageInput | ServiceCreateOrConnectWithoutPackageInput[]
+    createMany?: ServiceCreateManyPackageInputEnvelope
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
   }
 
   export type BigIntFieldUpdateOperationsInput = {
@@ -15699,6 +17774,20 @@ export namespace Prisma {
     deleteMany?: CucianOrderScalarWhereInput | CucianOrderScalarWhereInput[]
   }
 
+  export type ServiceUpdateManyWithoutPackageNestedInput = {
+    create?: XOR<ServiceCreateWithoutPackageInput, ServiceUncheckedCreateWithoutPackageInput> | ServiceCreateWithoutPackageInput[] | ServiceUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutPackageInput | ServiceCreateOrConnectWithoutPackageInput[]
+    upsert?: ServiceUpsertWithWhereUniqueWithoutPackageInput | ServiceUpsertWithWhereUniqueWithoutPackageInput[]
+    createMany?: ServiceCreateManyPackageInputEnvelope
+    set?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    disconnect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    delete?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    update?: ServiceUpdateWithWhereUniqueWithoutPackageInput | ServiceUpdateWithWhereUniqueWithoutPackageInput[]
+    updateMany?: ServiceUpdateManyWithWhereWithoutPackageInput | ServiceUpdateManyWithWhereWithoutPackageInput[]
+    deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
+  }
+
   export type CucianOrderUncheckedUpdateManyWithoutPaketNestedInput = {
     create?: XOR<CucianOrderCreateWithoutPaketInput, CucianOrderUncheckedCreateWithoutPaketInput> | CucianOrderCreateWithoutPaketInput[] | CucianOrderUncheckedCreateWithoutPaketInput[]
     connectOrCreate?: CucianOrderCreateOrConnectWithoutPaketInput | CucianOrderCreateOrConnectWithoutPaketInput[]
@@ -15711,6 +17800,20 @@ export namespace Prisma {
     update?: CucianOrderUpdateWithWhereUniqueWithoutPaketInput | CucianOrderUpdateWithWhereUniqueWithoutPaketInput[]
     updateMany?: CucianOrderUpdateManyWithWhereWithoutPaketInput | CucianOrderUpdateManyWithWhereWithoutPaketInput[]
     deleteMany?: CucianOrderScalarWhereInput | CucianOrderScalarWhereInput[]
+  }
+
+  export type ServiceUncheckedUpdateManyWithoutPackageNestedInput = {
+    create?: XOR<ServiceCreateWithoutPackageInput, ServiceUncheckedCreateWithoutPackageInput> | ServiceCreateWithoutPackageInput[] | ServiceUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutPackageInput | ServiceCreateOrConnectWithoutPackageInput[]
+    upsert?: ServiceUpsertWithWhereUniqueWithoutPackageInput | ServiceUpsertWithWhereUniqueWithoutPackageInput[]
+    createMany?: ServiceCreateManyPackageInputEnvelope
+    set?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    disconnect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    delete?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    update?: ServiceUpdateWithWhereUniqueWithoutPackageInput | ServiceUpdateWithWhereUniqueWithoutPackageInput[]
+    updateMany?: ServiceUpdateManyWithWhereWithoutPackageInput | ServiceUpdateManyWithWhereWithoutPackageInput[]
+    deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
   }
 
   export type InventoryCategoryCreateNestedOneWithoutInventoryInput = {
@@ -16023,6 +18126,50 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedEnumStatusOrderFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusOrder | EnumStatusOrderFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusOrder[] | ListEnumStatusOrderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusOrder[] | ListEnumStatusOrderFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusOrderFilter<$PrismaModel> | $Enums.StatusOrder
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumStatusOrderWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusOrder | EnumStatusOrderFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusOrder[] | ListEnumStatusOrderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusOrder[] | ListEnumStatusOrderFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusOrderWithAggregatesFilter<$PrismaModel> | $Enums.StatusOrder
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusOrderFilter<$PrismaModel>
+    _max?: NestedEnumStatusOrderFilter<$PrismaModel>
+  }
+
   export type NestedDecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -16032,13 +18179,6 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
-  export type NestedEnumServiceCategoryFilter<$PrismaModel = never> = {
-    equals?: $Enums.ServiceCategory | EnumServiceCategoryFieldRefInput<$PrismaModel>
-    in?: $Enums.ServiceCategory[] | ListEnumServiceCategoryFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ServiceCategory[] | ListEnumServiceCategoryFieldRefInput<$PrismaModel>
-    not?: NestedEnumServiceCategoryFilter<$PrismaModel> | $Enums.ServiceCategory
   }
 
   export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -16082,16 +18222,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedEnumServiceCategoryWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ServiceCategory | EnumServiceCategoryFieldRefInput<$PrismaModel>
-    in?: $Enums.ServiceCategory[] | ListEnumServiceCategoryFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ServiceCategory[] | ListEnumServiceCategoryFieldRefInput<$PrismaModel>
-    not?: NestedEnumServiceCategoryWithAggregatesFilter<$PrismaModel> | $Enums.ServiceCategory
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumServiceCategoryFilter<$PrismaModel>
-    _max?: NestedEnumServiceCategoryFilter<$PrismaModel>
   }
 
   export type NestedBigIntFilter<$PrismaModel = never> = {
@@ -16217,7 +18347,13 @@ export namespace Prisma {
     nama: string
     alamat?: string | null
     phone?: string | null
-    paket: PackageCreateNestedOneWithoutCucianOrderInput
+    tahap?: number | null
+    status?: $Enums.StatusOrder
+    createAt?: Date | string
+    selesaiAt?: Date | string | null
+    Paket: PackageCreateNestedOneWithoutCucianOrderInput
+    ReservasiPengambilan?: ReservasiPengambilanCreateNestedManyWithoutCucianOrderInput
+    Service?: ServiceCreateNestedManyWithoutCucianOrderInput
   }
 
   export type CucianOrderUncheckedCreateWithoutUserInput = {
@@ -16226,6 +18362,12 @@ export namespace Prisma {
     alamat?: string | null
     phone?: string | null
     packageId: string
+    tahap?: number | null
+    status?: $Enums.StatusOrder
+    createAt?: Date | string
+    selesaiAt?: Date | string | null
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedCreateNestedManyWithoutCucianOrderInput
+    Service?: ServiceUncheckedCreateNestedManyWithoutCucianOrderInput
   }
 
   export type CucianOrderCreateOrConnectWithoutUserInput = {
@@ -16235,6 +18377,28 @@ export namespace Prisma {
 
   export type CucianOrderCreateManyUserInputEnvelope = {
     data: CucianOrderCreateManyUserInput | CucianOrderCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ReservasiPengambilanCreateWithoutUserInput = {
+    id?: string
+    date: Date | string
+    CucianOrder: CucianOrderCreateNestedOneWithoutReservasiPengambilanInput
+  }
+
+  export type ReservasiPengambilanUncheckedCreateWithoutUserInput = {
+    id?: string
+    date: Date | string
+    cucianOrderId: string
+  }
+
+  export type ReservasiPengambilanCreateOrConnectWithoutUserInput = {
+    where: ReservasiPengambilanWhereUniqueInput
+    create: XOR<ReservasiPengambilanCreateWithoutUserInput, ReservasiPengambilanUncheckedCreateWithoutUserInput>
+  }
+
+  export type ReservasiPengambilanCreateManyUserInputEnvelope = {
+    data: ReservasiPengambilanCreateManyUserInput | ReservasiPengambilanCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -16368,6 +18532,36 @@ export namespace Prisma {
     alamat?: StringNullableFilter<"CucianOrder"> | string | null
     phone?: StringNullableFilter<"CucianOrder"> | string | null
     packageId?: StringFilter<"CucianOrder"> | string
+    tahap?: IntNullableFilter<"CucianOrder"> | number | null
+    status?: EnumStatusOrderFilter<"CucianOrder"> | $Enums.StatusOrder
+    createAt?: DateTimeFilter<"CucianOrder"> | Date | string
+    selesaiAt?: DateTimeNullableFilter<"CucianOrder"> | Date | string | null
+  }
+
+  export type ReservasiPengambilanUpsertWithWhereUniqueWithoutUserInput = {
+    where: ReservasiPengambilanWhereUniqueInput
+    update: XOR<ReservasiPengambilanUpdateWithoutUserInput, ReservasiPengambilanUncheckedUpdateWithoutUserInput>
+    create: XOR<ReservasiPengambilanCreateWithoutUserInput, ReservasiPengambilanUncheckedCreateWithoutUserInput>
+  }
+
+  export type ReservasiPengambilanUpdateWithWhereUniqueWithoutUserInput = {
+    where: ReservasiPengambilanWhereUniqueInput
+    data: XOR<ReservasiPengambilanUpdateWithoutUserInput, ReservasiPengambilanUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ReservasiPengambilanUpdateManyWithWhereWithoutUserInput = {
+    where: ReservasiPengambilanScalarWhereInput
+    data: XOR<ReservasiPengambilanUpdateManyMutationInput, ReservasiPengambilanUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ReservasiPengambilanScalarWhereInput = {
+    AND?: ReservasiPengambilanScalarWhereInput | ReservasiPengambilanScalarWhereInput[]
+    OR?: ReservasiPengambilanScalarWhereInput[]
+    NOT?: ReservasiPengambilanScalarWhereInput | ReservasiPengambilanScalarWhereInput[]
+    id?: StringFilter<"ReservasiPengambilan"> | string
+    userId?: StringFilter<"ReservasiPengambilan"> | string
+    date?: DateTimeFilter<"ReservasiPengambilan"> | Date | string
+    cucianOrderId?: StringFilter<"ReservasiPengambilan"> | string
   }
 
   export type UserCreateWithoutSessionInput = {
@@ -16387,6 +18581,7 @@ export namespace Prisma {
     Payments?: PaymentCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderCreateNestedManyWithoutUserInput
+    ReservasiPengambilan?: ReservasiPengambilanCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionInput = {
@@ -16406,6 +18601,7 @@ export namespace Prisma {
     Payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionUncheckedCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutUserInput
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionInput = {
@@ -16441,6 +18637,7 @@ export namespace Prisma {
     Payments?: PaymentUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUpdateManyWithoutUserNestedInput
+    ReservasiPengambilan?: ReservasiPengambilanUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionInput = {
@@ -16460,6 +18657,7 @@ export namespace Prisma {
     Payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUncheckedUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUncheckedUpdateManyWithoutUserNestedInput
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutRoleInput = {
@@ -16479,6 +18677,7 @@ export namespace Prisma {
     Payments?: PaymentCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderCreateNestedManyWithoutUserInput
+    ReservasiPengambilan?: ReservasiPengambilanCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRoleInput = {
@@ -16498,6 +18697,7 @@ export namespace Prisma {
     Payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionUncheckedCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutUserInput
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRoleInput = {
@@ -16562,6 +18762,7 @@ export namespace Prisma {
     Session?: LoginSessionCreateNestedManyWithoutUserInput
     Payments?: PaymentCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionCreateNestedManyWithoutUserInput
+    ReservasiPengambilan?: ReservasiPengambilanCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCucianOrderInput = {
@@ -16581,6 +18782,7 @@ export namespace Prisma {
     Session?: LoginSessionUncheckedCreateNestedManyWithoutUserInput
     Payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionUncheckedCreateNestedManyWithoutUserInput
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCucianOrderInput = {
@@ -16593,6 +18795,7 @@ export namespace Prisma {
     name: string
     description: string
     pricePerUnit: bigint | number
+    Service?: ServiceCreateNestedManyWithoutPackageInput
   }
 
   export type PackageUncheckedCreateWithoutCucianOrderInput = {
@@ -16600,11 +18803,63 @@ export namespace Prisma {
     name: string
     description: string
     pricePerUnit: bigint | number
+    Service?: ServiceUncheckedCreateNestedManyWithoutPackageInput
   }
 
   export type PackageCreateOrConnectWithoutCucianOrderInput = {
     where: PackageWhereUniqueInput
     create: XOR<PackageCreateWithoutCucianOrderInput, PackageUncheckedCreateWithoutCucianOrderInput>
+  }
+
+  export type ReservasiPengambilanCreateWithoutCucianOrderInput = {
+    id?: string
+    date: Date | string
+    User: UserCreateNestedOneWithoutReservasiPengambilanInput
+  }
+
+  export type ReservasiPengambilanUncheckedCreateWithoutCucianOrderInput = {
+    id?: string
+    userId: string
+    date: Date | string
+  }
+
+  export type ReservasiPengambilanCreateOrConnectWithoutCucianOrderInput = {
+    where: ReservasiPengambilanWhereUniqueInput
+    create: XOR<ReservasiPengambilanCreateWithoutCucianOrderInput, ReservasiPengambilanUncheckedCreateWithoutCucianOrderInput>
+  }
+
+  export type ReservasiPengambilanCreateManyCucianOrderInputEnvelope = {
+    data: ReservasiPengambilanCreateManyCucianOrderInput | ReservasiPengambilanCreateManyCucianOrderInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ServiceCreateWithoutCucianOrderInput = {
+    id?: string
+    name: string
+    description?: string | null
+    pricePerUnit: Decimal | DecimalJsLike | number | string
+    estimatedTimeHours: number
+    priority: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    Package?: PackageCreateNestedOneWithoutServiceInput
+  }
+
+  export type ServiceUncheckedCreateWithoutCucianOrderInput = {
+    id?: string
+    name: string
+    description?: string | null
+    pricePerUnit: Decimal | DecimalJsLike | number | string
+    estimatedTimeHours: number
+    priority: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    packageId?: string | null
+  }
+
+  export type ServiceCreateOrConnectWithoutCucianOrderInput = {
+    where: ServiceWhereUniqueInput
+    create: XOR<ServiceCreateWithoutCucianOrderInput, ServiceUncheckedCreateWithoutCucianOrderInput>
   }
 
   export type UserUpsertWithoutCucianOrderInput = {
@@ -16635,6 +18890,7 @@ export namespace Prisma {
     Session?: LoginSessionUpdateManyWithoutUserNestedInput
     Payments?: PaymentUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUpdateManyWithoutUserNestedInput
+    ReservasiPengambilan?: ReservasiPengambilanUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCucianOrderInput = {
@@ -16654,6 +18910,7 @@ export namespace Prisma {
     Session?: LoginSessionUncheckedUpdateManyWithoutUserNestedInput
     Payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUncheckedUpdateManyWithoutUserNestedInput
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PackageUpsertWithoutCucianOrderInput = {
@@ -16672,6 +18929,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    Service?: ServiceUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageUncheckedUpdateWithoutCucianOrderInput = {
@@ -16679,6 +18937,319 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    Service?: ServiceUncheckedUpdateManyWithoutPackageNestedInput
+  }
+
+  export type ReservasiPengambilanUpsertWithWhereUniqueWithoutCucianOrderInput = {
+    where: ReservasiPengambilanWhereUniqueInput
+    update: XOR<ReservasiPengambilanUpdateWithoutCucianOrderInput, ReservasiPengambilanUncheckedUpdateWithoutCucianOrderInput>
+    create: XOR<ReservasiPengambilanCreateWithoutCucianOrderInput, ReservasiPengambilanUncheckedCreateWithoutCucianOrderInput>
+  }
+
+  export type ReservasiPengambilanUpdateWithWhereUniqueWithoutCucianOrderInput = {
+    where: ReservasiPengambilanWhereUniqueInput
+    data: XOR<ReservasiPengambilanUpdateWithoutCucianOrderInput, ReservasiPengambilanUncheckedUpdateWithoutCucianOrderInput>
+  }
+
+  export type ReservasiPengambilanUpdateManyWithWhereWithoutCucianOrderInput = {
+    where: ReservasiPengambilanScalarWhereInput
+    data: XOR<ReservasiPengambilanUpdateManyMutationInput, ReservasiPengambilanUncheckedUpdateManyWithoutCucianOrderInput>
+  }
+
+  export type ServiceUpsertWithWhereUniqueWithoutCucianOrderInput = {
+    where: ServiceWhereUniqueInput
+    update: XOR<ServiceUpdateWithoutCucianOrderInput, ServiceUncheckedUpdateWithoutCucianOrderInput>
+    create: XOR<ServiceCreateWithoutCucianOrderInput, ServiceUncheckedCreateWithoutCucianOrderInput>
+  }
+
+  export type ServiceUpdateWithWhereUniqueWithoutCucianOrderInput = {
+    where: ServiceWhereUniqueInput
+    data: XOR<ServiceUpdateWithoutCucianOrderInput, ServiceUncheckedUpdateWithoutCucianOrderInput>
+  }
+
+  export type ServiceUpdateManyWithWhereWithoutCucianOrderInput = {
+    where: ServiceScalarWhereInput
+    data: XOR<ServiceUpdateManyMutationInput, ServiceUncheckedUpdateManyWithoutCucianOrderInput>
+  }
+
+  export type ServiceScalarWhereInput = {
+    AND?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
+    OR?: ServiceScalarWhereInput[]
+    NOT?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
+    id?: StringFilter<"Service"> | string
+    name?: StringFilter<"Service"> | string
+    description?: StringNullableFilter<"Service"> | string | null
+    pricePerUnit?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
+    estimatedTimeHours?: IntFilter<"Service"> | number
+    priority?: IntFilter<"Service"> | number
+    createdAt?: DateTimeFilter<"Service"> | Date | string
+    updatedAt?: DateTimeFilter<"Service"> | Date | string
+    packageId?: StringNullableFilter<"Service"> | string | null
+  }
+
+  export type UserCreateWithoutReservasiPengambilanInput = {
+    id?: string
+    username: string
+    email: string
+    passwordHash: string
+    fullName: string
+    phone?: string | null
+    alamat?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    isActive?: boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
+    Role: UserRoleCreateNestedOneWithoutUserInput
+    Session?: LoginSessionCreateNestedManyWithoutUserInput
+    Payments?: PaymentCreateNestedManyWithoutUserInput
+    InventoryTransactions?: InventoryTransactionCreateNestedManyWithoutUserInput
+    CucianOrder?: CucianOrderCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutReservasiPengambilanInput = {
+    id?: string
+    username: string
+    email: string
+    passwordHash: string
+    fullName: string
+    phone?: string | null
+    alamat?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    isActive?: boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
+    UserRoleId: string
+    Session?: LoginSessionUncheckedCreateNestedManyWithoutUserInput
+    Payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
+    InventoryTransactions?: InventoryTransactionUncheckedCreateNestedManyWithoutUserInput
+    CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutReservasiPengambilanInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReservasiPengambilanInput, UserUncheckedCreateWithoutReservasiPengambilanInput>
+  }
+
+  export type CucianOrderCreateWithoutReservasiPengambilanInput = {
+    id?: string
+    nama: string
+    alamat?: string | null
+    phone?: string | null
+    tahap?: number | null
+    status?: $Enums.StatusOrder
+    createAt?: Date | string
+    selesaiAt?: Date | string | null
+    User?: UserCreateNestedOneWithoutCucianOrderInput
+    Paket: PackageCreateNestedOneWithoutCucianOrderInput
+    Service?: ServiceCreateNestedManyWithoutCucianOrderInput
+  }
+
+  export type CucianOrderUncheckedCreateWithoutReservasiPengambilanInput = {
+    id?: string
+    userId?: string | null
+    nama: string
+    alamat?: string | null
+    phone?: string | null
+    packageId: string
+    tahap?: number | null
+    status?: $Enums.StatusOrder
+    createAt?: Date | string
+    selesaiAt?: Date | string | null
+    Service?: ServiceUncheckedCreateNestedManyWithoutCucianOrderInput
+  }
+
+  export type CucianOrderCreateOrConnectWithoutReservasiPengambilanInput = {
+    where: CucianOrderWhereUniqueInput
+    create: XOR<CucianOrderCreateWithoutReservasiPengambilanInput, CucianOrderUncheckedCreateWithoutReservasiPengambilanInput>
+  }
+
+  export type UserUpsertWithoutReservasiPengambilanInput = {
+    update: XOR<UserUpdateWithoutReservasiPengambilanInput, UserUncheckedUpdateWithoutReservasiPengambilanInput>
+    create: XOR<UserCreateWithoutReservasiPengambilanInput, UserUncheckedCreateWithoutReservasiPengambilanInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReservasiPengambilanInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReservasiPengambilanInput, UserUncheckedUpdateWithoutReservasiPengambilanInput>
+  }
+
+  export type UserUpdateWithoutReservasiPengambilanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    alamat?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
+    Role?: UserRoleUpdateOneRequiredWithoutUserNestedInput
+    Session?: LoginSessionUpdateManyWithoutUserNestedInput
+    Payments?: PaymentUpdateManyWithoutUserNestedInput
+    InventoryTransactions?: InventoryTransactionUpdateManyWithoutUserNestedInput
+    CucianOrder?: CucianOrderUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReservasiPengambilanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    alamat?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    Settings?: NullableJsonNullValueInput | InputJsonValue
+    UserRoleId?: StringFieldUpdateOperationsInput | string
+    Session?: LoginSessionUncheckedUpdateManyWithoutUserNestedInput
+    Payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
+    InventoryTransactions?: InventoryTransactionUncheckedUpdateManyWithoutUserNestedInput
+    CucianOrder?: CucianOrderUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type CucianOrderUpsertWithoutReservasiPengambilanInput = {
+    update: XOR<CucianOrderUpdateWithoutReservasiPengambilanInput, CucianOrderUncheckedUpdateWithoutReservasiPengambilanInput>
+    create: XOR<CucianOrderCreateWithoutReservasiPengambilanInput, CucianOrderUncheckedCreateWithoutReservasiPengambilanInput>
+    where?: CucianOrderWhereInput
+  }
+
+  export type CucianOrderUpdateToOneWithWhereWithoutReservasiPengambilanInput = {
+    where?: CucianOrderWhereInput
+    data: XOR<CucianOrderUpdateWithoutReservasiPengambilanInput, CucianOrderUncheckedUpdateWithoutReservasiPengambilanInput>
+  }
+
+  export type CucianOrderUpdateWithoutReservasiPengambilanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
+    alamat?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    User?: UserUpdateOneWithoutCucianOrderNestedInput
+    Paket?: PackageUpdateOneRequiredWithoutCucianOrderNestedInput
+    Service?: ServiceUpdateManyWithoutCucianOrderNestedInput
+  }
+
+  export type CucianOrderUncheckedUpdateWithoutReservasiPengambilanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    nama?: StringFieldUpdateOperationsInput | string
+    alamat?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    packageId?: StringFieldUpdateOperationsInput | string
+    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Service?: ServiceUncheckedUpdateManyWithoutCucianOrderNestedInput
+  }
+
+  export type CucianOrderCreateWithoutServiceInput = {
+    id?: string
+    nama: string
+    alamat?: string | null
+    phone?: string | null
+    tahap?: number | null
+    status?: $Enums.StatusOrder
+    createAt?: Date | string
+    selesaiAt?: Date | string | null
+    User?: UserCreateNestedOneWithoutCucianOrderInput
+    Paket: PackageCreateNestedOneWithoutCucianOrderInput
+    ReservasiPengambilan?: ReservasiPengambilanCreateNestedManyWithoutCucianOrderInput
+  }
+
+  export type CucianOrderUncheckedCreateWithoutServiceInput = {
+    id?: string
+    userId?: string | null
+    nama: string
+    alamat?: string | null
+    phone?: string | null
+    packageId: string
+    tahap?: number | null
+    status?: $Enums.StatusOrder
+    createAt?: Date | string
+    selesaiAt?: Date | string | null
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedCreateNestedManyWithoutCucianOrderInput
+  }
+
+  export type CucianOrderCreateOrConnectWithoutServiceInput = {
+    where: CucianOrderWhereUniqueInput
+    create: XOR<CucianOrderCreateWithoutServiceInput, CucianOrderUncheckedCreateWithoutServiceInput>
+  }
+
+  export type PackageCreateWithoutServiceInput = {
+    id?: string
+    name: string
+    description: string
+    pricePerUnit: bigint | number
+    CucianOrder?: CucianOrderCreateNestedManyWithoutPaketInput
+  }
+
+  export type PackageUncheckedCreateWithoutServiceInput = {
+    id?: string
+    name: string
+    description: string
+    pricePerUnit: bigint | number
+    CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutPaketInput
+  }
+
+  export type PackageCreateOrConnectWithoutServiceInput = {
+    where: PackageWhereUniqueInput
+    create: XOR<PackageCreateWithoutServiceInput, PackageUncheckedCreateWithoutServiceInput>
+  }
+
+  export type CucianOrderUpsertWithWhereUniqueWithoutServiceInput = {
+    where: CucianOrderWhereUniqueInput
+    update: XOR<CucianOrderUpdateWithoutServiceInput, CucianOrderUncheckedUpdateWithoutServiceInput>
+    create: XOR<CucianOrderCreateWithoutServiceInput, CucianOrderUncheckedCreateWithoutServiceInput>
+  }
+
+  export type CucianOrderUpdateWithWhereUniqueWithoutServiceInput = {
+    where: CucianOrderWhereUniqueInput
+    data: XOR<CucianOrderUpdateWithoutServiceInput, CucianOrderUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type CucianOrderUpdateManyWithWhereWithoutServiceInput = {
+    where: CucianOrderScalarWhereInput
+    data: XOR<CucianOrderUpdateManyMutationInput, CucianOrderUncheckedUpdateManyWithoutServiceInput>
+  }
+
+  export type PackageUpsertWithoutServiceInput = {
+    update: XOR<PackageUpdateWithoutServiceInput, PackageUncheckedUpdateWithoutServiceInput>
+    create: XOR<PackageCreateWithoutServiceInput, PackageUncheckedCreateWithoutServiceInput>
+    where?: PackageWhereInput
+  }
+
+  export type PackageUpdateToOneWithWhereWithoutServiceInput = {
+    where?: PackageWhereInput
+    data: XOR<PackageUpdateWithoutServiceInput, PackageUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type PackageUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    CucianOrder?: CucianOrderUpdateManyWithoutPaketNestedInput
+  }
+
+  export type PackageUncheckedUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    CucianOrder?: CucianOrderUncheckedUpdateManyWithoutPaketNestedInput
   }
 
   export type CucianOrderCreateWithoutPaketInput = {
@@ -16686,7 +19257,13 @@ export namespace Prisma {
     nama: string
     alamat?: string | null
     phone?: string | null
+    tahap?: number | null
+    status?: $Enums.StatusOrder
+    createAt?: Date | string
+    selesaiAt?: Date | string | null
     User?: UserCreateNestedOneWithoutCucianOrderInput
+    ReservasiPengambilan?: ReservasiPengambilanCreateNestedManyWithoutCucianOrderInput
+    Service?: ServiceCreateNestedManyWithoutCucianOrderInput
   }
 
   export type CucianOrderUncheckedCreateWithoutPaketInput = {
@@ -16695,6 +19272,12 @@ export namespace Prisma {
     nama: string
     alamat?: string | null
     phone?: string | null
+    tahap?: number | null
+    status?: $Enums.StatusOrder
+    createAt?: Date | string
+    selesaiAt?: Date | string | null
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedCreateNestedManyWithoutCucianOrderInput
+    Service?: ServiceUncheckedCreateNestedManyWithoutCucianOrderInput
   }
 
   export type CucianOrderCreateOrConnectWithoutPaketInput = {
@@ -16704,6 +19287,40 @@ export namespace Prisma {
 
   export type CucianOrderCreateManyPaketInputEnvelope = {
     data: CucianOrderCreateManyPaketInput | CucianOrderCreateManyPaketInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ServiceCreateWithoutPackageInput = {
+    id?: string
+    name: string
+    description?: string | null
+    pricePerUnit: Decimal | DecimalJsLike | number | string
+    estimatedTimeHours: number
+    priority: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    CucianOrder?: CucianOrderCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceUncheckedCreateWithoutPackageInput = {
+    id?: string
+    name: string
+    description?: string | null
+    pricePerUnit: Decimal | DecimalJsLike | number | string
+    estimatedTimeHours: number
+    priority: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutServiceInput
+  }
+
+  export type ServiceCreateOrConnectWithoutPackageInput = {
+    where: ServiceWhereUniqueInput
+    create: XOR<ServiceCreateWithoutPackageInput, ServiceUncheckedCreateWithoutPackageInput>
+  }
+
+  export type ServiceCreateManyPackageInputEnvelope = {
+    data: ServiceCreateManyPackageInput | ServiceCreateManyPackageInput[]
     skipDuplicates?: boolean
   }
 
@@ -16721,6 +19338,22 @@ export namespace Prisma {
   export type CucianOrderUpdateManyWithWhereWithoutPaketInput = {
     where: CucianOrderScalarWhereInput
     data: XOR<CucianOrderUpdateManyMutationInput, CucianOrderUncheckedUpdateManyWithoutPaketInput>
+  }
+
+  export type ServiceUpsertWithWhereUniqueWithoutPackageInput = {
+    where: ServiceWhereUniqueInput
+    update: XOR<ServiceUpdateWithoutPackageInput, ServiceUncheckedUpdateWithoutPackageInput>
+    create: XOR<ServiceCreateWithoutPackageInput, ServiceUncheckedCreateWithoutPackageInput>
+  }
+
+  export type ServiceUpdateWithWhereUniqueWithoutPackageInput = {
+    where: ServiceWhereUniqueInput
+    data: XOR<ServiceUpdateWithoutPackageInput, ServiceUncheckedUpdateWithoutPackageInput>
+  }
+
+  export type ServiceUpdateManyWithWhereWithoutPackageInput = {
+    where: ServiceScalarWhereInput
+    data: XOR<ServiceUpdateManyMutationInput, ServiceUncheckedUpdateManyWithoutPackageInput>
   }
 
   export type InventoryCategoryCreateWithoutInventoryInput = {
@@ -16927,6 +19560,7 @@ export namespace Prisma {
     Session?: LoginSessionCreateNestedManyWithoutUserInput
     Payments?: PaymentCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderCreateNestedManyWithoutUserInput
+    ReservasiPengambilan?: ReservasiPengambilanCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutInventoryTransactionsInput = {
@@ -16946,6 +19580,7 @@ export namespace Prisma {
     Session?: LoginSessionUncheckedCreateNestedManyWithoutUserInput
     Payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutUserInput
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutInventoryTransactionsInput = {
@@ -17022,6 +19657,7 @@ export namespace Prisma {
     Session?: LoginSessionUpdateManyWithoutUserNestedInput
     Payments?: PaymentUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUpdateManyWithoutUserNestedInput
+    ReservasiPengambilan?: ReservasiPengambilanUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInventoryTransactionsInput = {
@@ -17041,6 +19677,7 @@ export namespace Prisma {
     Session?: LoginSessionUncheckedUpdateManyWithoutUserNestedInput
     Payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUncheckedUpdateManyWithoutUserNestedInput
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutPaymentsInput = {
@@ -17060,6 +19697,7 @@ export namespace Prisma {
     Session?: LoginSessionCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderCreateNestedManyWithoutUserInput
+    ReservasiPengambilan?: ReservasiPengambilanCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPaymentsInput = {
@@ -17079,6 +19717,7 @@ export namespace Prisma {
     Session?: LoginSessionUncheckedCreateNestedManyWithoutUserInput
     InventoryTransactions?: InventoryTransactionUncheckedCreateNestedManyWithoutUserInput
     CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutUserInput
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPaymentsInput = {
@@ -17114,6 +19753,7 @@ export namespace Prisma {
     Session?: LoginSessionUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUpdateManyWithoutUserNestedInput
+    ReservasiPengambilan?: ReservasiPengambilanUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPaymentsInput = {
@@ -17133,6 +19773,7 @@ export namespace Prisma {
     Session?: LoginSessionUncheckedUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUncheckedUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUncheckedUpdateManyWithoutUserNestedInput
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LoginSessionCreateManyUserInput = {
@@ -17164,6 +19805,16 @@ export namespace Prisma {
     alamat?: string | null
     phone?: string | null
     packageId: string
+    tahap?: number | null
+    status?: $Enums.StatusOrder
+    createAt?: Date | string
+    selesaiAt?: Date | string | null
+  }
+
+  export type ReservasiPengambilanCreateManyUserInput = {
+    id?: string
+    date: Date | string
+    cucianOrderId: string
   }
 
   export type LoginSessionUpdateWithoutUserInput = {
@@ -17240,7 +19891,13 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    paket?: PackageUpdateOneRequiredWithoutCucianOrderNestedInput
+    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    Paket?: PackageUpdateOneRequiredWithoutCucianOrderNestedInput
+    ReservasiPengambilan?: ReservasiPengambilanUpdateManyWithoutCucianOrderNestedInput
+    Service?: ServiceUpdateManyWithoutCucianOrderNestedInput
   }
 
   export type CucianOrderUncheckedUpdateWithoutUserInput = {
@@ -17249,6 +19906,12 @@ export namespace Prisma {
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     packageId?: StringFieldUpdateOperationsInput | string
+    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedUpdateManyWithoutCucianOrderNestedInput
+    Service?: ServiceUncheckedUpdateManyWithoutCucianOrderNestedInput
   }
 
   export type CucianOrderUncheckedUpdateManyWithoutUserInput = {
@@ -17257,6 +19920,28 @@ export namespace Prisma {
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     packageId?: StringFieldUpdateOperationsInput | string
+    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ReservasiPengambilanUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    CucianOrder?: CucianOrderUpdateOneRequiredWithoutReservasiPengambilanNestedInput
+  }
+
+  export type ReservasiPengambilanUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    cucianOrderId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ReservasiPengambilanUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    cucianOrderId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserCreateManyRoleInput = {
@@ -17291,6 +19976,7 @@ export namespace Prisma {
     Payments?: PaymentUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUpdateManyWithoutUserNestedInput
+    ReservasiPengambilan?: ReservasiPengambilanUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRoleInput = {
@@ -17310,6 +19996,7 @@ export namespace Prisma {
     Payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     InventoryTransactions?: InventoryTransactionUncheckedUpdateManyWithoutUserNestedInput
     CucianOrder?: CucianOrderUncheckedUpdateManyWithoutUserNestedInput
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutRoleInput = {
@@ -17327,12 +20014,128 @@ export namespace Prisma {
     Settings?: NullableJsonNullValueInput | InputJsonValue
   }
 
+  export type ReservasiPengambilanCreateManyCucianOrderInput = {
+    id?: string
+    userId: string
+    date: Date | string
+  }
+
+  export type ReservasiPengambilanUpdateWithoutCucianOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    User?: UserUpdateOneRequiredWithoutReservasiPengambilanNestedInput
+  }
+
+  export type ReservasiPengambilanUncheckedUpdateWithoutCucianOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReservasiPengambilanUncheckedUpdateManyWithoutCucianOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ServiceUpdateWithoutCucianOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    estimatedTimeHours?: IntFieldUpdateOperationsInput | number
+    priority?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Package?: PackageUpdateOneWithoutServiceNestedInput
+  }
+
+  export type ServiceUncheckedUpdateWithoutCucianOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    estimatedTimeHours?: IntFieldUpdateOperationsInput | number
+    priority?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ServiceUncheckedUpdateManyWithoutCucianOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    estimatedTimeHours?: IntFieldUpdateOperationsInput | number
+    priority?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CucianOrderUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
+    alamat?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    User?: UserUpdateOneWithoutCucianOrderNestedInput
+    Paket?: PackageUpdateOneRequiredWithoutCucianOrderNestedInput
+    ReservasiPengambilan?: ReservasiPengambilanUpdateManyWithoutCucianOrderNestedInput
+  }
+
+  export type CucianOrderUncheckedUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    nama?: StringFieldUpdateOperationsInput | string
+    alamat?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    packageId?: StringFieldUpdateOperationsInput | string
+    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedUpdateManyWithoutCucianOrderNestedInput
+  }
+
+  export type CucianOrderUncheckedUpdateManyWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    nama?: StringFieldUpdateOperationsInput | string
+    alamat?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    packageId?: StringFieldUpdateOperationsInput | string
+    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type CucianOrderCreateManyPaketInput = {
     id?: string
     userId?: string | null
     nama: string
     alamat?: string | null
     phone?: string | null
+    tahap?: number | null
+    status?: $Enums.StatusOrder
+    createAt?: Date | string
+    selesaiAt?: Date | string | null
+  }
+
+  export type ServiceCreateManyPackageInput = {
+    id?: string
+    name: string
+    description?: string | null
+    pricePerUnit: Decimal | DecimalJsLike | number | string
+    estimatedTimeHours: number
+    priority: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CucianOrderUpdateWithoutPaketInput = {
@@ -17340,7 +20143,13 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     User?: UserUpdateOneWithoutCucianOrderNestedInput
+    ReservasiPengambilan?: ReservasiPengambilanUpdateManyWithoutCucianOrderNestedInput
+    Service?: ServiceUpdateManyWithoutCucianOrderNestedInput
   }
 
   export type CucianOrderUncheckedUpdateWithoutPaketInput = {
@@ -17349,6 +20158,12 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ReservasiPengambilan?: ReservasiPengambilanUncheckedUpdateManyWithoutCucianOrderNestedInput
+    Service?: ServiceUncheckedUpdateManyWithoutCucianOrderNestedInput
   }
 
   export type CucianOrderUncheckedUpdateManyWithoutPaketInput = {
@@ -17357,6 +20172,45 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
+    createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ServiceUpdateWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    estimatedTimeHours?: IntFieldUpdateOperationsInput | number
+    priority?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CucianOrder?: CucianOrderUpdateManyWithoutServiceNestedInput
+  }
+
+  export type ServiceUncheckedUpdateWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    estimatedTimeHours?: IntFieldUpdateOperationsInput | number
+    priority?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    CucianOrder?: CucianOrderUncheckedUpdateManyWithoutServiceNestedInput
+  }
+
+  export type ServiceUncheckedUpdateManyWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    estimatedTimeHours?: IntFieldUpdateOperationsInput | number
+    priority?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InventoryTransactionCreateManyInventoryInput = {

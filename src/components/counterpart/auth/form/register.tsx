@@ -38,9 +38,11 @@ export function RegisterContent() {
 		}
 
 		const stupidPasswordCheck = stupidPassword;
-		if (stupidPasswordCheck.includes(data.password)) {
-			form.setError("password", { message: "Password terlalu mudah" });
-			form.setError("confirm_password", { message: "Password terlalu mudah" });
+		if (stupidPasswordCheck.some((regex) => regex.test(data.password))) {
+			form.setError("password", { message: "Password anda terlalu mudah" });
+			form.setError("confirm_password", {
+				message: "Password anda terlalu mudah",
+			});
 			return;
 		}
 
