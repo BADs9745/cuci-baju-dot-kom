@@ -1,3 +1,4 @@
+import UserWithAccountHoverCard from "@/components/custom/serverComponent/userWithAccountHoverDiablog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,29 +13,36 @@ import {
 	TableCell,
 	TableRow,
 } from "@/components/ui/table";
-import { GetAllCucianOrder } from "@/lib/cucian";
-import type { $Enums } from "@/prisma";
+import type { GetAllCucianOrder } from "@/lib/cucian";
 export default async function TableOrderCucianBody({
-	search,
-	status,
-}: { search?: string; status?: $Enums.StatusOrder }) {
-	const listCucianOrder = await GetAllCucianOrder(search, status);
-
+	listCucianOrder,
+	isLastPage = false,
+}: {
+	listCucianOrder: Awaited<ReturnType<typeof GetAllCucianOrder>>;
+	isLastPage?: boolean;
+}) {
+	const showList = listCucianOrder.slice(0, isLastPage ? undefined : -1);
 	return (
 		<>
 			<TableBody>
 				{listCucianOrder.length > 0 &&
-					listCucianOrder.map((data) => (
-						<TableRow key={data.id}>
+					showList.map((data) => (
+						<TableRow key={data.id} className={data.User?.id && "bg-secondary"}>
 							<TableCell>{data.id}</TableCell>
-							<TableCell>{data.nama}</TableCell>
+							<TableCell>
+								{data.User ? (
+									<UserWithAccountHoverCard profile={data.User} />
+								) : (
+									data.nama
+								)}
+							</TableCell>
 							<TableCell className="font-black">{data.status}</TableCell>
 							<TableCell>
 								<HoverCard>
 									<HoverCardTrigger>
 										<Button variant={"link"}>{data.Paket.name}</Button>
 									</HoverCardTrigger>
-									<HoverCardContent>
+									<HoverCardContent side="right">
 										<h1 className="font-semibold">{data.Paket.name}</h1>
 										<p>
 											Harga per Kilo{" "}

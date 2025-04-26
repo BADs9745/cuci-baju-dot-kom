@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 		"Cuci Baju Dot Kom Adalah Layanan Cuci Baju yang terpecaya yang mencuci pakaian anda dengan bersih tanpa noda.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 	header,
 	footer,

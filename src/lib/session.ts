@@ -4,6 +4,7 @@ import { prisma } from "./prisma";
 import type { User } from "@/prisma/client";
 import type { PrismaClientError } from "./types/db";
 import { revalidatePath } from "next/cache";
+import { nanoid } from "nanoid";
 
 export async function isLogin() {
 	const cookie = await cookies();
@@ -31,12 +32,19 @@ export async function ReNewSession(token: string) {
 		cookie.set("token", session.id, {
 			expires: session.expire,
 		});
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch (error) {
-		const { meta } = error as unknown as PrismaClientError;
-		if (meta.modelName === "LoginSession") {
-			cookie.delete("token");
-		}
+		cookie.delete("token");
+		GuestAccountHandler();
 	}
+}
+
+export async function GuestAccountHandler() {
+	const cokiees = await cookies();
+	const getGuest = cokiees.get("guest");
+	if (getGuest?.value.length === 21) return;
+	const newGuestId = nanoid(21);
+	cokiees.set("guest", newGuestId);
 }
 
 export async function GetProfileByToken(token: string) {

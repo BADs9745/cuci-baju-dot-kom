@@ -11,6 +11,7 @@ import {
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import Link from "next/link";
+import { cookies } from "next/headers";
 
 export default async function CucianPage({
 	searchParams,
@@ -18,19 +19,22 @@ export default async function CucianPage({
 	const cucian = await searchParams;
 	const token = await isLogin();
 	const profile = await GetProfileByToken(token as string);
+	const guestId = (await cookies()).get("guest")?.value as string;
 	const cucianForm: z.infer<typeof CucianFormSchema> = {
 		paket: cucian.paket,
-		email: profile.email,
+		email: profile.email ?? guestId,
 		fullName: profile.fullName,
 		phone: profile.phone?.toString() ?? "",
 		alamat: profile.alamat ?? "",
 	};
 	const PaketList = GetPaketList();
-	const cucianOrderCount = await CountUserCucianOrder(profile.id);
+	const cucianOrderCount = await CountUserCucianOrder(profile.id, guestId);
+	console.log(cucianOrderCount);
 	let limit = false;
 	if (cucianOrderCount >= 3) {
 		limit = true;
 	}
+
 	return (
 		<>
 			<h1 className="text-center text-4xl font-bold my-10">

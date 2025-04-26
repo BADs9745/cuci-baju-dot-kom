@@ -17,7 +17,6 @@ import type { z } from "zod";
 import type { Package } from "@/prisma/client";
 import { use, useEffect, useState } from "react";
 import { PostCucianOrder } from "@/lib/cucian";
-import { nanoid } from "nanoid";
 import { toast } from "sonner";
 import { Eye } from "lucide-react";
 import { tw } from "@/lib/utils";
@@ -34,7 +33,7 @@ export default function CucianForm({
 }) {
 	const {
 		fullName = "",
-		email = `GUEST USER - ${nanoid()}`,
+		email = "",
 		phone = "",
 		paket = "",
 		alamat = "",
@@ -92,7 +91,8 @@ export default function CucianForm({
 			});
 		}
 		setTimeout(() => {
-			globalThis.location.reload();
+			form.reset();
+			setSubmitBtn(true);
 		}, 3000);
 	}
 
@@ -120,7 +120,7 @@ export default function CucianForm({
 							name="email"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>{isLogin ? "Email" : "Id Pesanan"}</FormLabel>
+									<FormLabel>{isLogin ? "Email" : "Guest Id"}</FormLabel>
 									<Input {...field} readOnly disabled />
 									<FormMessage />
 								</FormItem>
@@ -166,7 +166,7 @@ export default function CucianForm({
 									<h1 className="text-4xl font-semibold">Pilih Paket Cucian</h1>
 									<FormMessage className="mt-2" />
 									<fieldset className="mt-5 flex gap-5 flex-nowrap overflow-scroll contain-content p-1">
-										{pakets.map((e) => (
+										{pakets?.map((e) => (
 											<label className="group" key={e.id}>
 												<input
 													type="radio"

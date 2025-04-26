@@ -156,7 +156,8 @@ exports.Prisma.CucianOrderScalarFieldEnum = {
   tahap: 'tahap',
   status: 'status',
   createAt: 'createAt',
-  selesaiAt: 'selesaiAt'
+  selesaiAt: 'selesaiAt',
+  userIndentifier: 'userIndentifier'
 };
 
 exports.Prisma.ReservasiPengambilanScalarFieldEnum = {

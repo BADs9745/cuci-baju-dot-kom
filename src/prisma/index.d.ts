@@ -5500,6 +5500,7 @@ export namespace Prisma {
     status: $Enums.StatusOrder | null
     createAt: Date | null
     selesaiAt: Date | null
+    userIndentifier: string | null
   }
 
   export type CucianOrderMaxAggregateOutputType = {
@@ -5513,6 +5514,7 @@ export namespace Prisma {
     status: $Enums.StatusOrder | null
     createAt: Date | null
     selesaiAt: Date | null
+    userIndentifier: string | null
   }
 
   export type CucianOrderCountAggregateOutputType = {
@@ -5526,6 +5528,7 @@ export namespace Prisma {
     status: number
     createAt: number
     selesaiAt: number
+    userIndentifier: number
     _all: number
   }
 
@@ -5549,6 +5552,7 @@ export namespace Prisma {
     status?: true
     createAt?: true
     selesaiAt?: true
+    userIndentifier?: true
   }
 
   export type CucianOrderMaxAggregateInputType = {
@@ -5562,6 +5566,7 @@ export namespace Prisma {
     status?: true
     createAt?: true
     selesaiAt?: true
+    userIndentifier?: true
   }
 
   export type CucianOrderCountAggregateInputType = {
@@ -5575,6 +5580,7 @@ export namespace Prisma {
     status?: true
     createAt?: true
     selesaiAt?: true
+    userIndentifier?: true
     _all?: true
   }
 
@@ -5675,6 +5681,7 @@ export namespace Prisma {
     status: $Enums.StatusOrder
     createAt: Date
     selesaiAt: Date | null
+    userIndentifier: string | null
     _count: CucianOrderCountAggregateOutputType | null
     _avg: CucianOrderAvgAggregateOutputType | null
     _sum: CucianOrderSumAggregateOutputType | null
@@ -5707,6 +5714,7 @@ export namespace Prisma {
     status?: boolean
     createAt?: boolean
     selesaiAt?: boolean
+    userIndentifier?: boolean
     User?: boolean | CucianOrder$UserArgs<ExtArgs>
     Paket?: boolean | PackageDefaultArgs<ExtArgs>
     ReservasiPengambilan?: boolean | CucianOrder$ReservasiPengambilanArgs<ExtArgs>
@@ -5725,6 +5733,7 @@ export namespace Prisma {
     status?: boolean
     createAt?: boolean
     selesaiAt?: boolean
+    userIndentifier?: boolean
     User?: boolean | CucianOrder$UserArgs<ExtArgs>
     Paket?: boolean | PackageDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["cucianOrder"]>
@@ -5740,6 +5749,7 @@ export namespace Prisma {
     status?: boolean
     createAt?: boolean
     selesaiAt?: boolean
+    userIndentifier?: boolean
     User?: boolean | CucianOrder$UserArgs<ExtArgs>
     Paket?: boolean | PackageDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["cucianOrder"]>
@@ -5755,9 +5765,10 @@ export namespace Prisma {
     status?: boolean
     createAt?: boolean
     selesaiAt?: boolean
+    userIndentifier?: boolean
   }
 
-  export type CucianOrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "nama" | "alamat" | "phone" | "packageId" | "tahap" | "status" | "createAt" | "selesaiAt", ExtArgs["result"]["cucianOrder"]>
+  export type CucianOrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "nama" | "alamat" | "phone" | "packageId" | "tahap" | "status" | "createAt" | "selesaiAt" | "userIndentifier", ExtArgs["result"]["cucianOrder"]>
   export type CucianOrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     User?: boolean | CucianOrder$UserArgs<ExtArgs>
     Paket?: boolean | PackageDefaultArgs<ExtArgs>
@@ -5793,6 +5804,7 @@ export namespace Prisma {
       status: $Enums.StatusOrder
       createAt: Date
       selesaiAt: Date | null
+      userIndentifier: string | null
     }, ExtArgs["result"]["cucianOrder"]>
     composites: {}
   }
@@ -6230,6 +6242,7 @@ export namespace Prisma {
     readonly status: FieldRef<"CucianOrder", 'StatusOrder'>
     readonly createAt: FieldRef<"CucianOrder", 'DateTime'>
     readonly selesaiAt: FieldRef<"CucianOrder", 'DateTime'>
+    readonly userIndentifier: FieldRef<"CucianOrder", 'String'>
   }
     
 
@@ -14616,7 +14629,8 @@ export namespace Prisma {
     tahap: 'tahap',
     status: 'status',
     createAt: 'createAt',
-    selesaiAt: 'selesaiAt'
+    selesaiAt: 'selesaiAt',
+    userIndentifier: 'userIndentifier'
   };
 
   export type CucianOrderScalarFieldEnum = (typeof CucianOrderScalarFieldEnum)[keyof typeof CucianOrderScalarFieldEnum]
@@ -15094,6 +15108,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFilter<"CucianOrder"> | $Enums.StatusOrder
     createAt?: DateTimeFilter<"CucianOrder"> | Date | string
     selesaiAt?: DateTimeNullableFilter<"CucianOrder"> | Date | string | null
+    userIndentifier?: StringNullableFilter<"CucianOrder"> | string | null
     User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     Paket?: XOR<PackageScalarRelationFilter, PackageWhereInput>
     ReservasiPengambilan?: ReservasiPengambilanListRelationFilter
@@ -15111,6 +15126,7 @@ export namespace Prisma {
     status?: SortOrder
     createAt?: SortOrder
     selesaiAt?: SortOrderInput | SortOrder
+    userIndentifier?: SortOrderInput | SortOrder
     User?: UserOrderByWithRelationInput
     Paket?: PackageOrderByWithRelationInput
     ReservasiPengambilan?: ReservasiPengambilanOrderByRelationAggregateInput
@@ -15131,6 +15147,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFilter<"CucianOrder"> | $Enums.StatusOrder
     createAt?: DateTimeFilter<"CucianOrder"> | Date | string
     selesaiAt?: DateTimeNullableFilter<"CucianOrder"> | Date | string | null
+    userIndentifier?: StringNullableFilter<"CucianOrder"> | string | null
     User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     Paket?: XOR<PackageScalarRelationFilter, PackageWhereInput>
     ReservasiPengambilan?: ReservasiPengambilanListRelationFilter
@@ -15148,6 +15165,7 @@ export namespace Prisma {
     status?: SortOrder
     createAt?: SortOrder
     selesaiAt?: SortOrderInput | SortOrder
+    userIndentifier?: SortOrderInput | SortOrder
     _count?: CucianOrderCountOrderByAggregateInput
     _avg?: CucianOrderAvgOrderByAggregateInput
     _max?: CucianOrderMaxOrderByAggregateInput
@@ -15169,6 +15187,7 @@ export namespace Prisma {
     status?: EnumStatusOrderWithAggregatesFilter<"CucianOrder"> | $Enums.StatusOrder
     createAt?: DateTimeWithAggregatesFilter<"CucianOrder"> | Date | string
     selesaiAt?: DateTimeNullableWithAggregatesFilter<"CucianOrder"> | Date | string | null
+    userIndentifier?: StringNullableWithAggregatesFilter<"CucianOrder"> | string | null
   }
 
   export type ReservasiPengambilanWhereInput = {
@@ -15855,6 +15874,7 @@ export namespace Prisma {
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
+    userIndentifier?: string | null
     User?: UserCreateNestedOneWithoutCucianOrderInput
     Paket: PackageCreateNestedOneWithoutCucianOrderInput
     ReservasiPengambilan?: ReservasiPengambilanCreateNestedManyWithoutCucianOrderInput
@@ -15872,6 +15892,7 @@ export namespace Prisma {
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
+    userIndentifier?: string | null
     ReservasiPengambilan?: ReservasiPengambilanUncheckedCreateNestedManyWithoutCucianOrderInput
     Service?: ServiceUncheckedCreateNestedManyWithoutCucianOrderInput
   }
@@ -15885,6 +15906,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userIndentifier?: NullableStringFieldUpdateOperationsInput | string | null
     User?: UserUpdateOneWithoutCucianOrderNestedInput
     Paket?: PackageUpdateOneRequiredWithoutCucianOrderNestedInput
     ReservasiPengambilan?: ReservasiPengambilanUpdateManyWithoutCucianOrderNestedInput
@@ -15902,6 +15924,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userIndentifier?: NullableStringFieldUpdateOperationsInput | string | null
     ReservasiPengambilan?: ReservasiPengambilanUncheckedUpdateManyWithoutCucianOrderNestedInput
     Service?: ServiceUncheckedUpdateManyWithoutCucianOrderNestedInput
   }
@@ -15917,6 +15940,7 @@ export namespace Prisma {
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
+    userIndentifier?: string | null
   }
 
   export type CucianOrderUpdateManyMutationInput = {
@@ -15928,6 +15952,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userIndentifier?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CucianOrderUncheckedUpdateManyInput = {
@@ -15941,6 +15966,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userIndentifier?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ReservasiPengambilanCreateInput = {
@@ -16791,6 +16817,7 @@ export namespace Prisma {
     status?: SortOrder
     createAt?: SortOrder
     selesaiAt?: SortOrder
+    userIndentifier?: SortOrder
   }
 
   export type CucianOrderAvgOrderByAggregateInput = {
@@ -16808,6 +16835,7 @@ export namespace Prisma {
     status?: SortOrder
     createAt?: SortOrder
     selesaiAt?: SortOrder
+    userIndentifier?: SortOrder
   }
 
   export type CucianOrderMinOrderByAggregateInput = {
@@ -16821,6 +16849,7 @@ export namespace Prisma {
     status?: SortOrder
     createAt?: SortOrder
     selesaiAt?: SortOrder
+    userIndentifier?: SortOrder
   }
 
   export type CucianOrderSumOrderByAggregateInput = {
@@ -18351,6 +18380,7 @@ export namespace Prisma {
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
+    userIndentifier?: string | null
     Paket: PackageCreateNestedOneWithoutCucianOrderInput
     ReservasiPengambilan?: ReservasiPengambilanCreateNestedManyWithoutCucianOrderInput
     Service?: ServiceCreateNestedManyWithoutCucianOrderInput
@@ -18366,6 +18396,7 @@ export namespace Prisma {
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
+    userIndentifier?: string | null
     ReservasiPengambilan?: ReservasiPengambilanUncheckedCreateNestedManyWithoutCucianOrderInput
     Service?: ServiceUncheckedCreateNestedManyWithoutCucianOrderInput
   }
@@ -18536,6 +18567,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFilter<"CucianOrder"> | $Enums.StatusOrder
     createAt?: DateTimeFilter<"CucianOrder"> | Date | string
     selesaiAt?: DateTimeNullableFilter<"CucianOrder"> | Date | string | null
+    userIndentifier?: StringNullableFilter<"CucianOrder"> | string | null
   }
 
   export type ReservasiPengambilanUpsertWithWhereUniqueWithoutUserInput = {
@@ -19041,6 +19073,7 @@ export namespace Prisma {
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
+    userIndentifier?: string | null
     User?: UserCreateNestedOneWithoutCucianOrderInput
     Paket: PackageCreateNestedOneWithoutCucianOrderInput
     Service?: ServiceCreateNestedManyWithoutCucianOrderInput
@@ -19057,6 +19090,7 @@ export namespace Prisma {
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
+    userIndentifier?: string | null
     Service?: ServiceUncheckedCreateNestedManyWithoutCucianOrderInput
   }
 
@@ -19136,6 +19170,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userIndentifier?: NullableStringFieldUpdateOperationsInput | string | null
     User?: UserUpdateOneWithoutCucianOrderNestedInput
     Paket?: PackageUpdateOneRequiredWithoutCucianOrderNestedInput
     Service?: ServiceUpdateManyWithoutCucianOrderNestedInput
@@ -19152,6 +19187,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userIndentifier?: NullableStringFieldUpdateOperationsInput | string | null
     Service?: ServiceUncheckedUpdateManyWithoutCucianOrderNestedInput
   }
 
@@ -19164,6 +19200,7 @@ export namespace Prisma {
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
+    userIndentifier?: string | null
     User?: UserCreateNestedOneWithoutCucianOrderInput
     Paket: PackageCreateNestedOneWithoutCucianOrderInput
     ReservasiPengambilan?: ReservasiPengambilanCreateNestedManyWithoutCucianOrderInput
@@ -19180,6 +19217,7 @@ export namespace Prisma {
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
+    userIndentifier?: string | null
     ReservasiPengambilan?: ReservasiPengambilanUncheckedCreateNestedManyWithoutCucianOrderInput
   }
 
@@ -19261,6 +19299,7 @@ export namespace Prisma {
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
+    userIndentifier?: string | null
     User?: UserCreateNestedOneWithoutCucianOrderInput
     ReservasiPengambilan?: ReservasiPengambilanCreateNestedManyWithoutCucianOrderInput
     Service?: ServiceCreateNestedManyWithoutCucianOrderInput
@@ -19276,6 +19315,7 @@ export namespace Prisma {
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
+    userIndentifier?: string | null
     ReservasiPengambilan?: ReservasiPengambilanUncheckedCreateNestedManyWithoutCucianOrderInput
     Service?: ServiceUncheckedCreateNestedManyWithoutCucianOrderInput
   }
@@ -19809,6 +19849,7 @@ export namespace Prisma {
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
+    userIndentifier?: string | null
   }
 
   export type ReservasiPengambilanCreateManyUserInput = {
@@ -19895,6 +19936,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userIndentifier?: NullableStringFieldUpdateOperationsInput | string | null
     Paket?: PackageUpdateOneRequiredWithoutCucianOrderNestedInput
     ReservasiPengambilan?: ReservasiPengambilanUpdateManyWithoutCucianOrderNestedInput
     Service?: ServiceUpdateManyWithoutCucianOrderNestedInput
@@ -19910,6 +19952,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userIndentifier?: NullableStringFieldUpdateOperationsInput | string | null
     ReservasiPengambilan?: ReservasiPengambilanUncheckedUpdateManyWithoutCucianOrderNestedInput
     Service?: ServiceUncheckedUpdateManyWithoutCucianOrderNestedInput
   }
@@ -19924,6 +19967,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userIndentifier?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ReservasiPengambilanUpdateWithoutUserInput = {
@@ -20083,6 +20127,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userIndentifier?: NullableStringFieldUpdateOperationsInput | string | null
     User?: UserUpdateOneWithoutCucianOrderNestedInput
     Paket?: PackageUpdateOneRequiredWithoutCucianOrderNestedInput
     ReservasiPengambilan?: ReservasiPengambilanUpdateManyWithoutCucianOrderNestedInput
@@ -20099,6 +20144,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userIndentifier?: NullableStringFieldUpdateOperationsInput | string | null
     ReservasiPengambilan?: ReservasiPengambilanUncheckedUpdateManyWithoutCucianOrderNestedInput
   }
 
@@ -20113,6 +20159,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userIndentifier?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CucianOrderCreateManyPaketInput = {
@@ -20125,6 +20172,7 @@ export namespace Prisma {
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
+    userIndentifier?: string | null
   }
 
   export type ServiceCreateManyPackageInput = {
@@ -20147,6 +20195,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userIndentifier?: NullableStringFieldUpdateOperationsInput | string | null
     User?: UserUpdateOneWithoutCucianOrderNestedInput
     ReservasiPengambilan?: ReservasiPengambilanUpdateManyWithoutCucianOrderNestedInput
     Service?: ServiceUpdateManyWithoutCucianOrderNestedInput
@@ -20162,6 +20211,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userIndentifier?: NullableStringFieldUpdateOperationsInput | string | null
     ReservasiPengambilan?: ReservasiPengambilanUncheckedUpdateManyWithoutCucianOrderNestedInput
     Service?: ServiceUncheckedUpdateManyWithoutCucianOrderNestedInput
   }
@@ -20176,6 +20226,7 @@ export namespace Prisma {
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userIndentifier?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ServiceUpdateWithoutPackageInput = {

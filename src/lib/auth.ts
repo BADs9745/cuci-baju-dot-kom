@@ -4,7 +4,6 @@ import { GetFormDatas } from "./utils";
 import { Hash } from "./crypto";
 import { prisma } from "./prisma";
 import { cookies } from "next/headers";
-import type { PrismaClientError } from "./types/db";
 import type { LoginSchema, RegisterType } from "./types/auth";
 
 export async function Register(formData: FormData) {
@@ -36,10 +35,10 @@ export async function Register(formData: FormData) {
 			usernameOrEmail: user.username,
 			password: data.password,
 		});
-		return login as unknown as PrismaClientError & boolean;
+		return login as unknown as { meta: { target: string } } & boolean;
 	} catch (error) {
-		const { meta } = error as unknown as PrismaClientError;
-		return { meta } as PrismaClientError & boolean;
+		const { meta } = error as unknown as { meta: string };
+		return { meta } as unknown as { meta: { target: string } } & boolean;
 	}
 }
 

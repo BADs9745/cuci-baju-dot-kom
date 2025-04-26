@@ -74,6 +74,7 @@ model CucianOrder {
   status               StatusOrder            @default(PENDING)
   createAt             DateTime               @default(now())
   selesaiAt            DateTime?
+  userIndentifier      String?
 
   @@map("cucian_orders")
 }
