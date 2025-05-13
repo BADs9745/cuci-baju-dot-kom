@@ -16,3 +16,5 @@ export function GetFormDatas<FormType>(formdata: FormData) {
 export function tw(cn: TemplateStringsArray): string {
 	return cn.toString();
 }
+
+export type Omits<T, K extends keyof T> = Omit<T, K>;

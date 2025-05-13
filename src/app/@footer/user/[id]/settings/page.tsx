@@ -1,3 +1,3 @@
-export default function NoFooter() {
+export default function Nothing() {
 	return null;
 }

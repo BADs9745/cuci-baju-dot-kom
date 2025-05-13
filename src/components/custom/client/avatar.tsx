@@ -1,7 +1,6 @@
 "use client";
 
-import { LogOut } from "@/lib/session";
-import type { User } from "@prisma/client";
+import { type GetProfileByToken, LogOut } from "@/lib/session";
 import { Button } from "../../ui/button";
 import {
 	DropdownMenu,
@@ -24,12 +23,22 @@ import {
 	HoverCardContent,
 	HoverCardTrigger,
 } from "../../ui/hover-card";
+import { Badge } from "@/components/ui/badge";
 
-export default function AvatarProfile({ profile }: { profile?: User }) {
-	return profile?.id ? <LoginAvatar profile={profile} /> : <LoginBtn />;
+export default function AvatarProfile({
+	profile,
+}: { profile?: Awaited<ReturnType<typeof GetProfileByToken>> }) {
+	return profile?.data?.id ? (
+		<LoginAvatar profileData={profile} />
+	) : (
+		<LoginBtn />
+	);
 }
 
-function LoginAvatar({ profile }: { profile: User }) {
+function LoginAvatar({
+	profileData,
+}: { profileData: Awaited<ReturnType<typeof GetProfileByToken>> }) {
+	const profile = profileData.data;
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -38,17 +47,22 @@ function LoginAvatar({ profile }: { profile: User }) {
 					<div className="truncate max-w-20">{profile.fullName.trim()}</div>
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="max-w-30 **:truncate">
+			<DropdownMenuContent className="max-w-30 **:truncate z-100">
 				<DropdownMenuLabel>
 					{" "}
 					<HoverCard>
 						<HoverCardTrigger>
-							<div>{profile.fullName.trim()}</div>
-							<div>{profile.username.trim()}</div>
+							<div className="font-bold">{profile.fullName.trim()}</div>
+							<div className="text-muted-foreground truncate">
+								{profile.username.trim()}@
+								<Badge className="float-end">{profile.Role.name}</Badge>
+							</div>
 						</HoverCardTrigger>
-						<HoverCardContent>
-							<div>{profile.fullName.trim()}</div>
-							<div>{profile.username.trim()}</div>
+						<HoverCardContent className="z-100">
+							<div className="font-bold">{profile.fullName.trim()}</div>
+							<div className="text-muted-foreground">
+								@{profile.username.trim()}
+							</div>
 						</HoverCardContent>
 					</HoverCard>
 				</DropdownMenuLabel>

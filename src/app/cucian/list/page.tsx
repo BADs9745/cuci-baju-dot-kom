@@ -1,4 +1,4 @@
-import SearchInput from "@/components/custom/serverComponent/search-input";
+import SearchInput from "@/components/custom/server/search-input";
 import { Separator } from "@/components/ui/separator";
 import {
 	Table,
@@ -51,7 +51,7 @@ export default async function ListOrderCucianPage({
 			</div>
 			<div className="mx-50 mb-20">
 				<div className="my-10 flex gap-5">
-					<SearchInput search={find} status={status} />
+					<SearchInput search={find} status={status} pathname="list" />
 				</div>
 				<Table>
 					<TableHeader>
@@ -130,7 +130,7 @@ export default async function ListOrderCucianPage({
 								</PaginationItem>
 								{pagination < lastPagination - 1 && (
 									<>
-										{pagination === lastPagination - 2 || (
+										{pagination < lastPagination - 2 && (
 											<PaginationItem>
 												<PaginationEllipsis />
 											</PaginationItem>

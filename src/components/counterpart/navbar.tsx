@@ -3,20 +3,22 @@
 import { playwrite, varelaRound } from "@/font/font";
 import { CalendarDaysIcon } from "lucide-react";
 import { Button } from "../ui/button";
-import AvatarProfile from "../custom/clientComponent/avatar";
+import AvatarProfile from "../custom/client/avatar";
 import { useEffect, useState } from "react";
-import type { User } from "@/prisma/client";
 import { GetProfileByToken, isLogin } from "@/lib/session";
-import { NavbarDropDownMenu } from "../custom/clientComponent/dropdown";
-import { NavigationList } from "../custom/clientComponent/navigationList";
+import { NavbarDropDownMenu } from "../custom/client/dropdown";
+import { NavigationList } from "../custom/client/navigationList";
+import Link from "next/link";
 
 export default function Navbar() {
-	const [profile, setProfile] = useState({} as User);
+	const [profile, setProfile] = useState(
+		{} as Awaited<ReturnType<typeof GetProfileByToken>>,
+	);
+
 	useEffect(() => {
 		async function ProfileInitializer() {
 			const token = await isLogin();
 			const profile = await GetProfileByToken(token as string);
-			console.log(profile);
 			setProfile(profile);
 		}
 		ProfileInitializer();
@@ -24,9 +26,11 @@ export default function Navbar() {
 	}, []);
 	return (
 		<nav className="py-10 flex justify-between items-center">
-			<h1 className={`${playwrite.className} italic font-black text-4xl`}>
-				Cuci Baju Dot Kom
-			</h1>
+			<Link href={"/"}>
+				<h1 className={`${playwrite.className} italic font-black text-4xl`}>
+					Cuci Baju Dot Kom
+				</h1>
+			</Link>
 			<NavigationList />
 			<div className="flex gap-5">
 				<NavbarDropDownMenu />

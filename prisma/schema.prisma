@@ -52,9 +52,11 @@ model LoginSession {
 }
 
 model UserRole {
-  id   String @id @default(uuid())
-  name String @unique
-  User User[]
+  id              String  @id @default(uuid())
+  name            String  @unique
+  User            User[]
+  authority_level Int     @default(0)
+  admin           Boolean @default(false)
 
   @@map("user_roles")
 }
@@ -103,7 +105,7 @@ model Service {
   description        String?
   pricePerUnit       Decimal
   estimatedTimeHours Int
-  priority           Int
+  priority           Int           @default(1)
   createdAt          DateTime      @default(now())
   updatedAt          DateTime      @updatedAt
   CucianOrder        CucianOrder[]
@@ -120,6 +122,7 @@ model Package {
   pricePerUnit BigInt
   CucianOrder  CucianOrder[]
   Service      Service[]
+  active       Boolean       @default(true)
 
   @@map("packages")
 }

@@ -49,7 +49,10 @@ function Button({
 	return (
 		<Comp
 			data-slot="button"
-			className={cn(buttonVariants({ variant, size, className }))}
+			className={cn(
+				buttonVariants({ variant, size, className }),
+				"hover:scale-103 active:scale-97 duration-300 transition-all",
+			)}
 			{...props}
 		/>
 	);

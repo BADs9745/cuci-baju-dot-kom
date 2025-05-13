@@ -23,100 +23,97 @@ export default function InteractiveWeight({
 		},
 	});
 
-	const searchParams = new URLSearchParams();
-	searchParams.append("paket", getValues("paket"));
-
 	return (
 		<div className="flex flex-col justify-center bg-accent rounded-sm p-10 mt-10">
 			<div className="flex flex-col items-center">
 				<h1 className="text-4xl text-center font-semibold">
 					Pilihlah Paket Cucian Anda!!!
 				</h1>
-				<div className="flex justify-center mt-5">
-					<div>
-						<h1 className="text-3xl text-nowrap">Paket :</h1>
-						<fieldset className="mt-5 flex flex-col gap-5">
-							{paketList.map(({ id, name, description, pricePerUnit }, i) => (
-								<label className="group" key={id}>
-									<input
-										type="radio"
-										{...register("paket")}
-										value={id}
-										defaultChecked={i === 1 && true}
-										className="hidden"
-									/>
-									<div className="flex bg-primary/50 group-has-checked:bg-primary group-has-checked:border-2 border-foreground rounded-md p-5 w-100">
-										<div className="grow">
-											<h1 className="text-3xl">{name}</h1>
-											<p className="">{description}</p>
-										</div>
-										<div className="flex flex-col items-end justify-around gap-2">
-											<div className="p-1 rounded-full bg-stone-50 group-has-checked:bg-green-500 size-fit">
-												<CheckIcon className="size-5 stroke-5 text-stone-50" />
-											</div>
-											<p className="text-nowrap">
-												RP{" "}
-												{pricePerUnit.toLocaleString("id-ID", {
-													style: "decimal",
-													currency: "IDR",
-												})}{" "}
-												/ Kg
-											</p>
-										</div>
+				<div>
+					<h1 className="text-3xl text-nowrap mt-5">Paket :</h1>
+					<fieldset className="mt-5 gap-5 grid grid-cols-3 max-h-150 overflow-y-auto overflow-x-clip">
+						{paketList.map(({ id, name, description, pricePerUnit }, i) => (
+							<label className="group" key={id}>
+								<input
+									type="radio"
+									{...register("paket")}
+									value={id}
+									defaultChecked={i === 1 && true}
+									className="hidden"
+								/>
+								<div className="flex flex-col bg-primary/50 group-has-checked:bg-primary group-has-checked:border-2 border-green-700 rounded-md p-5 h-full relative *:z-10 duration-500 transition-colors **:duration-500 **:transition-colors">
+									<h1 className="text-3xl col-span-2">{name}</h1>
+									<p className="line-clamp-3">{description}</p>
+									<div className="text-nowrap text-end grow flex items-end justify-end mt-2 font-bold">
+										Rp{" "}
+										{pricePerUnit.toLocaleString("id-ID", {
+											style: "decimal",
+											currency: "IDR",
+										})}{" "}
+										/ Kg
 									</div>
-								</label>
-							))}
-						</fieldset>
-					</div>
-					<div className="grid grid-cols-2 items-center m-10 me-0 justify-items-center w-full">
-						<div className="flex flex-col items-center">
-							<button
-								type="button"
-								className={`${roundBtnStyle} ${hoverBtnStyle}`}
-								onClick={() => {
-									setWeight((prev) => {
-										return prev + 1;
-									});
-								}}
-							>
-								<PlusIcon className="size-10" />
-							</button>
-							<div className="my-2 text-3xl">
-								<AnimateNumber>{weight}</AnimateNumber> Kg
-							</div>
-							<button
-								type="button"
-								className={`${roundBtnStyle} ${hoverBtnStyle}`}
-								onClick={() => {
-									if (weight > 1) {
-										setWeight((prev) => {
-											return prev - 1;
-										});
-									}
-								}}
-							>
-								<MinusIcon className="size-10" />
-							</button>
+									<CheckIcon className="absolute right-5 top-0 stroke-3 stroke-primary-foreground/15 group-has-checked:stroke-green-800 size-30 z-0!" />
+								</div>
+							</label>
+						))}
+					</fieldset>
+				</div>
+				<div className="grid grid-cols-2 items-center m-10 me-0 justify-items-center w-full">
+					<div className="flex flex-col items-center">
+						<button
+							type="button"
+							className={`${roundBtnStyle} ${hoverBtnStyle}`}
+							onClick={() => {
+								setWeight((prev) => {
+									return prev + 1;
+								});
+							}}
+						>
+							<PlusIcon className="size-10" />
+						</button>
+						<div className="my-2 text-3xl">
+							<AnimateNumber>{weight}</AnimateNumber> Kg
 						</div>
-						<div>
-							<h1 className="text-2xl">Total Harga :</h1>
-							<div className="text-end text-3xl">
-								<AnimateNumber
-									transition={{ type: "spring" }}
-									format={{ currency: "IDR", style: "currency" }}
-								>
-									{weight *
-										(Number(
-											paketList.find((p) => p.id === watch("paket"))
-												?.pricePerUnit,
-										) || 8000)}
-								</AnimateNumber>
-							</div>
+						<button
+							type="button"
+							className={`${roundBtnStyle} ${hoverBtnStyle}`}
+							onClick={() => {
+								if (weight > 1) {
+									setWeight((prev) => {
+										return prev - 1;
+									});
+								}
+							}}
+						>
+							<MinusIcon className="size-10" />
+						</button>
+					</div>
+					<div>
+						<h1 className="text-2xl">Total Harga :</h1>
+						<div className="text-end text-3xl">
+							<AnimateNumber
+								transition={{ type: "spring" }}
+								format={{ currency: "IDR", style: "currency" }}
+							>
+								{weight *
+									(Number(
+										paketList.find((p) => p.id === watch("paket"))
+											?.pricePerUnit,
+									) || 8000)}
+							</AnimateNumber>
 						</div>
 					</div>
 				</div>
 			</div>
-			<Link href={`/cucian/?${searchParams}`} className="self-end">
+			<Link
+				href={{
+					pathname: "/cucian",
+					query: {
+						paket: getValues("paket"),
+					},
+				}}
+				className="self-end"
+			>
 				<Button className="mt-10 text-xl p-5 w-fit self-end">
 					Cuci Sekarang
 				</Button>

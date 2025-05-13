@@ -4444,40 +4444,70 @@ export namespace Prisma {
 
   export type AggregateUserRole = {
     _count: UserRoleCountAggregateOutputType | null
+    _avg: UserRoleAvgAggregateOutputType | null
+    _sum: UserRoleSumAggregateOutputType | null
     _min: UserRoleMinAggregateOutputType | null
     _max: UserRoleMaxAggregateOutputType | null
+  }
+
+  export type UserRoleAvgAggregateOutputType = {
+    authority_level: number | null
+  }
+
+  export type UserRoleSumAggregateOutputType = {
+    authority_level: number | null
   }
 
   export type UserRoleMinAggregateOutputType = {
     id: string | null
     name: string | null
+    authority_level: number | null
+    admin: boolean | null
   }
 
   export type UserRoleMaxAggregateOutputType = {
     id: string | null
     name: string | null
+    authority_level: number | null
+    admin: boolean | null
   }
 
   export type UserRoleCountAggregateOutputType = {
     id: number
     name: number
+    authority_level: number
+    admin: number
     _all: number
   }
 
 
+  export type UserRoleAvgAggregateInputType = {
+    authority_level?: true
+  }
+
+  export type UserRoleSumAggregateInputType = {
+    authority_level?: true
+  }
+
   export type UserRoleMinAggregateInputType = {
     id?: true
     name?: true
+    authority_level?: true
+    admin?: true
   }
 
   export type UserRoleMaxAggregateInputType = {
     id?: true
     name?: true
+    authority_level?: true
+    admin?: true
   }
 
   export type UserRoleCountAggregateInputType = {
     id?: true
     name?: true
+    authority_level?: true
+    admin?: true
     _all?: true
   }
 
@@ -4519,6 +4549,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UserRoleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserRoleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserRoleMinAggregateInputType
@@ -4549,6 +4591,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserRoleCountAggregateInputType | true
+    _avg?: UserRoleAvgAggregateInputType
+    _sum?: UserRoleSumAggregateInputType
     _min?: UserRoleMinAggregateInputType
     _max?: UserRoleMaxAggregateInputType
   }
@@ -4556,7 +4600,11 @@ export namespace Prisma {
   export type UserRoleGroupByOutputType = {
     id: string
     name: string
+    authority_level: number
+    admin: boolean
     _count: UserRoleCountAggregateOutputType | null
+    _avg: UserRoleAvgAggregateOutputType | null
+    _sum: UserRoleSumAggregateOutputType | null
     _min: UserRoleMinAggregateOutputType | null
     _max: UserRoleMaxAggregateOutputType | null
   }
@@ -4578,6 +4626,8 @@ export namespace Prisma {
   export type UserRoleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    authority_level?: boolean
+    admin?: boolean
     User?: boolean | UserRole$UserArgs<ExtArgs>
     _count?: boolean | UserRoleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userRole"]>
@@ -4585,19 +4635,25 @@ export namespace Prisma {
   export type UserRoleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    authority_level?: boolean
+    admin?: boolean
   }, ExtArgs["result"]["userRole"]>
 
   export type UserRoleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    authority_level?: boolean
+    admin?: boolean
   }, ExtArgs["result"]["userRole"]>
 
   export type UserRoleSelectScalar = {
     id?: boolean
     name?: boolean
+    authority_level?: boolean
+    admin?: boolean
   }
 
-  export type UserRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["userRole"]>
+  export type UserRoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "authority_level" | "admin", ExtArgs["result"]["userRole"]>
   export type UserRoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     User?: boolean | UserRole$UserArgs<ExtArgs>
     _count?: boolean | UserRoleCountOutputTypeDefaultArgs<ExtArgs>
@@ -4613,6 +4669,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
+      authority_level: number
+      admin: boolean
     }, ExtArgs["result"]["userRole"]>
     composites: {}
   }
@@ -5039,6 +5097,8 @@ export namespace Prisma {
   interface UserRoleFieldRefs {
     readonly id: FieldRef<"UserRole", 'String'>
     readonly name: FieldRef<"UserRole", 'String'>
+    readonly authority_level: FieldRef<"UserRole", 'Int'>
+    readonly admin: FieldRef<"UserRole", 'Boolean'>
   }
     
 
@@ -9003,6 +9063,7 @@ export namespace Prisma {
     name: string | null
     description: string | null
     pricePerUnit: bigint | null
+    active: boolean | null
   }
 
   export type PackageMaxAggregateOutputType = {
@@ -9010,6 +9071,7 @@ export namespace Prisma {
     name: string | null
     description: string | null
     pricePerUnit: bigint | null
+    active: boolean | null
   }
 
   export type PackageCountAggregateOutputType = {
@@ -9017,6 +9079,7 @@ export namespace Prisma {
     name: number
     description: number
     pricePerUnit: number
+    active: number
     _all: number
   }
 
@@ -9034,6 +9097,7 @@ export namespace Prisma {
     name?: true
     description?: true
     pricePerUnit?: true
+    active?: true
   }
 
   export type PackageMaxAggregateInputType = {
@@ -9041,6 +9105,7 @@ export namespace Prisma {
     name?: true
     description?: true
     pricePerUnit?: true
+    active?: true
   }
 
   export type PackageCountAggregateInputType = {
@@ -9048,6 +9113,7 @@ export namespace Prisma {
     name?: true
     description?: true
     pricePerUnit?: true
+    active?: true
     _all?: true
   }
 
@@ -9142,6 +9208,7 @@ export namespace Prisma {
     name: string
     description: string
     pricePerUnit: bigint
+    active: boolean
     _count: PackageCountAggregateOutputType | null
     _avg: PackageAvgAggregateOutputType | null
     _sum: PackageSumAggregateOutputType | null
@@ -9168,6 +9235,7 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     pricePerUnit?: boolean
+    active?: boolean
     CucianOrder?: boolean | Package$CucianOrderArgs<ExtArgs>
     Service?: boolean | Package$ServiceArgs<ExtArgs>
     _count?: boolean | PackageCountOutputTypeDefaultArgs<ExtArgs>
@@ -9178,6 +9246,7 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     pricePerUnit?: boolean
+    active?: boolean
   }, ExtArgs["result"]["package"]>
 
   export type PackageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9185,6 +9254,7 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     pricePerUnit?: boolean
+    active?: boolean
   }, ExtArgs["result"]["package"]>
 
   export type PackageSelectScalar = {
@@ -9192,9 +9262,10 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     pricePerUnit?: boolean
+    active?: boolean
   }
 
-  export type PackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "pricePerUnit", ExtArgs["result"]["package"]>
+  export type PackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "pricePerUnit" | "active", ExtArgs["result"]["package"]>
   export type PackageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     CucianOrder?: boolean | Package$CucianOrderArgs<ExtArgs>
     Service?: boolean | Package$ServiceArgs<ExtArgs>
@@ -9214,6 +9285,7 @@ export namespace Prisma {
       name: string
       description: string
       pricePerUnit: bigint
+      active: boolean
     }, ExtArgs["result"]["package"]>
     composites: {}
   }
@@ -9643,6 +9715,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Package", 'String'>
     readonly description: FieldRef<"Package", 'String'>
     readonly pricePerUnit: FieldRef<"Package", 'BigInt'>
+    readonly active: FieldRef<"Package", 'Boolean'>
   }
     
 
@@ -14613,7 +14686,9 @@ export namespace Prisma {
 
   export const UserRoleScalarFieldEnum: {
     id: 'id',
-    name: 'name'
+    name: 'name',
+    authority_level: 'authority_level',
+    admin: 'admin'
   };
 
   export type UserRoleScalarFieldEnum = (typeof UserRoleScalarFieldEnum)[keyof typeof UserRoleScalarFieldEnum]
@@ -14665,7 +14740,8 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     description: 'description',
-    pricePerUnit: 'pricePerUnit'
+    pricePerUnit: 'pricePerUnit',
+    active: 'active'
   };
 
   export type PackageScalarFieldEnum = (typeof PackageScalarFieldEnum)[keyof typeof PackageScalarFieldEnum]
@@ -15060,12 +15136,16 @@ export namespace Prisma {
     NOT?: UserRoleWhereInput | UserRoleWhereInput[]
     id?: StringFilter<"UserRole"> | string
     name?: StringFilter<"UserRole"> | string
+    authority_level?: IntFilter<"UserRole"> | number
+    admin?: BoolFilter<"UserRole"> | boolean
     User?: UserListRelationFilter
   }
 
   export type UserRoleOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    authority_level?: SortOrder
+    admin?: SortOrder
     User?: UserOrderByRelationAggregateInput
   }
 
@@ -15075,15 +15155,21 @@ export namespace Prisma {
     AND?: UserRoleWhereInput | UserRoleWhereInput[]
     OR?: UserRoleWhereInput[]
     NOT?: UserRoleWhereInput | UserRoleWhereInput[]
+    authority_level?: IntFilter<"UserRole"> | number
+    admin?: BoolFilter<"UserRole"> | boolean
     User?: UserListRelationFilter
   }, "id" | "name">
 
   export type UserRoleOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    authority_level?: SortOrder
+    admin?: SortOrder
     _count?: UserRoleCountOrderByAggregateInput
+    _avg?: UserRoleAvgOrderByAggregateInput
     _max?: UserRoleMaxOrderByAggregateInput
     _min?: UserRoleMinOrderByAggregateInput
+    _sum?: UserRoleSumOrderByAggregateInput
   }
 
   export type UserRoleScalarWhereWithAggregatesInput = {
@@ -15092,6 +15178,8 @@ export namespace Prisma {
     NOT?: UserRoleScalarWhereWithAggregatesInput | UserRoleScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"UserRole"> | string
     name?: StringWithAggregatesFilter<"UserRole"> | string
+    authority_level?: IntWithAggregatesFilter<"UserRole"> | number
+    admin?: BoolWithAggregatesFilter<"UserRole"> | boolean
   }
 
   export type CucianOrderWhereInput = {
@@ -15331,6 +15419,7 @@ export namespace Prisma {
     name?: StringFilter<"Package"> | string
     description?: StringFilter<"Package"> | string
     pricePerUnit?: BigIntFilter<"Package"> | bigint | number
+    active?: BoolFilter<"Package"> | boolean
     CucianOrder?: CucianOrderListRelationFilter
     Service?: ServiceListRelationFilter
   }
@@ -15340,6 +15429,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     pricePerUnit?: SortOrder
+    active?: SortOrder
     CucianOrder?: CucianOrderOrderByRelationAggregateInput
     Service?: ServiceOrderByRelationAggregateInput
   }
@@ -15352,6 +15442,7 @@ export namespace Prisma {
     name?: StringFilter<"Package"> | string
     description?: StringFilter<"Package"> | string
     pricePerUnit?: BigIntFilter<"Package"> | bigint | number
+    active?: BoolFilter<"Package"> | boolean
     CucianOrder?: CucianOrderListRelationFilter
     Service?: ServiceListRelationFilter
   }, "id">
@@ -15361,6 +15452,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     pricePerUnit?: SortOrder
+    active?: SortOrder
     _count?: PackageCountOrderByAggregateInput
     _avg?: PackageAvgOrderByAggregateInput
     _max?: PackageMaxOrderByAggregateInput
@@ -15376,6 +15468,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Package"> | string
     description?: StringWithAggregatesFilter<"Package"> | string
     pricePerUnit?: BigIntWithAggregatesFilter<"Package"> | bigint | number
+    active?: BoolWithAggregatesFilter<"Package"> | boolean
   }
 
   export type InventoryWhereInput = {
@@ -15829,40 +15922,54 @@ export namespace Prisma {
   export type UserRoleCreateInput = {
     id?: string
     name: string
+    authority_level?: number
+    admin?: boolean
     User?: UserCreateNestedManyWithoutRoleInput
   }
 
   export type UserRoleUncheckedCreateInput = {
     id?: string
     name: string
+    authority_level?: number
+    admin?: boolean
     User?: UserUncheckedCreateNestedManyWithoutRoleInput
   }
 
   export type UserRoleUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    authority_level?: IntFieldUpdateOperationsInput | number
+    admin?: BoolFieldUpdateOperationsInput | boolean
     User?: UserUpdateManyWithoutRoleNestedInput
   }
 
   export type UserRoleUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    authority_level?: IntFieldUpdateOperationsInput | number
+    admin?: BoolFieldUpdateOperationsInput | boolean
     User?: UserUncheckedUpdateManyWithoutRoleNestedInput
   }
 
   export type UserRoleCreateManyInput = {
     id?: string
     name: string
+    authority_level?: number
+    admin?: boolean
   }
 
   export type UserRoleUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    authority_level?: IntFieldUpdateOperationsInput | number
+    admin?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserRoleUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    authority_level?: IntFieldUpdateOperationsInput | number
+    admin?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type CucianOrderCreateInput = {
@@ -16022,7 +16129,7 @@ export namespace Prisma {
     description?: string | null
     pricePerUnit: Decimal | DecimalJsLike | number | string
     estimatedTimeHours: number
-    priority: number
+    priority?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     CucianOrder?: CucianOrderCreateNestedManyWithoutServiceInput
@@ -16035,7 +16142,7 @@ export namespace Prisma {
     description?: string | null
     pricePerUnit: Decimal | DecimalJsLike | number | string
     estimatedTimeHours: number
-    priority: number
+    priority?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     packageId?: string | null
@@ -16074,7 +16181,7 @@ export namespace Prisma {
     description?: string | null
     pricePerUnit: Decimal | DecimalJsLike | number | string
     estimatedTimeHours: number
-    priority: number
+    priority?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     packageId?: string | null
@@ -16108,6 +16215,7 @@ export namespace Prisma {
     name: string
     description: string
     pricePerUnit: bigint | number
+    active?: boolean
     CucianOrder?: CucianOrderCreateNestedManyWithoutPaketInput
     Service?: ServiceCreateNestedManyWithoutPackageInput
   }
@@ -16117,6 +16225,7 @@ export namespace Prisma {
     name: string
     description: string
     pricePerUnit: bigint | number
+    active?: boolean
     CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutPaketInput
     Service?: ServiceUncheckedCreateNestedManyWithoutPackageInput
   }
@@ -16126,6 +16235,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    active?: BoolFieldUpdateOperationsInput | boolean
     CucianOrder?: CucianOrderUpdateManyWithoutPaketNestedInput
     Service?: ServiceUpdateManyWithoutPackageNestedInput
   }
@@ -16135,6 +16245,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    active?: BoolFieldUpdateOperationsInput | boolean
     CucianOrder?: CucianOrderUncheckedUpdateManyWithoutPaketNestedInput
     Service?: ServiceUncheckedUpdateManyWithoutPackageNestedInput
   }
@@ -16144,6 +16255,7 @@ export namespace Prisma {
     name: string
     description: string
     pricePerUnit: bigint | number
+    active?: boolean
   }
 
   export type PackageUpdateManyMutationInput = {
@@ -16151,6 +16263,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    active?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type PackageUncheckedUpdateManyInput = {
@@ -16158,6 +16271,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    active?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type InventoryCreateInput = {
@@ -16743,6 +16857,17 @@ export namespace Prisma {
     expire?: SortOrder
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type UserListRelationFilter = {
     every?: UserWhereInput
     some?: UserWhereInput
@@ -16756,16 +16881,46 @@ export namespace Prisma {
   export type UserRoleCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    authority_level?: SortOrder
+    admin?: SortOrder
+  }
+
+  export type UserRoleAvgOrderByAggregateInput = {
+    authority_level?: SortOrder
   }
 
   export type UserRoleMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    authority_level?: SortOrder
+    admin?: SortOrder
   }
 
   export type UserRoleMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    authority_level?: SortOrder
+    admin?: SortOrder
+  }
+
+  export type UserRoleSumOrderByAggregateInput = {
+    authority_level?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -16919,17 +17074,6 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type PackageNullableScalarRelationFilter = {
     is?: PackageWhereInput | null
     isNot?: PackageWhereInput | null
@@ -16999,22 +17143,6 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
   export type BigIntFilter<$PrismaModel = never> = {
     equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
@@ -17031,6 +17159,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     pricePerUnit?: SortOrder
+    active?: SortOrder
   }
 
   export type PackageAvgOrderByAggregateInput = {
@@ -17042,6 +17171,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     pricePerUnit?: SortOrder
+    active?: SortOrder
   }
 
   export type PackageMinOrderByAggregateInput = {
@@ -17049,6 +17179,7 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     pricePerUnit?: SortOrder
+    active?: SortOrder
   }
 
   export type PackageSumOrderByAggregateInput = {
@@ -17505,6 +17636,14 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type UserUpdateManyWithoutRoleNestedInput = {
     create?: XOR<UserCreateWithoutRoleInput, UserUncheckedCreateWithoutRoleInput> | UserCreateWithoutRoleInput[] | UserUncheckedCreateWithoutRoleInput[]
     connectOrCreate?: UserCreateOrConnectWithoutRoleInput | UserCreateOrConnectWithoutRoleInput[]
@@ -17707,14 +17846,6 @@ export namespace Prisma {
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
     divide?: Decimal | DecimalJsLike | number | string
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type CucianOrderUpdateManyWithoutServiceNestedInput = {
@@ -18155,6 +18286,33 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedEnumStatusOrderFilter<$PrismaModel = never> = {
     equals?: $Enums.StatusOrder | EnumStatusOrderFieldRefInput<$PrismaModel>
     in?: $Enums.StatusOrder[] | ListEnumStatusOrderFieldRefInput<$PrismaModel>
@@ -18226,33 +18384,6 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type NestedBigIntFilter<$PrismaModel = never> = {
     equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
     in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
@@ -18283,11 +18414,15 @@ export namespace Prisma {
   export type UserRoleCreateWithoutUserInput = {
     id?: string
     name: string
+    authority_level?: number
+    admin?: boolean
   }
 
   export type UserRoleUncheckedCreateWithoutUserInput = {
     id?: string
     name: string
+    authority_level?: number
+    admin?: boolean
   }
 
   export type UserRoleCreateOrConnectWithoutUserInput = {
@@ -18447,11 +18582,15 @@ export namespace Prisma {
   export type UserRoleUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    authority_level?: IntFieldUpdateOperationsInput | number
+    admin?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserRoleUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    authority_level?: IntFieldUpdateOperationsInput | number
+    admin?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type LoginSessionUpsertWithWhereUniqueWithoutUserInput = {
@@ -18827,6 +18966,7 @@ export namespace Prisma {
     name: string
     description: string
     pricePerUnit: bigint | number
+    active?: boolean
     Service?: ServiceCreateNestedManyWithoutPackageInput
   }
 
@@ -18835,6 +18975,7 @@ export namespace Prisma {
     name: string
     description: string
     pricePerUnit: bigint | number
+    active?: boolean
     Service?: ServiceUncheckedCreateNestedManyWithoutPackageInput
   }
 
@@ -18871,7 +19012,7 @@ export namespace Prisma {
     description?: string | null
     pricePerUnit: Decimal | DecimalJsLike | number | string
     estimatedTimeHours: number
-    priority: number
+    priority?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     Package?: PackageCreateNestedOneWithoutServiceInput
@@ -18883,7 +19024,7 @@ export namespace Prisma {
     description?: string | null
     pricePerUnit: Decimal | DecimalJsLike | number | string
     estimatedTimeHours: number
-    priority: number
+    priority?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     packageId?: string | null
@@ -18961,6 +19102,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    active?: BoolFieldUpdateOperationsInput | boolean
     Service?: ServiceUpdateManyWithoutPackageNestedInput
   }
 
@@ -18969,6 +19111,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    active?: BoolFieldUpdateOperationsInput | boolean
     Service?: ServiceUncheckedUpdateManyWithoutPackageNestedInput
   }
 
@@ -19231,6 +19374,7 @@ export namespace Prisma {
     name: string
     description: string
     pricePerUnit: bigint | number
+    active?: boolean
     CucianOrder?: CucianOrderCreateNestedManyWithoutPaketInput
   }
 
@@ -19239,6 +19383,7 @@ export namespace Prisma {
     name: string
     description: string
     pricePerUnit: bigint | number
+    active?: boolean
     CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutPaketInput
   }
 
@@ -19279,6 +19424,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    active?: BoolFieldUpdateOperationsInput | boolean
     CucianOrder?: CucianOrderUpdateManyWithoutPaketNestedInput
   }
 
@@ -19287,6 +19433,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    active?: BoolFieldUpdateOperationsInput | boolean
     CucianOrder?: CucianOrderUncheckedUpdateManyWithoutPaketNestedInput
   }
 
@@ -19336,7 +19483,7 @@ export namespace Prisma {
     description?: string | null
     pricePerUnit: Decimal | DecimalJsLike | number | string
     estimatedTimeHours: number
-    priority: number
+    priority?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     CucianOrder?: CucianOrderCreateNestedManyWithoutServiceInput
@@ -19348,7 +19495,7 @@ export namespace Prisma {
     description?: string | null
     pricePerUnit: Decimal | DecimalJsLike | number | string
     estimatedTimeHours: number
-    priority: number
+    priority?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutServiceInput
@@ -20181,7 +20328,7 @@ export namespace Prisma {
     description?: string | null
     pricePerUnit: Decimal | DecimalJsLike | number | string
     estimatedTimeHours: number
-    priority: number
+    priority?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }

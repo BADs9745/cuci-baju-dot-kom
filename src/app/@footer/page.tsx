@@ -1,14 +1,17 @@
 import ThemeSwitch from "@/components/themeSwitch";
 import { playwrite } from "@/font/font";
 import { MailIcon, MessageSquareIcon, PhoneIcon } from "lucide-react";
+import Link from "next/link";
 
 export default function RootFooter() {
 	return (
 		<div className="pt-20 bg-muted px-30 contain-layout">
 			<div className="flex gap-15">
-				<h1 className={`${playwrite.className} text-3xl italic text-nowrap`}>
-					Cuci Baju Dot Kom
-				</h1>
+				<Link href={"/"}>
+					<h1 className={`${playwrite.className} text-3xl italic text-nowrap`}>
+						Cuci Baju Dot Kom
+					</h1>
+				</Link>
 				<p className="text-justify max-w-170">
 					Cuci Baju Dot Kom Adalah Layanan Cuci Baju yang terpecaya yang mencuci
 					pakaian anda dengan bersih tanpa noda. Cuci Baju Dot Kom juga

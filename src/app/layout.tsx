@@ -25,7 +25,7 @@ export default async function RootLayout({
 			<ThemeAdapter />
 			<SessionProvider />
 			<body className={`antialiased ${nunito.className} relative`}>
-				<header className="sticky top-0 z-10">{header}</header>
+				<header className="sticky top-0 z-100">{header}</header>
 				<main>{children}</main>
 				<footer>{footer}</footer>
 				<Toaster />

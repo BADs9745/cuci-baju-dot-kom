@@ -143,7 +143,9 @@ exports.Prisma.LoginSessionScalarFieldEnum = {
 
 exports.Prisma.UserRoleScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  authority_level: 'authority_level',
+  admin: 'admin'
 };
 
 exports.Prisma.CucianOrderScalarFieldEnum = {
@@ -183,7 +185,8 @@ exports.Prisma.PackageScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  pricePerUnit: 'pricePerUnit'
+  pricePerUnit: 'pricePerUnit',
+  active: 'active'
 };
 
 exports.Prisma.InventoryScalarFieldEnum = {

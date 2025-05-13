@@ -30,7 +30,9 @@ export function LoginContent() {
 
 		if (res === "user-not-found") {
 			toast("Username atau Email tidak terdaftar");
-			form.setError("usernameOrEmail", { message: "Username tidak terdaftar" });
+			form.setError("usernameOrEmail", {
+				message: "Username atau Email tidak terdaftar",
+			});
 			return;
 		}
 
@@ -56,7 +58,7 @@ export function LoginContent() {
 						control={form.control}
 						render={({ field }) => (
 							<FormItem className="max-w-100 mx-auto">
-								<FormLabel>Username</FormLabel>
+								<FormLabel>Username atau Email</FormLabel>
 								<Input {...field} />
 								<FormMessage />
 							</FormItem>

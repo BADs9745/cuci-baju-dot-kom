@@ -1,4 +1,4 @@
-import UserWithAccountHoverCard from "@/components/custom/serverComponent/userWithAccountHoverDiablog";
+import UserWithAccountHoverCard from "@/components/custom/server/userWithAccountHoverDiablog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {

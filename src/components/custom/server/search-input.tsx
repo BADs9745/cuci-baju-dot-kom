@@ -15,12 +15,13 @@ import { Search } from "lucide-react";
 export default function SearchInput({
 	search,
 	status,
-}: { search?: string; status?: $Enums.StatusOrder }) {
+	pathname,
+}: { search?: string; status?: $Enums.StatusOrder; pathname: string }) {
 	const statusList = Object.values($Enums.StatusOrder);
 	return (
 		<>
 			<form
-				action="/cucian/list"
+				action={pathname}
 				className="flex w-full space-x-3 items-end"
 				method="GET"
 			>

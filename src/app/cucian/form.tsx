@@ -15,11 +15,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import type { Package } from "@/prisma/client";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { PostCucianOrder } from "@/lib/cucian";
 import { toast } from "sonner";
-import { Eye } from "lucide-react";
+import { CheckIcon, Eye } from "lucide-react";
 import { tw } from "@/lib/utils";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 
 export default function CucianForm({
 	isLogin,
@@ -28,7 +35,7 @@ export default function CucianForm({
 	...prop
 }: z.infer<typeof CucianFormSchema> & {
 	isLogin: boolean;
-	paketList: Promise<Package[]>;
+	paketList: Package[];
 	limit: boolean;
 }) {
 	const {
@@ -49,7 +56,7 @@ export default function CucianForm({
 		resolver: zodResolver(CucianFormSchema),
 	});
 	const [submitBtn, setSubmitBtn] = useState(true);
-	const pakets = use(paketList);
+	const pakets = paketList;
 
 	useEffect(() => {
 		if (limit) {
@@ -162,12 +169,12 @@ export default function CucianForm({
 						name="paket"
 						render={({ field }) => (
 							<FormItem>
-								<div className="mt-5">
+								<div className="mt-5 overflow-x-auto p-2">
 									<h1 className="text-4xl font-semibold">Pilih Paket Cucian</h1>
 									<FormMessage className="mt-2" />
 									<fieldset className="mt-5 flex gap-5 flex-nowrap overflow-scroll contain-content p-1">
 										{pakets?.map((e) => (
-											<label className="group" key={e.id}>
+											<label key={e.id} className="aspect-square w-55 group">
 												<input
 													type="radio"
 													{...field}
@@ -175,13 +182,20 @@ export default function CucianForm({
 													className="hidden"
 													defaultChecked={e.id === paket}
 												/>
-												<div className="group-has-checked:bg-muted w-55 py-5 ring-border ring-2 px-5 rounded-xl flex flex-col justify-center contain-content">
-													<h1 className="text-2xl font-semibold">{e.name}</h1>
-													<p className="line-clamp-3">{e.description}</p>
-													<p className="mt-5 text-end">
+												<Card className="group-has-checked:bg-muted group-has-checked:border-green-700 ring-border ring-2 rounded-xl flex flex-col justify-center contain-content aspect-9/12 relative *:z-10">
+													<CardHeader className="grow">
+														<CardTitle className="text-2xl font-semibold line-clamp-2">
+															{e.name}
+														</CardTitle>
+														<CardDescription className="line-clamp-5">
+															{e.description}
+														</CardDescription>
+													</CardHeader>
+													<CardContent className="mt-5 text-end">
 														RP {Number(e.pricePerUnit)} / Kg
-													</p>
-												</div>
+													</CardContent>
+													<CheckIcon className="absolute right-5 top-0 stroke-3 stroke-primary-foreground/15 group-has-checked:stroke-green-800 size-30 z-0!" />
+												</Card>
 											</label>
 										))}
 

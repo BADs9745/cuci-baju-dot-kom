@@ -18,7 +18,7 @@ export default async function CucianPage({
 }: { searchParams: Promise<CucianSearchParam> }) {
 	const cucian = await searchParams;
 	const token = await isLogin();
-	const profile = await GetProfileByToken(token as string);
+	const profile = (await GetProfileByToken(token as string)).data;
 	const guestId = (await cookies()).get("guest")?.value as string;
 	const cucianForm: z.infer<typeof CucianFormSchema> = {
 		paket: cucian.paket,
@@ -27,9 +27,8 @@ export default async function CucianPage({
 		phone: profile.phone?.toString() ?? "",
 		alamat: profile.alamat ?? "",
 	};
-	const PaketList = GetPaketList();
+	const PaketList = await GetPaketList({ getActivate: true });
 	const cucianOrderCount = await CountUserCucianOrder(profile.id, guestId);
-	console.log(cucianOrderCount);
 	let limit = false;
 	if (cucianOrderCount >= 3) {
 		limit = true;

@@ -1,10 +1,10 @@
 "use server";
 import { cookies } from "next/headers";
 import { prisma } from "./prisma";
-import type { User } from "@/prisma/client";
 import type { PrismaClientError } from "./types/db";
 import { revalidatePath } from "next/cache";
 import { nanoid } from "nanoid";
+import { PrismaClientKnownRequestError } from "@/prisma/runtime/library";
 
 export async function isLogin() {
 	const cookie = await cookies();
@@ -48,8 +48,8 @@ export async function GuestAccountHandler() {
 }
 
 export async function GetProfileByToken(token: string) {
-	try {
-		const profileData = await prisma.user.findFirstOrThrow({
+	async function GetProfile() {
+		return await prisma.user.findFirstOrThrow({
 			where: {
 				Session: {
 					some: { id: token },
@@ -61,30 +61,27 @@ export async function GetProfileByToken(token: string) {
 				passwordHash: true,
 			},
 			include: {
-				Role: {
-					select: {
-						name: true,
-						id: true,
-					},
-				},
+				Role: true,
 			},
 		});
-		return profileData as unknown as User &
-			PrismaClientError & {
-				Role: {
-					name: string;
-					id: string;
-				};
-			};
+	}
+	try {
+		const profileData = await GetProfile();
+		return {
+			data: profileData as unknown as Awaited<ReturnType<typeof GetProfile>>,
+			error: null,
+		};
 	} catch (error) {
-		const { meta } = error as unknown as PrismaClientError;
-		return { meta } as unknown as PrismaClientError &
-			User & {
-				Role: {
-					name: string;
-					id: string;
-				};
+		if (error instanceof PrismaClientKnownRequestError) {
+			return {
+				data: {} as unknown as Awaited<ReturnType<typeof GetProfile>>,
+				error: error as PrismaClientKnownRequestError,
 			};
+		}
+		return {
+			data: null as unknown as Awaited<ReturnType<typeof GetProfile>>,
+			error: error,
+		};
 	}
 }
 

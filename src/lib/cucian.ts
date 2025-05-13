@@ -3,21 +3,243 @@ import "server-only";
 
 import type { z } from "zod";
 import { prisma } from "./prisma";
-import type { CucianFormSchema } from "./types/cucian";
+import type {
+	CucianFormSchema,
+	PaketFormSchema,
+	ServiceFormSchema,
+} from "./types/cucian";
 import type { PrismaClientError } from "./types/db";
 import { revalidatePath } from "next/cache";
 import type { $Enums } from "@/prisma";
+import { PrismaClientKnownRequestError } from "@/prisma/runtime/library";
 
-export async function GetPaketList() {
+async function GetPaketById(id: string) {
+	const paket = await prisma.package.findUnique({
+		where: {
+			id,
+		},
+		include: {
+			Service: true,
+		},
+	});
+	return {
+		...paket,
+		Service: paket?.Service.map((e) => ({
+			...e,
+			pricePerUnit: e.pricePerUnit.toNumber(),
+		})),
+	};
+}
+
+async function GetPaketList(
+	{
+		includeService,
+		getActivate,
+	}: { includeService?: boolean; getActivate?: boolean } = {
+		includeService: false,
+		getActivate: undefined,
+	},
+) {
 	const paket = await prisma.package.findMany({
 		orderBy: {
 			pricePerUnit: "asc",
 		},
+		include: {
+			Service: includeService,
+		},
+		where: {
+			active: getActivate,
+		},
 	});
-	return paket;
+	return paket.map((e) => ({
+		...e,
+		Service: e.Service?.map((e) => ({
+			...e,
+			pricePerUnit: e.pricePerUnit.toNumber(),
+		})),
+	}));
 }
 
-export async function DeleteCucianOrder(id: string) {
+async function AddPaket(data: z.infer<typeof PaketFormSchema>) {
+	try {
+		const paket = await prisma.package.create({
+			data: {
+				name: data.name,
+				pricePerUnit: data.pricePerUnit,
+				description: data.desc,
+				Service: {
+					connect: [
+						...data.serviceIds.map((id) => ({
+							id,
+						})),
+					],
+				},
+			},
+			select: {
+				id: true,
+			},
+		});
+		revalidatePath("/manage/cucian/paket");
+		return {
+			success: true,
+			message: "Berhasil Menambahkan Paket",
+			paketId: paket.id,
+		};
+	} catch (error) {
+		if (error instanceof PrismaClientKnownRequestError) {
+			const { meta } = error as PrismaClientError;
+			return {
+				success: false,
+				message: "Gagal Menambahkan Paket",
+				paketId: null,
+				meta,
+			};
+		}
+	}
+}
+async function EditPaket(data: z.infer<typeof PaketFormSchema>, id: string) {
+	try {
+		const paket = await prisma.package.update({
+			where: {
+				id,
+			},
+			data: {
+				name: data.name,
+				pricePerUnit: data.pricePerUnit,
+				description: data.desc,
+				Service: {
+					connect: [
+						...data.serviceIds.map((id) => ({
+							id,
+						})),
+					],
+				},
+			},
+			select: {
+				id: true,
+			},
+		});
+		revalidatePath("/manage/cucian/paket");
+		return {
+			success: true,
+			message: "Berhasil Mengubah Paket",
+			paketId: paket.id,
+		};
+	} catch (error) {
+		if (error instanceof PrismaClientKnownRequestError) {
+			const { meta } = error as PrismaClientError;
+			return {
+				success: false,
+				message: "Gagal Mengubah Paket",
+				paketId: null,
+				meta,
+			};
+		}
+	}
+}
+
+async function GetAllService(
+	{ timestamp }: { timestamp?: boolean } = { timestamp: false },
+) {
+	return await prisma.service.findMany({
+		orderBy: { name: "asc" },
+		omit: {
+			createdAt: !timestamp,
+			updatedAt: !timestamp,
+		},
+	});
+}
+
+async function AddNewService(data: z.infer<typeof ServiceFormSchema>) {
+	console.log("first");
+	async function AddService(data: z.infer<typeof ServiceFormSchema>) {
+		const res = await prisma.service.create({
+			data: {
+				name: data.name,
+				description: data.desc,
+				pricePerUnit: data.pricePerUnit,
+				estimatedTimeHours: data.estimatedTimeHours,
+				priority: data.priority,
+			},
+		});
+		return res;
+	}
+	try {
+		const res = await AddService(data);
+		revalidatePath("/manage/cucian/servis");
+		return {
+			success: true,
+			message: "Berhasil Menambahkan Layanan",
+			serviceId: res.id,
+		};
+	} catch (error) {
+		if (error instanceof PrismaClientKnownRequestError) {
+			const res = error.meta;
+			return {
+				success: false,
+				message: "Gagal Menambahkan Layanan",
+				serviceId: null,
+				meta: res,
+			};
+		}
+	}
+}
+async function DeleteService(id: string) {
+	async function Delete(id: string) {
+		const service = await prisma.service.delete({
+			where: {
+				id,
+			},
+		});
+		return service;
+	}
+	try {
+		const res = await Delete(id);
+		revalidatePath("/manage/cucian/servis");
+		return {
+			success: true,
+			message: "Berhasil Menghapus Layanan",
+			serviceId: res.id,
+		};
+	} catch (error) {
+		if (error instanceof PrismaClientKnownRequestError) {
+			const res = error.meta;
+			return {
+				success: false,
+				message: "Gagal Menghapus Layanan",
+				serviceId: null,
+				meta: res,
+			};
+		}
+	}
+}
+async function EditActivatePaket(id: string, active: boolean) {
+	try {
+		const res = await prisma.package.update({
+			where: { id },
+			data: { active },
+			select: {
+				id: true,
+			},
+		});
+		return {
+			success: true,
+			message: "Berhasil Mengupdate Paket",
+			paketId: res.id,
+			meta: null,
+		};
+	} catch (error) {
+		const { meta } = error as PrismaClientError;
+		return {
+			success: false,
+			message: "Gagal Mengupdate Paket",
+			paketId: null,
+			meta,
+		};
+	}
+}
+
+async function DeleteCucianOrder(id: string) {
 	try {
 		const res = await prisma.cucianOrder.delete({
 			where: { id },
@@ -98,7 +320,7 @@ export async function PostCucianOrder(data: z.infer<typeof CucianFormSchema>) {
 	}
 }
 
-export async function CountUserCucianOrder(id: string, guestId: string) {
+async function CountUserCucianOrder(id: string, guestId: string) {
 	let cucianQty: number;
 	if (id) {
 		const cucianOrder = await prisma.cucianOrder.findMany({
@@ -138,7 +360,7 @@ export async function CountUserCucianOrder(id: string, guestId: string) {
 	return cucianQty;
 }
 
-export async function GetAllCountCucianOrder(
+async function GetAllCountCucianOrder(
 	namaOrId?: string,
 	status: $Enums.StatusOrder = "PENDING",
 ) {
@@ -195,7 +417,7 @@ export async function GetAllCountCucianOrder(
 	}
 }
 
-export async function GetAllCucianOrder(
+async function GetAllCucianOrder(
 	namaOrId?: string,
 	status: $Enums.StatusOrder = "PENDING",
 	page = 1,
@@ -268,3 +490,23 @@ export async function GetAllCucianOrder(
 		return cucian;
 	}
 }
+
+export {
+	// Get
+	GetAllCucianOrder,
+	GetPaketList,
+	GetPaketById,
+	GetAllCountCucianOrder,
+	GetAllService,
+	// Add
+	AddPaket,
+	AddNewService,
+	// Count
+	CountUserCucianOrder,
+	// Edit
+	EditPaket,
+	EditActivatePaket,
+	// Delete
+	DeleteCucianOrder,
+	DeleteService,
+};
