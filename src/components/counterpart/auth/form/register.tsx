@@ -1,4 +1,5 @@
 "use client";
+import { PasswordInput } from "@/components/custom/password-input";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -136,7 +137,7 @@ export function RegisterContent() {
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Password</FormLabel>
-								<Input {...field} type="password" />
+								<PasswordInput {...field} />
 								<FormMessage />
 								<FormDescription>Password akun anda</FormDescription>
 							</FormItem>
@@ -148,7 +149,7 @@ export function RegisterContent() {
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel>Confirm Password</FormLabel>
-								<Input {...field} type="password" />
+								<PasswordInput {...field} />
 								<FormMessage />
 								<FormDescription>Konfirmasi Password anda</FormDescription>
 							</FormItem>

@@ -1,4 +1,5 @@
 "use client";
+import { PasswordInput } from "@/components/custom/password-input";
 import { Button } from "@/components/ui/button";
 import {
 	FormField,
@@ -70,7 +71,7 @@ export function LoginContent() {
 						render={({ field }) => (
 							<FormItem className="max-w-100 mx-auto">
 								<FormLabel>Password</FormLabel>
-								<Input {...field} type="password" className="max-w-100" />
+								<PasswordInput {...field} className="max-w-100" />
 								<FormMessage />
 							</FormItem>
 						)}

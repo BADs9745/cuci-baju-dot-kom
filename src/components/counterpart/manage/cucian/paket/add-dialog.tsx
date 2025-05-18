@@ -18,7 +18,7 @@ export default async function AddPaketDialog() {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button className="font-bold">
+				<Button className="font-bold sticky top-5">
 					<Plus className="size-4 mr-2 stroke-3 scale-125" />
 					Add Package
 				</Button>

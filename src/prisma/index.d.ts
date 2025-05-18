@@ -5737,7 +5737,7 @@ export namespace Prisma {
     alamat: string | null
     phone: string | null
     packageId: string
-    tahap: number | null
+    tahap: number
     status: $Enums.StatusOrder
     createAt: Date
     selesaiAt: Date | null
@@ -5860,7 +5860,7 @@ export namespace Prisma {
       alamat: string | null
       phone: string | null
       packageId: string
-      tahap: number | null
+      tahap: number
       status: $Enums.StatusOrder
       createAt: Date
       selesaiAt: Date | null
@@ -9051,18 +9051,18 @@ export namespace Prisma {
   }
 
   export type PackageAvgAggregateOutputType = {
-    pricePerUnit: number | null
+    pricePerUnit: Decimal | null
   }
 
   export type PackageSumAggregateOutputType = {
-    pricePerUnit: bigint | null
+    pricePerUnit: Decimal | null
   }
 
   export type PackageMinAggregateOutputType = {
     id: string | null
     name: string | null
     description: string | null
-    pricePerUnit: bigint | null
+    pricePerUnit: Decimal | null
     active: boolean | null
   }
 
@@ -9070,7 +9070,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     description: string | null
-    pricePerUnit: bigint | null
+    pricePerUnit: Decimal | null
     active: boolean | null
   }
 
@@ -9207,7 +9207,7 @@ export namespace Prisma {
     id: string
     name: string
     description: string
-    pricePerUnit: bigint
+    pricePerUnit: Decimal
     active: boolean
     _count: PackageCountAggregateOutputType | null
     _avg: PackageAvgAggregateOutputType | null
@@ -9284,7 +9284,7 @@ export namespace Prisma {
       id: string
       name: string
       description: string
-      pricePerUnit: bigint
+      pricePerUnit: Prisma.Decimal
       active: boolean
     }, ExtArgs["result"]["package"]>
     composites: {}
@@ -9714,7 +9714,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Package", 'String'>
     readonly name: FieldRef<"Package", 'String'>
     readonly description: FieldRef<"Package", 'String'>
-    readonly pricePerUnit: FieldRef<"Package", 'BigInt'>
+    readonly pricePerUnit: FieldRef<"Package", 'Decimal'>
     readonly active: FieldRef<"Package", 'Boolean'>
   }
     
@@ -14935,20 +14935,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'BigInt'
-   */
-  export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
-    
-
-
-  /**
-   * Reference to a field of type 'BigInt[]'
-   */
-  export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -15192,7 +15178,7 @@ export namespace Prisma {
     alamat?: StringNullableFilter<"CucianOrder"> | string | null
     phone?: StringNullableFilter<"CucianOrder"> | string | null
     packageId?: StringFilter<"CucianOrder"> | string
-    tahap?: IntNullableFilter<"CucianOrder"> | number | null
+    tahap?: IntFilter<"CucianOrder"> | number
     status?: EnumStatusOrderFilter<"CucianOrder"> | $Enums.StatusOrder
     createAt?: DateTimeFilter<"CucianOrder"> | Date | string
     selesaiAt?: DateTimeNullableFilter<"CucianOrder"> | Date | string | null
@@ -15210,7 +15196,7 @@ export namespace Prisma {
     alamat?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     packageId?: SortOrder
-    tahap?: SortOrderInput | SortOrder
+    tahap?: SortOrder
     status?: SortOrder
     createAt?: SortOrder
     selesaiAt?: SortOrderInput | SortOrder
@@ -15231,7 +15217,7 @@ export namespace Prisma {
     alamat?: StringNullableFilter<"CucianOrder"> | string | null
     phone?: StringNullableFilter<"CucianOrder"> | string | null
     packageId?: StringFilter<"CucianOrder"> | string
-    tahap?: IntNullableFilter<"CucianOrder"> | number | null
+    tahap?: IntFilter<"CucianOrder"> | number
     status?: EnumStatusOrderFilter<"CucianOrder"> | $Enums.StatusOrder
     createAt?: DateTimeFilter<"CucianOrder"> | Date | string
     selesaiAt?: DateTimeNullableFilter<"CucianOrder"> | Date | string | null
@@ -15249,7 +15235,7 @@ export namespace Prisma {
     alamat?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     packageId?: SortOrder
-    tahap?: SortOrderInput | SortOrder
+    tahap?: SortOrder
     status?: SortOrder
     createAt?: SortOrder
     selesaiAt?: SortOrderInput | SortOrder
@@ -15271,7 +15257,7 @@ export namespace Prisma {
     alamat?: StringNullableWithAggregatesFilter<"CucianOrder"> | string | null
     phone?: StringNullableWithAggregatesFilter<"CucianOrder"> | string | null
     packageId?: StringWithAggregatesFilter<"CucianOrder"> | string
-    tahap?: IntNullableWithAggregatesFilter<"CucianOrder"> | number | null
+    tahap?: IntWithAggregatesFilter<"CucianOrder"> | number
     status?: EnumStatusOrderWithAggregatesFilter<"CucianOrder"> | $Enums.StatusOrder
     createAt?: DateTimeWithAggregatesFilter<"CucianOrder"> | Date | string
     selesaiAt?: DateTimeNullableWithAggregatesFilter<"CucianOrder"> | Date | string | null
@@ -15418,7 +15404,7 @@ export namespace Prisma {
     id?: StringFilter<"Package"> | string
     name?: StringFilter<"Package"> | string
     description?: StringFilter<"Package"> | string
-    pricePerUnit?: BigIntFilter<"Package"> | bigint | number
+    pricePerUnit?: DecimalFilter<"Package"> | Decimal | DecimalJsLike | number | string
     active?: BoolFilter<"Package"> | boolean
     CucianOrder?: CucianOrderListRelationFilter
     Service?: ServiceListRelationFilter
@@ -15441,7 +15427,7 @@ export namespace Prisma {
     NOT?: PackageWhereInput | PackageWhereInput[]
     name?: StringFilter<"Package"> | string
     description?: StringFilter<"Package"> | string
-    pricePerUnit?: BigIntFilter<"Package"> | bigint | number
+    pricePerUnit?: DecimalFilter<"Package"> | Decimal | DecimalJsLike | number | string
     active?: BoolFilter<"Package"> | boolean
     CucianOrder?: CucianOrderListRelationFilter
     Service?: ServiceListRelationFilter
@@ -15467,7 +15453,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Package"> | string
     name?: StringWithAggregatesFilter<"Package"> | string
     description?: StringWithAggregatesFilter<"Package"> | string
-    pricePerUnit?: BigIntWithAggregatesFilter<"Package"> | bigint | number
+    pricePerUnit?: DecimalWithAggregatesFilter<"Package"> | Decimal | DecimalJsLike | number | string
     active?: BoolWithAggregatesFilter<"Package"> | boolean
   }
 
@@ -15977,7 +15963,7 @@ export namespace Prisma {
     nama: string
     alamat?: string | null
     phone?: string | null
-    tahap?: number | null
+    tahap?: number
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
@@ -15995,7 +15981,7 @@ export namespace Prisma {
     alamat?: string | null
     phone?: string | null
     packageId: string
-    tahap?: number | null
+    tahap?: number
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
@@ -16009,7 +15995,7 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    tahap?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -16027,7 +16013,7 @@ export namespace Prisma {
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     packageId?: StringFieldUpdateOperationsInput | string
-    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    tahap?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -16043,7 +16029,7 @@ export namespace Prisma {
     alamat?: string | null
     phone?: string | null
     packageId: string
-    tahap?: number | null
+    tahap?: number
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
@@ -16055,7 +16041,7 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    tahap?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -16069,7 +16055,7 @@ export namespace Prisma {
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     packageId?: StringFieldUpdateOperationsInput | string
-    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    tahap?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -16214,7 +16200,7 @@ export namespace Prisma {
     id?: string
     name: string
     description: string
-    pricePerUnit: bigint | number
+    pricePerUnit: Decimal | DecimalJsLike | number | string
     active?: boolean
     CucianOrder?: CucianOrderCreateNestedManyWithoutPaketInput
     Service?: ServiceCreateNestedManyWithoutPackageInput
@@ -16224,7 +16210,7 @@ export namespace Prisma {
     id?: string
     name: string
     description: string
-    pricePerUnit: bigint | number
+    pricePerUnit: Decimal | DecimalJsLike | number | string
     active?: boolean
     CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutPaketInput
     Service?: ServiceUncheckedCreateNestedManyWithoutPackageInput
@@ -16234,7 +16220,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     active?: BoolFieldUpdateOperationsInput | boolean
     CucianOrder?: CucianOrderUpdateManyWithoutPaketNestedInput
     Service?: ServiceUpdateManyWithoutPackageNestedInput
@@ -16244,7 +16230,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     active?: BoolFieldUpdateOperationsInput | boolean
     CucianOrder?: CucianOrderUncheckedUpdateManyWithoutPaketNestedInput
     Service?: ServiceUncheckedUpdateManyWithoutPackageNestedInput
@@ -16254,7 +16240,7 @@ export namespace Prisma {
     id?: string
     name: string
     description: string
-    pricePerUnit: bigint | number
+    pricePerUnit: Decimal | DecimalJsLike | number | string
     active?: boolean
   }
 
@@ -16262,7 +16248,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     active?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -16270,7 +16256,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     active?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -16923,17 +16909,6 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type EnumStatusOrderFilter<$PrismaModel = never> = {
     equals?: $Enums.StatusOrder | EnumStatusOrderFieldRefInput<$PrismaModel>
     in?: $Enums.StatusOrder[] | ListEnumStatusOrderFieldRefInput<$PrismaModel>
@@ -17009,22 +16984,6 @@ export namespace Prisma {
 
   export type CucianOrderSumOrderByAggregateInput = {
     tahap?: SortOrder
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EnumStatusOrderWithAggregatesFilter<$PrismaModel = never> = {
@@ -17143,17 +17102,6 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type BigIntFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
-  }
-
   export type PackageCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -17184,22 +17132,6 @@ export namespace Prisma {
 
   export type PackageSumOrderByAggregateInput = {
     pricePerUnit?: SortOrder
-  }
-
-  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedBigIntFilter<$PrismaModel>
-    _min?: NestedBigIntFilter<$PrismaModel>
-    _max?: NestedBigIntFilter<$PrismaModel>
   }
 
   export type InventoryCategoryScalarRelationFilter = {
@@ -17710,14 +17642,6 @@ export namespace Prisma {
     connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type EnumStatusOrderFieldUpdateOperationsInput = {
     set?: $Enums.StatusOrder
   }
@@ -17910,14 +17834,6 @@ export namespace Prisma {
     connectOrCreate?: ServiceCreateOrConnectWithoutPackageInput | ServiceCreateOrConnectWithoutPackageInput[]
     createMany?: ServiceCreateManyPackageInputEnvelope
     connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
-  }
-
-  export type BigIntFieldUpdateOperationsInput = {
-    set?: bigint | number
-    increment?: bigint | number
-    decrement?: bigint | number
-    multiply?: bigint | number
-    divide?: bigint | number
   }
 
   export type CucianOrderUpdateManyWithoutPaketNestedInput = {
@@ -18320,33 +18236,6 @@ export namespace Prisma {
     not?: NestedEnumStatusOrderFilter<$PrismaModel> | $Enums.StatusOrder
   }
 
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedEnumStatusOrderWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.StatusOrder | EnumStatusOrderFieldRefInput<$PrismaModel>
     in?: $Enums.StatusOrder[] | ListEnumStatusOrderFieldRefInput<$PrismaModel>
@@ -18382,33 +18271,6 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
-  }
-
-  export type NestedBigIntFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
-  }
-
-  export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedBigIntFilter<$PrismaModel>
-    _min?: NestedBigIntFilter<$PrismaModel>
-    _max?: NestedBigIntFilter<$PrismaModel>
   }
 
   export type UserRoleCreateWithoutUserInput = {
@@ -18511,7 +18373,7 @@ export namespace Prisma {
     nama: string
     alamat?: string | null
     phone?: string | null
-    tahap?: number | null
+    tahap?: number
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
@@ -18527,7 +18389,7 @@ export namespace Prisma {
     alamat?: string | null
     phone?: string | null
     packageId: string
-    tahap?: number | null
+    tahap?: number
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
@@ -18702,7 +18564,7 @@ export namespace Prisma {
     alamat?: StringNullableFilter<"CucianOrder"> | string | null
     phone?: StringNullableFilter<"CucianOrder"> | string | null
     packageId?: StringFilter<"CucianOrder"> | string
-    tahap?: IntNullableFilter<"CucianOrder"> | number | null
+    tahap?: IntFilter<"CucianOrder"> | number
     status?: EnumStatusOrderFilter<"CucianOrder"> | $Enums.StatusOrder
     createAt?: DateTimeFilter<"CucianOrder"> | Date | string
     selesaiAt?: DateTimeNullableFilter<"CucianOrder"> | Date | string | null
@@ -18965,7 +18827,7 @@ export namespace Prisma {
     id?: string
     name: string
     description: string
-    pricePerUnit: bigint | number
+    pricePerUnit: Decimal | DecimalJsLike | number | string
     active?: boolean
     Service?: ServiceCreateNestedManyWithoutPackageInput
   }
@@ -18974,7 +18836,7 @@ export namespace Prisma {
     id?: string
     name: string
     description: string
-    pricePerUnit: bigint | number
+    pricePerUnit: Decimal | DecimalJsLike | number | string
     active?: boolean
     Service?: ServiceUncheckedCreateNestedManyWithoutPackageInput
   }
@@ -19101,7 +18963,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     active?: BoolFieldUpdateOperationsInput | boolean
     Service?: ServiceUpdateManyWithoutPackageNestedInput
   }
@@ -19110,7 +18972,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     active?: BoolFieldUpdateOperationsInput | boolean
     Service?: ServiceUncheckedUpdateManyWithoutPackageNestedInput
   }
@@ -19212,7 +19074,7 @@ export namespace Prisma {
     nama: string
     alamat?: string | null
     phone?: string | null
-    tahap?: number | null
+    tahap?: number
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
@@ -19229,7 +19091,7 @@ export namespace Prisma {
     alamat?: string | null
     phone?: string | null
     packageId: string
-    tahap?: number | null
+    tahap?: number
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
@@ -19309,7 +19171,7 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    tahap?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19326,7 +19188,7 @@ export namespace Prisma {
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     packageId?: StringFieldUpdateOperationsInput | string
-    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    tahap?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19339,7 +19201,7 @@ export namespace Prisma {
     nama: string
     alamat?: string | null
     phone?: string | null
-    tahap?: number | null
+    tahap?: number
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
@@ -19356,7 +19218,7 @@ export namespace Prisma {
     alamat?: string | null
     phone?: string | null
     packageId: string
-    tahap?: number | null
+    tahap?: number
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
@@ -19373,7 +19235,7 @@ export namespace Prisma {
     id?: string
     name: string
     description: string
-    pricePerUnit: bigint | number
+    pricePerUnit: Decimal | DecimalJsLike | number | string
     active?: boolean
     CucianOrder?: CucianOrderCreateNestedManyWithoutPaketInput
   }
@@ -19382,7 +19244,7 @@ export namespace Prisma {
     id?: string
     name: string
     description: string
-    pricePerUnit: bigint | number
+    pricePerUnit: Decimal | DecimalJsLike | number | string
     active?: boolean
     CucianOrder?: CucianOrderUncheckedCreateNestedManyWithoutPaketInput
   }
@@ -19423,7 +19285,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     active?: BoolFieldUpdateOperationsInput | boolean
     CucianOrder?: CucianOrderUpdateManyWithoutPaketNestedInput
   }
@@ -19432,7 +19294,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerUnit?: BigIntFieldUpdateOperationsInput | bigint | number
+    pricePerUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     active?: BoolFieldUpdateOperationsInput | boolean
     CucianOrder?: CucianOrderUncheckedUpdateManyWithoutPaketNestedInput
   }
@@ -19442,7 +19304,7 @@ export namespace Prisma {
     nama: string
     alamat?: string | null
     phone?: string | null
-    tahap?: number | null
+    tahap?: number
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
@@ -19458,7 +19320,7 @@ export namespace Prisma {
     nama: string
     alamat?: string | null
     phone?: string | null
-    tahap?: number | null
+    tahap?: number
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
@@ -19992,7 +19854,7 @@ export namespace Prisma {
     alamat?: string | null
     phone?: string | null
     packageId: string
-    tahap?: number | null
+    tahap?: number
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
@@ -20079,7 +19941,7 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    tahap?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20095,7 +19957,7 @@ export namespace Prisma {
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     packageId?: StringFieldUpdateOperationsInput | string
-    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    tahap?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20110,7 +19972,7 @@ export namespace Prisma {
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     packageId?: StringFieldUpdateOperationsInput | string
-    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    tahap?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20270,7 +20132,7 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    tahap?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20287,7 +20149,7 @@ export namespace Prisma {
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     packageId?: StringFieldUpdateOperationsInput | string
-    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    tahap?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20302,7 +20164,7 @@ export namespace Prisma {
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     packageId?: StringFieldUpdateOperationsInput | string
-    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    tahap?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20315,7 +20177,7 @@ export namespace Prisma {
     nama: string
     alamat?: string | null
     phone?: string | null
-    tahap?: number | null
+    tahap?: number
     status?: $Enums.StatusOrder
     createAt?: Date | string
     selesaiAt?: Date | string | null
@@ -20338,7 +20200,7 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    tahap?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20354,7 +20216,7 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    tahap?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20369,7 +20231,7 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     alamat?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    tahap?: NullableIntFieldUpdateOperationsInput | number | null
+    tahap?: IntFieldUpdateOperationsInput | number
     status?: EnumStatusOrderFieldUpdateOperationsInput | $Enums.StatusOrder
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     selesaiAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

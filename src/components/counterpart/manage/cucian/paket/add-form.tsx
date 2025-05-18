@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { AddPaket } from "@/lib/cucian";
 import { PaketFormSchema, type ServiceType } from "@/lib/types/cucian";
+import { tw } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -40,10 +41,13 @@ export default function AddPaketForm({ service }: { service: ServiceType[] }) {
 						{res.message} Paket ID: {res.paketId}
 					</>
 				),
+				className: "bg-green-200! dark:bg-green-900!",
 			});
 			form.reset();
 		} else {
-			toast(res?.message);
+			toast.error("Gagal Menambahkan Paket", {
+				className: tw`bg-destructive!`,
+			});
 		}
 	}
 
@@ -80,6 +84,7 @@ export default function AddPaketForm({ service }: { service: ServiceType[] }) {
 									<Input
 										placeholder="1000.00"
 										type="number"
+										step={0.01}
 										{...form.register("pricePerUnit", { valueAsNumber: true })}
 									/>
 								</FormControl>

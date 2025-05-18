@@ -21,7 +21,7 @@ export default async function ManageLayout({
 		return <>Something Wrong</>;
 	}
 	const profile = getProfile.data as unknown as User & { Role: UserRole };
-	const isAuthorize = profile.Role.authority_level >= 1 || profile.Role.admin;
+	const isAuthorize = profile.Role.authority_level > 0 || profile.Role.admin;
 	if (!isAuthorize) redirect("/");
 
 	return (

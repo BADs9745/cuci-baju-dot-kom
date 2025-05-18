@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { EditPaket, type GetPaketById } from "@/lib/cucian";
 import { PaketFormSchema, type ServiceType } from "@/lib/types/cucian";
+import { tw } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -74,6 +75,7 @@ export default function EditPaketForm({
 									<Input
 										placeholder="1000.00"
 										type="number"
+										step={0.01}
 										{...form.register("pricePerUnit", { valueAsNumber: true })}
 									/>
 								</FormControl>
@@ -157,6 +159,10 @@ async function Submit(data: z.infer<typeof PaketFormSchema>) {
 					{res.message} Paket ID: {res.paketId}
 				</>
 			),
+		});
+	} else {
+		toast.error("Gagal Menambahkan Paket", {
+			className: tw`bg-destructive!`,
 		});
 	}
 }

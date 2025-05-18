@@ -7,17 +7,15 @@ export default async function PaketManagementPage() {
 
 	return (
 		<>
-			<div className="flex items-center justify-between">
-				<div>
-					<h1 className="text-3xl font-bold tracking-tight">
-						Package Management
-					</h1>
-					<p className="text-zinc-500 dark:text-zinc-400">
-						Create and manage service packages for your customers.
-					</p>
-				</div>
-				<AddPaketDialog />
+			<div>
+				<h1 className="text-3xl font-bold tracking-tight">
+					Package Management
+				</h1>
+				<p className="text-zinc-500 dark:text-zinc-400">
+					Create and manage service packages for your customers.
+				</p>
 			</div>
+			<AddPaketDialog />
 			<div>
 				<PaketCard data={paketList} />
 			</div>

@@ -72,7 +72,7 @@ model CucianOrder {
   packageId            String
   ReservasiPengambilan ReservasiPengambilan[]
   Service              Service[]
-  tahap                Int?
+  tahap                Int                    @default(0)
   status               StatusOrder            @default(PENDING)
   createAt             DateTime               @default(now())
   selesaiAt            DateTime?
@@ -119,7 +119,7 @@ model Package {
   id           String        @id @default(uuid())
   name         String
   description  String
-  pricePerUnit BigInt
+  pricePerUnit Decimal
   CucianOrder  CucianOrder[]
   Service      Service[]
   active       Boolean       @default(true)

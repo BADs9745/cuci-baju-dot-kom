@@ -15,7 +15,7 @@ export const CucianFormSchema = z.object({
 export const PaketFormSchema = z.object({
 	name: z.string().min(5, "Nama Paket minimal setidaknya 5 huruf"),
 	desc: z.string().min(10, "Deskripsi minimal setidaknya 10 huruf"),
-	pricePerUnit: z.number(),
+	pricePerUnit: z.number({ message: "Harga harus diisi" }).multipleOf(0.01),
 	serviceIds: z
 		.array(z.string())
 		.refine(
@@ -28,7 +28,7 @@ export const PaketFormSchema = z.object({
 export const ServiceFormSchema = z.object({
 	name: z.string().min(5, "Nama Servis minimal setidaknya 5 huruf"),
 	desc: z.string().min(10, "Deskripsi minimal setidaknya 10 huruf"),
-	pricePerUnit: z.number({ message: "Harga harus diisi" }),
+	pricePerUnit: z.number({ message: "Harga harus diisi" }).multipleOf(0.01),
 	estimatedTimeHours: z.number({ message: "Estimasi waktu harus diisi" }),
 	priority: z.number({ message: "Nilai Prioritas harus diisi" }),
 });

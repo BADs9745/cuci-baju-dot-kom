@@ -24,6 +24,7 @@ async function GetPaketById(id: string) {
 	});
 	return {
 		...paket,
+		pricePerUnit: paket?.pricePerUnit.toNumber(),
 		Service: paket?.Service.map((e) => ({
 			...e,
 			pricePerUnit: e.pricePerUnit.toNumber(),
@@ -53,6 +54,7 @@ async function GetPaketList(
 	});
 	return paket.map((e) => ({
 		...e,
+		pricePerUnit: e.pricePerUnit.toNumber(),
 		Service: e.Service?.map((e) => ({
 			...e,
 			pricePerUnit: e.pricePerUnit.toNumber(),
@@ -264,7 +266,7 @@ async function DeleteCucianOrder(id: string) {
 	}
 }
 
-export async function PostCucianOrder(data: z.infer<typeof CucianFormSchema>) {
+async function PostCucianOrder(data: z.infer<typeof CucianFormSchema>) {
 	const user = await prisma.user.findUnique({
 		where: {
 			email: data.email,
@@ -441,6 +443,13 @@ async function GetAllCucianOrder(
 					{
 						id: {
 							contains: namaOrId || "",
+							mode: "insensitive",
+						},
+					},
+					{
+						nama: {
+							contains: namaOrId || "",
+							mode: "insensitive",
 						},
 					},
 				],
@@ -457,7 +466,14 @@ async function GetAllCucianOrder(
 			skip,
 			take: 11,
 		});
-		return cucian;
+		return cucian.map((e) => ({
+			...e,
+			Paket: { ...e.Paket, pricePerUnit: e.Paket.pricePerUnit.toNumber() },
+			Service: e.Service.map((el) => ({
+				...el,
+				pricePerUnit: el.pricePerUnit.toNumber(),
+			})),
+		}));
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch (error) {
 		const cucian = await prisma.cucianOrder.findMany({
@@ -487,10 +503,53 @@ async function GetAllCucianOrder(
 				createAt: "desc",
 			},
 		});
-		return cucian;
+		return cucian.map((e) => ({
+			...e,
+			Paket: { ...e.Paket, pricePerUnit: e.Paket.pricePerUnit.toNumber() },
+			Service: e.Service.map((el) => ({
+				...el,
+				pricePerUnit: el.pricePerUnit.toNumber(),
+			})),
+		}));
 	}
 }
 
+async function EditOrderStatus(id: string, status: $Enums.StatusOrder) {
+	const cucianOrder = await prisma.cucianOrder.update({
+		where: {
+			id,
+		},
+		data: {
+			status,
+		},
+	});
+	return cucianOrder;
+}
+
+async function GetOrderById(id: string) {
+	const order = await prisma.cucianOrder.findUnique({
+		where: {
+			id,
+		},
+		include: {
+			Paket: true,
+			User: true,
+			Service: true,
+		},
+	});
+	const mappedOrder = {
+		...order,
+		Paket: {
+			...order?.Paket,
+			pricePerUnit: order?.Paket.pricePerUnit.toNumber(),
+		},
+		Service: order?.Service.map((el) => ({
+			...el,
+			pricePerUnit: el.pricePerUnit.toNumber(),
+		})),
+	};
+	return mappedOrder;
+}
 export {
 	// Get
 	GetAllCucianOrder,
@@ -498,14 +557,18 @@ export {
 	GetPaketById,
 	GetAllCountCucianOrder,
 	GetAllService,
+	GetOrderById,
 	// Add
 	AddPaket,
 	AddNewService,
+	// Post
+	PostCucianOrder,
 	// Count
 	CountUserCucianOrder,
 	// Edit
 	EditPaket,
 	EditActivatePaket,
+	EditOrderStatus,
 	// Delete
 	DeleteCucianOrder,
 	DeleteService,

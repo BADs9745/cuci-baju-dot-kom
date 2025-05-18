@@ -14,6 +14,7 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import type { GetAllCucianOrder } from "@/lib/cucian";
+import Link from "next/link";
 export default async function TableOrderCucianBody({
 	listCucianOrder,
 	isLastPage = false,
@@ -28,7 +29,11 @@ export default async function TableOrderCucianBody({
 				{listCucianOrder.length > 0 &&
 					showList.map((data) => (
 						<TableRow key={data.id} className={data.User?.id && "bg-secondary"}>
-							<TableCell>{data.id}</TableCell>
+							<TableCell>
+								<Button variant={"link"} asChild>
+									<Link href={`orders/${data.id}`}>{data.id}</Link>
+								</Button>
+							</TableCell>
 							<TableCell>
 								{data.User ? (
 									<UserWithAccountHoverCard profile={data.User} />
@@ -36,7 +41,9 @@ export default async function TableOrderCucianBody({
 									data.nama
 								)}
 							</TableCell>
-							<TableCell className="font-black">{data.status}</TableCell>
+							<TableCell className="font-black">
+								{data.status.replace("_", " ")}
+							</TableCell>
 							<TableCell>
 								<HoverCard>
 									<HoverCardTrigger>

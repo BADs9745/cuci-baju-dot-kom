@@ -19,7 +19,7 @@ import {
 	PaginationPrevious,
 } from "@/components/ui/pagination";
 import { GetAllCountCucianOrder, GetAllCucianOrder } from "@/lib/cucian";
-import TableOrderCucianBody from "@/app/cucian/list/table-data";
+import TableOrderCucianBody from "./table-data";
 
 export default async function ManageListOrderCucianPage({
 	searchParams,
@@ -45,11 +45,11 @@ export default async function ManageListOrderCucianPage({
 	const lastPagination = Math.ceil(countAllOrder / 10);
 	return (
 		<>
-			<div className="my-20 mx-50">
+			<div className="my-20 mx-10 ">
 				<h1 className="text-4xl font-bold">List Pesanan Cucian</h1>
 				<Separator className="mt-10" />
 			</div>
-			<div className="mx-50 mb-20">
+			<div className="mx-10 mb-20">
 				<div className="my-10 flex gap-5">
 					<SearchInput search={find} status={status} pathname="orders" />
 				</div>

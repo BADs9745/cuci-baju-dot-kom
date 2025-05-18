@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,18 +13,32 @@ import {
 } from "@/components/ui/select";
 import { $Enums } from "@/prisma";
 import { Search } from "lucide-react";
+import { redirect, RedirectType } from "next/navigation";
+import { useRef } from "react";
 export default function SearchInput({
 	search,
 	status,
 	pathname,
 }: { search?: string; status?: $Enums.StatusOrder; pathname: string }) {
 	const statusList = Object.values($Enums.StatusOrder);
+	const formRef = useRef<HTMLFormElement>(null);
+
 	return (
 		<>
 			<form
-				action={pathname}
+				ref={formRef}
 				className="flex w-full space-x-3 items-end"
 				method="GET"
+				onSubmit={(e) => {
+					e.preventDefault();
+					const formData = new FormData(e.currentTarget);
+					const search = formData.get("find");
+					const status = formData.get("status");
+					redirect(
+						`${pathname}?find=${search}&status=${status}`,
+						RedirectType.replace,
+					);
+				}}
 			>
 				<div className="w-full">
 					<Label htmlFor="find" className="mb-2 indent-2 text-lg">

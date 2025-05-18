@@ -47,12 +47,8 @@ export default function AddServisForm() {
 			});
 			form.reset();
 		} else {
-			toast.error(res?.message, {
-				className: "bg-red-200! dark:bg-red-900!",
-				classNames: {
-					description: tw`text-red-900! dark:text-primary-foreground!`,
-					title: tw`font-bold!`,
-				},
+			toast.error("Gagal Menambahkan Paket", {
+				className: tw`bg-destructive!`,
 			});
 		}
 	}
@@ -91,6 +87,7 @@ export default function AddServisForm() {
 									<Input
 										placeholder="Rp"
 										type="number"
+										step={0.01}
 										{...form.register("pricePerUnit", { valueAsNumber: true })}
 									/>
 								</FormControl>

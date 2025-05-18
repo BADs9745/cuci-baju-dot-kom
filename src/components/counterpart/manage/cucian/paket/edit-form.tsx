@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { EditPaket, type GetPaketById } from "@/lib/cucian";
 import { PaketFormSchema, type ServiceType } from "@/lib/types/cucian";
+import { tw } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -42,6 +43,24 @@ export default function EditPaketForm({
 
 		resolver: zodResolver(PaketFormSchema),
 	});
+	async function Submit(data: z.infer<typeof PaketFormSchema>) {
+		console.log(data);
+		const res = await EditPaket(data, data.id ?? "");
+		if (res?.success) {
+			toast.success(res.message, {
+				description: () => (
+					<>
+						{res.message} Paket ID: {res.paketId}
+					</>
+				),
+				className: "bg-green-200! dark:bg-green-900!",
+			});
+		} else {
+			toast.error("Gagal Mengubah Paket", {
+				className: tw`bg-destructive!`,
+			});
+		}
+	}
 	return (
 		<Form {...form}>
 			<form
@@ -74,6 +93,7 @@ export default function EditPaketForm({
 									<Input
 										placeholder="1000.00"
 										type="number"
+										step={0.01}
 										{...form.register("pricePerUnit", { valueAsNumber: true })}
 									/>
 								</FormControl>
@@ -146,17 +166,4 @@ export default function EditPaketForm({
 			</form>
 		</Form>
 	);
-}
-
-async function Submit(data: z.infer<typeof PaketFormSchema>) {
-	const res = await EditPaket(data, data.id ?? "");
-	if (res?.success) {
-		toast(res.message, {
-			description: () => (
-				<>
-					{res.message} Paket ID: {res.paketId}
-				</>
-			),
-		});
-	}
 }
