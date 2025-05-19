@@ -1,8 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
 	Form,
 	FormControl,
@@ -14,52 +12,75 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { EditPaket, type GetPaketById } from "@/lib/cucian";
-import { PaketFormSchema, type ServiceType } from "@/lib/types/cucian";
+import { EditService, type GetServiceById } from "@/lib/cucian";
+import { ServiceFormSchema } from "@/lib/types/cucian";
 import { tw } from "@/lib/utils";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type { z } from "zod";
 
-export default function EditPaketForm({
-	service,
+export default function EditServisForm({
 	currentData,
-}: {
-	service: ServiceType[];
-	currentData: Awaited<ReturnType<typeof GetPaketById>>;
-}) {
-	const params = useParams();
-	const paketId = (params.id as string) ?? "";
-	const form = useForm<z.infer<typeof PaketFormSchema>>({
+}: { currentData: Awaited<ReturnType<typeof GetServiceById>> }) {
+	const param = useParams();
+	const service = currentData?.data;
+	const id = (param.id as string) ?? "";
+	const form = useForm<z.infer<typeof ServiceFormSchema>>({
 		defaultValues: {
-			name: currentData.name,
-			desc: currentData.description,
-			serviceIds: currentData.Service?.map((e) => e.id),
-			id: paketId,
-			pricePerUnit: Number(currentData.pricePerUnit),
+			name: service?.name ?? "",
+			desc: service?.description ?? "",
+			estimatedTimeHours: service?.estimatedTimeHours ?? 0,
+			priority: service?.priority ?? 0,
+			pricePerUnit: service?.pricePerUnit ?? 0,
 		},
-
-		resolver: zodResolver(PaketFormSchema),
+		resolver: zodResolver(ServiceFormSchema),
 	});
+	async function Submit(data: z.infer<typeof ServiceFormSchema>) {
+		console.log(data);
+		const res = await EditService(id, data);
+		if (res?.success) {
+			toast.success(res.message, {
+				description: () => (
+					<>
+						{res.message} Paket ID: {res.serviceId}
+					</>
+				),
+				className: "bg-green-200! dark:bg-green-900!",
+				classNames: {
+					description: tw`text-green-900! dark:text-primary-foreground!`,
+					title: tw`font-bold!`,
+				},
+			});
+			form.reset();
+		} else {
+			toast.error("Gagal Menambahkan Paket", {
+				className: tw`bg-destructive!`,
+			});
+		}
+	}
+
 	return (
 		<Form {...form}>
 			<form
 				className="space-y-10 max-w-full"
 				onSubmit={form.handleSubmit(Submit)}
 			>
-				<div className="flex space-x-5">
+				<div className="grid grid-cols-2 gap-5">
 					<FormItem>
 						<FormField
 							control={form.control}
 							name="name"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Nama Paket</FormLabel>
+									<FormLabel>Nama Servis</FormLabel>
 									<FormControl>
 										<Input {...field} placeholder="Masukkan Nama Paket" />
 									</FormControl>
+									<FormMessage />
+									<FormDescription>Nama Servis</FormDescription>
 								</FormItem>
 							)}
 						/>
@@ -73,13 +94,54 @@ export default function EditPaketForm({
 								<FormLabel>Harga Kiloan (Rp/Kg)</FormLabel>
 								<FormControl>
 									<Input
-										placeholder="1000.00"
+										placeholder="Rp"
 										type="number"
 										step={0.01}
 										{...form.register("pricePerUnit", { valueAsNumber: true })}
 									/>
 								</FormControl>
 								<FormMessage />
+								<FormDescription>Harga tiap Kilo</FormDescription>
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="estimatedTimeHours"
+						render={() => (
+							<FormItem>
+								<FormLabel>Estimasi Waktu</FormLabel>
+								<FormControl>
+									<Input
+										placeholder="Jam"
+										type="number"
+										{...form.register("estimatedTimeHours", {
+											valueAsNumber: true,
+										})}
+									/>
+								</FormControl>
+								<FormMessage />
+								<FormDescription>Perkiraan waktu pengerjaan</FormDescription>
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="priority"
+						render={() => (
+							<FormItem>
+								<FormLabel>Prioritas</FormLabel>
+								<FormControl>
+									<Input
+										placeholder="Jam"
+										type="number"
+										{...form.register("priority", { valueAsNumber: true })}
+									/>
+								</FormControl>
+								<FormMessage />
+								<FormDescription>
+									Perkiraan prioritas pengerjaan
+								</FormDescription>
 							</FormItem>
 						)}
 					/>
@@ -95,49 +157,8 @@ export default function EditPaketForm({
 							</FormControl>
 							<FormMessage />
 							<FormDescription>
-								Deskripsi Paket untuk memperjelas pelanggan
+								Deskripsi Servis untuk memperjelas pelanggan
 							</FormDescription>
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
-					name="serviceIds"
-					render={() => (
-						<FormItem>
-							<h2 className="font-bold">Services</h2>
-							<Card className="shadow-xs rounded-md p-5 space-y-3">
-								{service.map((e) => (
-									<FormField
-										control={form.control}
-										key={e.id}
-										name="serviceIds"
-										render={({ field }) => (
-											<FormItem className="flex">
-												<FormControl>
-													<Checkbox
-														checked={field.value.includes(e.id)}
-														onCheckedChange={(checked) => {
-															if (checked) {
-																field.onChange([...field.value, e.id]);
-															} else {
-																field.onChange([
-																	...field.value.filter((id) => id !== e.id),
-																]);
-															}
-														}}
-													/>
-												</FormControl>
-												<div className="w-full">
-													<FormLabel className="">{e.name}</FormLabel>
-													<FormDescription>{e.description}</FormDescription>
-												</div>
-											</FormItem>
-										)}
-									/>
-								))}
-							</Card>
-							<FormMessage />
 						</FormItem>
 					)}
 				/>
@@ -148,21 +169,4 @@ export default function EditPaketForm({
 			</form>
 		</Form>
 	);
-}
-
-async function Submit(data: z.infer<typeof PaketFormSchema>) {
-	const res = await EditPaket(data, data.id ?? "");
-	if (res?.success) {
-		toast(res.message, {
-			description: () => (
-				<>
-					{res.message} Paket ID: {res.paketId}
-				</>
-			),
-		});
-	} else {
-		toast.error("Gagal Menambahkan Paket", {
-			className: tw`bg-destructive!`,
-		});
-	}
 }

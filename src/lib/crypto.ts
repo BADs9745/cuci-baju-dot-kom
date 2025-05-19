@@ -13,8 +13,8 @@ const iv = process.env.INITIAL_VECTOR as string;
 export async function Cipher(string: string) {
 	const cipher = createCipheriv(
 		"aes-128-ctr",
-		Buffer.from(key, "base64"),
-		Buffer.from(iv, "base64"),
+		Buffer.from(key, "base64").subarray(0, 16),
+		Buffer.from(iv, "base64").subarray(0, 16),
 	);
 
 	return cipher.update(string, "utf8", "base64") + cipher.final("base64");

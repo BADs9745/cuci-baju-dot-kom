@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button";
 import { DeleteService } from "@/lib/cucian";
 import { toast } from "sonner";
 import { tw } from "@/lib/utils";
+import Link from "next/link";
 
 export default function ServiceCardAction({ id }: { id: string }) {
 	return (
 		<>
 			<Button variant={"secondary"}>
-				Edit
+				<Link href={`/manage/cucian/services/edit/${id}`}>Edit</Link>
 				<Edit2 />
 			</Button>
 			<Button

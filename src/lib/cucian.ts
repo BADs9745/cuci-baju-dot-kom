@@ -141,7 +141,9 @@ async function EditPaket(data: z.infer<typeof PaketFormSchema>, id: string) {
 }
 
 async function GetAllService(
-	{ timestamp }: { timestamp?: boolean } = { timestamp: false },
+	{ timestamp }: { timestamp?: boolean } = {
+		timestamp: false,
+	},
 ) {
 	return await prisma.service.findMany({
 		orderBy: { name: "asc" },
@@ -150,6 +152,41 @@ async function GetAllService(
 			updatedAt: !timestamp,
 		},
 	});
+}
+
+async function GetServiceById(id: string) {
+	async function GetData(id: string) {
+		const val = await prisma.service.findUnique({
+			where: {
+				id,
+			},
+		});
+		return {
+			...val,
+			pricePerUnit: val?.pricePerUnit.toNumber(),
+		};
+	}
+
+	try {
+		const res = await GetData(id);
+
+		return {
+			success: true,
+			message: "Berhasil Mendapatkan Layanan",
+			serviceId: res?.id,
+			data: res,
+		};
+	} catch (error) {
+		if (error instanceof PrismaClientKnownRequestError) {
+			return {
+				success: false,
+				message: error.message,
+				serviceId: null,
+				meta: error.meta,
+				data: null as unknown as Awaited<ReturnType<typeof GetData>>,
+			};
+		}
+	}
 }
 
 async function AddNewService(data: z.infer<typeof ServiceFormSchema>) {
@@ -550,6 +587,46 @@ async function GetOrderById(id: string) {
 	};
 	return mappedOrder;
 }
+
+async function EditService(
+	id: string,
+	data: z.infer<typeof ServiceFormSchema>,
+) {
+	async function Edit(data: z.infer<typeof ServiceFormSchema>) {
+		const service = await prisma.service.update({
+			where: {
+				id,
+			},
+			data: {
+				name: data.name,
+				description: data.desc,
+				pricePerUnit: data.pricePerUnit,
+				estimatedTimeHours: data.estimatedTimeHours,
+				priority: data.priority,
+			},
+		});
+		return service;
+	}
+	try {
+		const res = await Edit(data);
+		revalidatePath("/manage/cucian/servis");
+		return {
+			success: true,
+			message: "Berhasil Mengubah Layanan",
+			serviceId: res.id,
+		};
+	} catch (error) {
+		if (error instanceof PrismaClientKnownRequestError) {
+			const res = error.meta;
+			return {
+				success: false,
+				message: "Gagal Mengubah Layanan",
+				serviceId: null,
+				meta: res,
+			};
+		}
+	}
+}
 export {
 	// Get
 	GetAllCucianOrder,
@@ -558,6 +635,7 @@ export {
 	GetAllCountCucianOrder,
 	GetAllService,
 	GetOrderById,
+	GetServiceById,
 	// Add
 	AddPaket,
 	AddNewService,
@@ -569,6 +647,7 @@ export {
 	EditPaket,
 	EditActivatePaket,
 	EditOrderStatus,
+	EditService,
 	// Delete
 	DeleteCucianOrder,
 	DeleteService,
