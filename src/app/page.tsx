@@ -11,7 +11,7 @@ export default async function HomePage() {
 
 	return (
 		<>
-			{profile.data?.Role.admin && <AaaadminPage />}
+			{profile.data?.Role.admin && <AaaadminPage profile={profile} />}
 			{profile.data?.Role.authority_level < 1 && (
 				<>
 					<h1>Anda User</h1>

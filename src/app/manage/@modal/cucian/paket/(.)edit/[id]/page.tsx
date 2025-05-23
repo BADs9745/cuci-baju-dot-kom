@@ -6,10 +6,7 @@ export default async function EditModal({
 }: { params: Promise<{ id: string }> }) {
 	const paketId = (await params).id;
 	const paket = await GetPaketById(paketId);
-	const getServices = await GetAllService();
-	const services = getServices.map((e) => ({
-		...e,
-		pricePerUnit: e.pricePerUnit.toNumber(),
-	}));
+	const services = await GetAllService();
+
 	return <EditDialog currentData={paket} services={services} />;
 }

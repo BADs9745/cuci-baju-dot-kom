@@ -10,11 +10,8 @@ import AddPaketForm from "./add-form";
 import { GetAllService } from "@/lib/cucian";
 
 export default async function AddPaketDialog() {
-	const getService = await GetAllService();
-	const serviceList = getService.map((e) => ({
-		...e,
-		pricePerUnit: e.pricePerUnit.toNumber(),
-	}));
+	const serviceList = await GetAllService();
+
 	return (
 		<Dialog>
 			<DialogTrigger asChild>

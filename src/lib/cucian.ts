@@ -145,13 +145,17 @@ async function GetAllService(
 		timestamp: false,
 	},
 ) {
-	return await prisma.service.findMany({
+	const service = await prisma.service.findMany({
 		orderBy: { name: "asc" },
 		omit: {
 			createdAt: !timestamp,
 			updatedAt: !timestamp,
 		},
 	});
+	return service.map((e) => ({
+		...e,
+		pricePerUnit: e.pricePerUnit.toNumber(),
+	}));
 }
 
 async function GetServiceById(id: string) {

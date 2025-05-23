@@ -36,12 +36,7 @@ export default async function ServicesManagementPage() {
 								<CardContent>
 									<div>
 										<span>Harga per Kilo : </span>
-										<span>
-											Rp{" "}
-											{e.pricePerUnit
-												.toNumber()
-												.toLocaleString("id", { currency: "idr" })}
-										</span>
+										<span>Rp {e.pricePerUnit}</span>
 									</div>
 								</CardContent>
 							</div>

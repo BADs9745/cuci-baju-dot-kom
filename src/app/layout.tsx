@@ -21,7 +21,7 @@ export default async function RootLayout({
 	footer: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html lang="id">
 			<ThemeAdapter />
 			<SessionProvider />
 			<body className={`antialiased ${nunito.className} relative`}>
