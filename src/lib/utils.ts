@@ -1,11 +1,11 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-export function cn(...inputs: ClassValue[]) {
+function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
-export function GetFormDatas<FormType>(formdata: FormData) {
+function GetFormDatas<FormType>(formdata: FormData) {
 	let data = {};
 	for (const [key, value] of formdata.entries()) {
 		data = { ...data, [key]: value };
@@ -13,8 +13,12 @@ export function GetFormDatas<FormType>(formdata: FormData) {
 	return data as FormType;
 }
 
-export function tw(cn: TemplateStringsArray): string {
+function tw(cn: TemplateStringsArray): string {
 	return cn.toString();
 }
 
-export type Omits<T, K extends keyof T> = Omit<T, K>;
+type Omits<T, K extends keyof T> = Omit<T, K>;
+
+const nthBasedBg = tw`group-nth-[1n]:bg-chart-1 group-nth-[2n]:bg-chart-2 group-nth-[3n]:bg-chart-3 group-nth-[4n]:bg-chart-4 group-nth-[5n]:bg-chart-5`;
+
+export { nthBasedBg, tw, cn, GetFormDatas, type Omits };

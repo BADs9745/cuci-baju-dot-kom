@@ -8,10 +8,11 @@ export default async function HomePage() {
 		redirect("/home");
 	}
 	const profile = await GetProfileByToken(login);
-
+	if (profile.data?.Role.admin) {
+		return <AaaadminPage profile={profile} />;
+	}
 	return (
 		<>
-			{profile.data?.Role.admin && <AaaadminPage profile={profile} />}
 			{profile.data?.Role.authority_level < 1 && (
 				<>
 					<h1>Anda User</h1>

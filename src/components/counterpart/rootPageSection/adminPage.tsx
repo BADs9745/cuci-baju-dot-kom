@@ -10,8 +10,20 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { GetAllService } from "@/lib/cucian";
 import type { GetProfileByToken } from "@/lib/session";
-import { ArrowRight, Settings, Settings2, WashingMachine } from "lucide-react";
+import {
+	ArrowRight,
+	Calendar,
+	Settings,
+	Settings2,
+	Truck,
+	WashingMachine,
+	Sparkles,
+	Package,
+	ChevronRight,
+} from "lucide-react";
 import Link from "next/link";
+import type { JSX } from "react";
+import { nthBasedBg } from "@/lib/utils";
 
 export default async function AaaadminPage({
 	profile,
@@ -135,6 +147,75 @@ export default async function AaaadminPage({
 					</Button>
 				</div>
 			</section>
+			<section className="py-20 px-15 md:px-50 flex flex-col items-center gap-10">
+				<div className="">
+					<h2 className="text-center font-bold text-3xl">
+						Bagaimana Cara Kerja Sistem Kami
+					</h2>
+					<p className="max-w-[700px] text-zinc-500 dark:text-zinc-400 text-center mt-5">
+						Proses 4 langkah kami yang sederhana membuat hari mencuci menjadi
+						mudah. Jadwalkan, serahkan, kami bersihkan, dan antar kembali ke
+						tempat Anda.
+					</p>
+				</div>
+				<div className="flex flex-col md:flex-row items-center gap-10">
+					{caraKerjaItems.map((item) => (
+						<CaraKerjaCard key={item.title} item={item} />
+					))}
+				</div>
+				<Button asChild variant="link" className="mt-5 p-7!">
+					<Link href="/tentang" className="text-xl">
+						Pelajari Lebih Lanjut <Separator orientation="vertical" />
+						<ChevronRight className="size-10 stroke-2" />
+					</Link>
+				</Button>
+			</section>
 		</>
 	);
 }
+
+const CaraKerjaCard = ({ item }: { item: (typeof caraKerjaItems)[0] }) => {
+	const { title, desc, icon } = item;
+	return (
+		<Card className="p-5 w-70 group">
+			<CardHeader className="flex justify-center">
+				<div
+					className={`rounded-full ${nthBasedBg} p-5 [&_svg]:size-15 [&_svg]:stroke-white`}
+				>
+					{icon}
+				</div>
+			</CardHeader>
+			<CardContent>
+				<CardTitle className="text-center text-xl">{title}</CardTitle>
+				<CardDescription className="my-2">
+					<p className="text-center text-lg text-zinc-500 dark:text-zinc-400">
+						{desc}
+					</p>
+				</CardDescription>
+			</CardContent>
+		</Card>
+	);
+};
+
+const caraKerjaItems: { title: string; desc: string; icon: JSX.Element }[] = [
+	{
+		title: "Penjadwalan Pengambilan",
+		desc: "Jadwalkan, serahkan, kami bersihkan, dan antar kembali ke tempat Anda",
+		icon: <Calendar />,
+	},
+	{
+		title: "Kami Jemput Cucian Anda",
+		desc: "Kami akan datang ke lokasi Anda untuk menjemput cucian Anda.",
+		icon: <Truck />,
+	},
+	{
+		title: "Kinerja Yang Profesional",
+		desc: "Kami akan mencuci cucian Anda dengan profesional dan hati-hati.",
+		icon: <Sparkles />,
+	},
+	{
+		title: "Pengantaran Kembali",
+		desc: "Kami akan mengantarkan cucian Anda kembali ke lokasi Anda.",
+		icon: <Package />,
+	},
+];
