@@ -1,4 +1,10 @@
-import * as m from "motion/react-client";
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@/components/ui/accordion";
+
 export default function TentangPage() {
 	return (
 		<div>
@@ -17,16 +23,16 @@ export default function TentangPage() {
 			</section>
 			<section className="contain-layout mx-50 py-10 grid grid-flow-row grid-cols-2 gap-10">
 				<HoverBox>
-					<h1 className="text-3xl font-bold ">Visi Kami</h1>
-					<p className="text-justify">
+					<h1 className="text-3xl font-bold text-center">Visi Kami</h1>
+					<p className="text-justify p-5">
 						Menjadi solusi bagi kebutuhan masyarakat melalui platform online
 						maupun offline dengan mengembangkan ekosistem bisnis untuk mitra
 						kami
 					</p>
 				</HoverBox>
 				<HoverBox>
-					<h1 className="text-3xl font-bold">Misi Kami</h1>
-					<ul className="list-disc list-inside">
+					<h1 className="text-3xl font-bold text-center">Misi Kami</h1>
+					<ul className="list-disc list-outside p-5">
 						<li>Memberikan pelayanan terbaik kepada pelanggan</li>
 						<li>Mengembangkan ekosistem bisnis untuk mitra kami</li>
 						<li>
@@ -36,8 +42,8 @@ export default function TentangPage() {
 					</ul>
 				</HoverBox>
 				<HoverBox>
-					<h1 className="text-3xl font-bold ">Ayam Goreng</h1>
-					<p className="text-justify">
+					<h1 className="text-3xl font-bold text-center">Ayam Goreng</h1>
+					<p className="text-justify p-5">
 						Ayam goreng adalah hidangan yang terbuat dari potongan ayam yang
 						digoreng dalam minyak panas hingga berwarna keemasan dan renyah.
 						Hidangan ini sangat populer di Indonesia dan berbagai negara
@@ -45,8 +51,8 @@ export default function TentangPage() {
 					</p>
 				</HoverBox>
 				<HoverBox>
-					<h1 className="text-3xl font-bold ">Bebek Goreng</h1>
-					<p className="text-justify">
+					<h1 className="text-3xl font-bold  text-center">Bebek Goreng</h1>
+					<p className="text-justify p-5">
 						Bebek goreng adalah hidangan khas Indonesia yang terbuat dari daging
 						bebek yang digoreng hingga renyah. Hidangan ini sangat populer dan
 						dapat ditemukan di berbagai daerah di Indonesia, dengan variasi
@@ -54,26 +60,49 @@ export default function TentangPage() {
 					</p>
 				</HoverBox>
 			</section>
+			<section className="mx-50 py-10 contain-layout">
+				<h2 className="text-3xl font-bold text-center">FAQ</h2>
+				<p className="text-muted-foreground text-center">
+					Temukan jawaban dari pertanyaan yang sering ditanyakan
+				</p>
+				<div className="flex flex-col items-center gap-5 mt-10">
+					<Accordion type="single" collapsible className="w-full max-w-2xl">
+						<AccordionItem value="faq-item-1">
+							<AccordionTrigger>
+								Bagaimana cara memasak Ayam Goreng?
+							</AccordionTrigger>
+							<AccordionContent>
+								Untuk memasak ayam goreng, pertama-tama siapkan potongan ayam,
+								bumbu marinasi, dan minyak goreng. Marinasi ayam dengan bumbu
+								selama beberapa jam, lalu goreng dalam minyak panas hingga
+								berwarna keemasan dan renyah. Sajikan dengan nasi atau lalapan
+								sesuai selera.
+							</AccordionContent>
+						</AccordionItem>
+						<AccordionItem value="fag-item-2">
+							<AccordionTrigger>
+								Bisakah ayam terbang setelah dimasak
+							</AccordionTrigger>
+							<AccordionContent>
+								Tidak, ayam tidak terbang. Ayam merupakan makhluk hidup
+								karnivora yang hidup di darat dan tidak terbang.
+							</AccordionContent>
+						</AccordionItem>
+					</Accordion>
+				</div>
+			</section>
 		</div>
 	);
 }
 
 const HoverBox = ({ children }: { children: React.ReactNode }) => {
 	return (
-		<m.div
+		<div
 			className="bg-accent p-5 rounded-md
 					shadow-[5px_5px_10px] shadow-primary
 					"
-			whileHover={{
-				scale: 1.05,
-				zIndex: 20,
-			}}
-			transition={{
-				type: "spring",
-				duration: 0.5,
-			}}
 		>
 			{children}
-		</m.div>
+		</div>
 	);
 };
