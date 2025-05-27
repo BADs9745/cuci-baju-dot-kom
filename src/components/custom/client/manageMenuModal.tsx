@@ -19,8 +19,8 @@ export const ManageMenuList: manageMenuList = {
 			</div>
 		),
 	},
-	"Manage User Staff": {
-		link: "/manage/staff",
+	"Manage Employees": {
+		link: "/manage/employee",
 		content: (
 			<div className="">
 				<p className="">Management Karyawan / Staff Laundry</p>

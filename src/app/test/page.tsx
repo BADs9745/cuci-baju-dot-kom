@@ -20,16 +20,18 @@ export default function TestPage() {
 }
 
 async function Wow() {
-	return {
-		rere: "effe",
-		dd: {
-			ddd: "",
-			wow: "",
+	return [
+		{
+			rere: "effe",
+			dd: {
+				ddd: "",
+				wow: "",
+			},
 		},
-	};
+	];
 }
 
-const name: Awaited<ReturnType<typeof Wow>>["dd"] = {
+const name: Awaited<ReturnType<typeof Wow>>[number]["dd"] = {
 	ddd: "",
 	wow: "",
 };

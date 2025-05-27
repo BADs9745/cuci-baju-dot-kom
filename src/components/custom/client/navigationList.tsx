@@ -12,6 +12,7 @@ import {
 } from "../../ui/navigation-menu";
 
 const navigationItem: [string, string][] = [
+	["Dashboard", "/"],
 	["Home", "/home"],
 	["Tentang", "/tentang"],
 	["Kontak", "/kontak"],

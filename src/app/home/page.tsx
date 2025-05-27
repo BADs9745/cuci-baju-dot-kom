@@ -24,17 +24,6 @@ export default function HomePage() {
 			<section className={`${sectionStyle} flex`}>
 				<HomeModalList />
 			</section>
-			<section className={sectionStyle}>
-				<h1 className="text-4xl capitalize font-medium">
-					Cuci Kiloan Baju Klean Dengan Harga Terjankau
-				</h1>
-				<p className="mt-5">
-					Mencuci Baju dengan tangan muungkin snagatlah melalahkan dengan rasa
-					malas yang sangat mengerumninmu. Tapi jangan risau kami bisa mencuci
-					baju mu dengan harga yang terjakau dengan sistem kiloan
-				</p>
-				<InteractiveWeight paket={paketList} />
-			</section>
 			<section className="py-16 md:py-24 px-50">
 				<div className="grid gap-8 md:grid-cols-3">
 					<Card className="border-none shadow-md">
@@ -74,6 +63,17 @@ export default function HomePage() {
 						</CardContent>
 					</Card>
 				</div>
+			</section>
+			<section className={sectionStyle}>
+				<h1 className="text-4xl capitalize font-medium">
+					Cuci Kiloan Baju Klean Dengan Harga Terjankau
+				</h1>
+				<p className="mt-5">
+					Mencuci Baju dengan tangan muungkin snagatlah melalahkan dengan rasa
+					malas yang sangat mengerumninmu. Tapi jangan risau kami bisa mencuci
+					baju mu dengan harga yang terjakau dengan sistem kiloan
+				</p>
+				<InteractiveWeight paket={paketList} />
 			</section>
 		</>
 	);

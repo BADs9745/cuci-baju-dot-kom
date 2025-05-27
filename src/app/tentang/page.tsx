@@ -65,31 +65,33 @@ export default function TentangPage() {
 				<p className="text-muted-foreground text-center">
 					Temukan jawaban dari pertanyaan yang sering ditanyakan
 				</p>
-				<div className="flex flex-col items-center gap-5 mt-10">
-					<Accordion type="single" collapsible className="w-full max-w-2xl">
-						<AccordionItem value="faq-item-1">
-							<AccordionTrigger>
-								Bagaimana cara memasak Ayam Goreng?
-							</AccordionTrigger>
-							<AccordionContent>
-								Untuk memasak ayam goreng, pertama-tama siapkan potongan ayam,
-								bumbu marinasi, dan minyak goreng. Marinasi ayam dengan bumbu
-								selama beberapa jam, lalu goreng dalam minyak panas hingga
-								berwarna keemasan dan renyah. Sajikan dengan nasi atau lalapan
-								sesuai selera.
-							</AccordionContent>
-						</AccordionItem>
-						<AccordionItem value="fag-item-2">
-							<AccordionTrigger>
-								Bisakah ayam terbang setelah dimasak
-							</AccordionTrigger>
-							<AccordionContent>
-								Tidak, ayam tidak terbang. Ayam merupakan makhluk hidup
-								karnivora yang hidup di darat dan tidak terbang.
-							</AccordionContent>
-						</AccordionItem>
-					</Accordion>
-				</div>
+				<Accordion
+					type="single"
+					collapsible
+					className="w-full mt-10 mx-auto max-w-5xl"
+				>
+					<AccordionItem value="faq-item-1">
+						<AccordionTrigger className="text-2xl font-semibold">
+							Bagaimana cara memasak Ayam Goreng ?
+						</AccordionTrigger>
+						<AccordionContent className="text-lg">
+							Untuk memasak ayam goreng, pertama-tama siapkan potongan ayam,
+							bumbu marinasi, dan minyak goreng. Marinasi ayam dengan bumbu
+							selama beberapa jam, lalu goreng dalam minyak panas hingga
+							berwarna keemasan dan renyah. Sajikan dengan nasi atau lalapan
+							sesuai selera.
+						</AccordionContent>
+					</AccordionItem>
+					<AccordionItem value="fag-item-2">
+						<AccordionTrigger className="text-2xl font-semibold">
+							Bisakah ayam terbang setelah dimasak ?
+						</AccordionTrigger>
+						<AccordionContent className="text-lg">
+							Tidak, ayam tidak terbang. Ayam merupakan makhluk hidup karnivora
+							yang hidup di darat dan tidak terbang.
+						</AccordionContent>
+					</AccordionItem>
+				</Accordion>
 			</section>
 		</div>
 	);
