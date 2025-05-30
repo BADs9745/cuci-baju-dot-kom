@@ -7,6 +7,7 @@ import { ManageMenuList } from "@/components/custom/client/manageMenuModal";
 export default async function ManageRootPage() {
 	return (
 		<>
+			<h1 className="text-center text-4xl font-bold mb-10">Management Page</h1>
 			<div className="grid auto-rows-min gap-4 md:grid-cols-3">
 				{Object.entries(ManageMenuList).map(([title, content]) => (
 					<m.div

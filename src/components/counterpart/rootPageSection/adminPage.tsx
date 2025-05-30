@@ -20,6 +20,7 @@ import {
 	Sparkles,
 	Package,
 	ChevronRight,
+	PenSquareIcon,
 } from "lucide-react";
 import Link from "next/link";
 import type { JSX } from "react";
@@ -75,9 +76,9 @@ export default async function AaaadminPage({
 							</Link>
 						</Button>
 						<Button asChild variant={"secondary"}>
-							<Link href={"/manage/staff"}>
-								Manage Staff
-								<WashingMachine />
+							<Link href={"manage/employee"}>
+								Manage Employees
+								<PenSquareIcon />
 							</Link>
 						</Button>
 					</div>

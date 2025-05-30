@@ -40,9 +40,7 @@ export default async function ManageLayout({
 							<LinkBasedBreadcrumb />
 						</div>
 					</header>
-					<h1 className="text-center text-4xl font-bold mb-10">
-						Management Page
-					</h1>
+
 					<section className="flex flex-1 flex-col gap-4 p-12 pt-0 relative">
 						{children}
 					</section>
