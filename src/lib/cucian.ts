@@ -631,6 +631,46 @@ async function EditService(
 		}
 	}
 }
+
+async function ConfirmOrder(hargaTetap: number, id: string) {
+	async function action(hargaTetap: number, id: string) {
+		return await prisma.cucianOrder.update({
+			where: {
+				id,
+			},
+			data: {
+				hargaTetap,
+				status: "IN_PROGRESS",
+			},
+			select: {
+				id: true,
+			},
+		});
+	}
+	let res: {
+		success: boolean;
+		data: Awaited<ReturnType<typeof action>> | null;
+		message: string;
+	};
+	try {
+		res = {
+			success: true,
+			message: "Berhasil Mengubah Harga Tetap",
+			data: await action(hargaTetap, id),
+		};
+		revalidatePath("/manage/cucian/order");
+	} catch (error) {
+		if (error) {
+		}
+		res = {
+			success: false,
+			message: "Gagal Mengubah Harga Tetap",
+			data: null,
+		};
+	}
+	return res;
+}
+
 export {
 	// Get
 	GetAllCucianOrder,
@@ -652,6 +692,7 @@ export {
 	EditActivatePaket,
 	EditOrderStatus,
 	EditService,
+	ConfirmOrder,
 	// Delete
 	DeleteCucianOrder,
 	DeleteService,

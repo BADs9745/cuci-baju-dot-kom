@@ -75,7 +75,7 @@ function ProfileCard({
 										await EditChangeUserRole(prop.id, role.id);
 									}}
 								>
-									<RoleCard {...role} userRoleId={prop.Role.id} />
+									<RoleCard {...role} userRoleId={prop.Role?.id} />
 								</Button>
 							);
 						})}
@@ -88,10 +88,10 @@ function ProfileCard({
 		<Card className="w-100 relative">
 			<Badge
 				className={`absolute right-2 top-2 text-sm font-bold capitalize ${
-					prop.Role.name === "admin" ? "bg-red-800" : "bg-green-800"
+					prop.Role?.name === "admin" ? "bg-red-800" : "bg-green-800"
 				}`}
 			>
-				{prop.Role.name}
+				{prop.Role?.name || "user"}
 			</Badge>
 			<CardHeader>
 				<CardTitle

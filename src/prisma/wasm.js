@@ -159,6 +159,7 @@ exports.Prisma.CucianOrderScalarFieldEnum = {
   status: 'status',
   createAt: 'createAt',
   selesaiAt: 'selesaiAt',
+  hargaTetap: 'hargaTetap',
   userIndentifier: 'userIndentifier'
 };
 
@@ -187,35 +188,6 @@ exports.Prisma.PackageScalarFieldEnum = {
   description: 'description',
   pricePerUnit: 'pricePerUnit',
   active: 'active'
-};
-
-exports.Prisma.InventoryScalarFieldEnum = {
-  id: 'id',
-  itemName: 'itemName',
-  description: 'description',
-  quantity: 'quantity',
-  unit: 'unit',
-  reorderLevel: 'reorderLevel',
-  costPerUnit: 'costPerUnit',
-  supplier: 'supplier',
-  lastRestockDate: 'lastRestockDate',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  inventoryCategoryId: 'inventoryCategoryId'
-};
-
-exports.Prisma.InventoryCategoryScalarFieldEnum = {
-  id: 'id',
-  name: 'name'
-};
-
-exports.Prisma.InventoryTransactionScalarFieldEnum = {
-  id: 'id',
-  quantity: 'quantity',
-  transactionDate: 'transactionDate',
-  notes: 'notes',
-  inventoryId: 'inventoryId',
-  recordedById: 'recordedById'
 };
 
 exports.Prisma.PaymentScalarFieldEnum = {
@@ -267,9 +239,6 @@ exports.Prisma.ModelName = {
   ReservasiPengambilan: 'ReservasiPengambilan',
   Service: 'Service',
   Package: 'Package',
-  Inventory: 'Inventory',
-  InventoryCategory: 'InventoryCategory',
-  InventoryTransaction: 'InventoryTransaction',
   Payment: 'Payment'
 };
 

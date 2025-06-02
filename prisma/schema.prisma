@@ -26,16 +26,15 @@ model User {
   updatedAt    DateTime       @updatedAt
   lastLogin    DateTime?
   isActive     Boolean        @default(true)
-  Role         UserRole       @relation(fields: [UserRoleId], references: [id])
+  Role         UserRole?      @relation(fields: [UserRoleId], references: [id], onDelete: SetNull)
   Session      LoginSession[]
 
   // Relations
-  Payments              Payment[]
-  InventoryTransactions InventoryTransaction[] @relation("RecordedBy")
-  Settings              Json?
-  UserRoleId            String
-  CucianOrder           CucianOrder[]
-  ReservasiPengambilan  ReservasiPengambilan[]
+  Payments             Payment[]
+  Settings             Json?
+  UserRoleId           String?
+  CucianOrder          CucianOrder[]
+  ReservasiPengambilan ReservasiPengambilan[]
 
   @@map("users")
 }
@@ -46,7 +45,7 @@ model LoginSession {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   expire    DateTime
-  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  User      User     @relation(fields: [userId], references: [id])
 
   @@map("login_sessions")
 }
@@ -76,6 +75,7 @@ model CucianOrder {
   status               StatusOrder            @default(PENDING)
   createAt             DateTime               @default(now())
   selesaiAt            DateTime?
+  hargaTetap           Decimal?
   userIndentifier      String?
 
   @@map("cucian_orders")
@@ -130,50 +130,6 @@ model Package {
 enum DeliveryMethod {
   PICKUP
   DELIVERY
-}
-
-model Inventory {
-  id                 String            @id @default(uuid())
-  itemName           String
-  description        String?
-  InverntoryCategory InventoryCategory @relation(fields: [inventoryCategoryId], references: [id])
-  quantity           Decimal
-  unit               String
-  reorderLevel       Decimal
-  costPerUnit        Decimal
-  supplier           String?
-  lastRestockDate    DateTime?
-  createdAt          DateTime          @default(now())
-  updatedAt          DateTime          @updatedAt
-
-  // Relations
-  InvertoryTransactions InventoryTransaction[]
-  inventoryCategoryId   String
-
-  @@map("inventory")
-}
-
-model InventoryCategory {
-  id        String      @id @default(uuid())
-  name      String      @unique
-  Inventory Inventory[]
-
-  @@map("inventory_categories")
-}
-
-model InventoryTransaction {
-  id              String   @id @default(uuid())
-  quantity        Decimal
-  transactionDate DateTime @default(now())
-  notes           String?
-
-  // Relations
-  Inventory    Inventory @relation(fields: [inventoryId], references: [id])
-  inventoryId  String
-  User         User      @relation("RecordedBy", fields: [recordedById], references: [id])
-  recordedById String
-
-  @@map("inventory_transactions")
 }
 
 model Payment {

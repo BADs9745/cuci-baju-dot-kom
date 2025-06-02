@@ -1,14 +1,25 @@
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { GetOrderById } from "@/lib/cucian";
 import { iconStatus } from "@/lib/manage-icon-pack";
 import { User2, UserCheck2 } from "lucide-react";
+import PaymentAction from "./action";
 
 export default async function ProcessedOrderPage({
 	params,
 }: { params: Promise<{ orderId: string }> }) {
 	const orderId = (await params).orderId;
 	const order = await GetOrderById(orderId);
+	const serviceTotalPerUnit =
+		order.Service?.reduce((a, c) => a + c.pricePerUnit, 0) ?? 0;
+	const totalPrice = serviceTotalPerUnit + (order.Paket?.pricePerUnit ?? 0);
 	return (
 		<>
 			<h1 className="text-3xl font-bold tracking-tight flex items-center gap-2 uppercase">
@@ -91,6 +102,99 @@ export default async function ProcessedOrderPage({
 					</CardContent>
 				</Card>
 			</div>
+			<Card>
+				<CardHeader>
+					<CardTitle>Proccess Menu</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<div className="flex gap-2">
+						<Card className="flex-2/3">
+							<CardHeader>
+								<CardTitle>Paket Cucian</CardTitle>
+								<CardDescription>
+									Paket yang dipilih oleh customer
+								</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<div className="grid grid-cols-2 [&_h3]:font-bold [&_h3]:text-lg gap-3">
+									<h3>Id Paket</h3>
+									<p>: {order.Paket.id}</p>
+									<Separator className="col-span-2" />
+									<h3>Nama Paket</h3>
+									<p>: {order.Paket.name}</p>
+									<Separator className="col-span-2" />
+									<h3>Harga Per Kilo</h3>
+									<p>
+										:{" "}
+										{order.Paket.pricePerUnit?.toLocaleString("id-ID", {
+											style: "currency",
+											currency: "IDR",
+										})}{" "}
+										/ kg
+									</p>
+								</div>
+							</CardContent>
+						</Card>
+						<Card>
+							<CardHeader>
+								<CardTitle>Service Tambahan</CardTitle>
+								<CardDescription>
+									Paket yang dipilih oleh customer
+								</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<div className="grid grid-cols-2 [&_h3]:font-bold [&_h3]:text-lg gap-3">
+									<h3>Service Tambahan</h3>
+									<div>
+										:{" "}
+										{order.Service?.length ? (
+											order.Service?.map((e) => (
+												<Badge key={e.id} className="mr-1">
+													{e.name}
+												</Badge>
+											))
+										) : (
+											<span className="text-muted-foreground">
+												Tidak Ada Service Tambahan
+											</span>
+										)}
+									</div>
+									<h3>Harga Service Tambahan</h3>
+									<p>
+										:{" "}
+										{order.Service?.length ? (
+											`${order.Service?.reduce(
+												(a, b) => a + b.pricePerUnit,
+												0,
+											).toLocaleString("id-ID", {
+												style: "currency",
+												currency: "IDR",
+											})} / kg`
+										) : (
+											<span className="text-muted-foreground">Tidak Ada</span>
+										)}
+									</p>
+								</div>
+							</CardContent>
+						</Card>
+					</div>
+					<Card>
+						<CardHeader>
+							<CardTitle>Pembayaran</CardTitle>
+							<CardDescription>
+								Harga yang harus dibayar oleh customer dari perhitungan berat
+								pakaian
+							</CardDescription>
+						</CardHeader>
+						<CardContent>
+							<PaymentAction
+								totalPerUnit={totalPrice}
+								orderId={order.id ?? ""}
+							/>
+						</CardContent>
+					</Card>
+				</CardContent>
+			</Card>
 		</>
 	);
 }

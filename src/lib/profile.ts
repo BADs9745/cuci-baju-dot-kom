@@ -4,7 +4,7 @@ import { prisma } from "./prisma";
 import type { PrismaClientError } from "./types/db";
 import type { User } from "@/prisma/client";
 import type { z } from "zod";
-import type { profileSchema } from "./types/profile";
+import type { profileSchema, roleSchema } from "./types/profile";
 import { Hash } from "./crypto";
 import { revalidatePath } from "next/cache";
 
@@ -123,6 +123,143 @@ async function GetAllRoles() {
 	return await prisma.userRole.findMany();
 }
 
+async function GetRoleById(id: string) {
+	async function get(id: string) {
+		return await prisma.userRole.findUnique({
+			where: {
+				id,
+			},
+		});
+	}
+	let res: {
+		success: boolean;
+		message: string;
+		data: Awaited<ReturnType<typeof get>> | null;
+	};
+	try {
+		res = {
+			success: true,
+			message: "Role retrieved successfully",
+			data: await get(id),
+		};
+	} catch (error) {
+		if (error) {
+		}
+		res = {
+			success: false,
+			message: "Role retrieved failed",
+			data: null,
+		};
+	}
+	return res;
+}
+
+async function AddNewRole(data: z.infer<typeof roleSchema>) {
+	async function create(cdata: typeof data) {
+		return await prisma.userRole.create({
+			data: {
+				name: cdata.name,
+				admin: cdata.admin,
+				authority_level: cdata.authority_level,
+			},
+		});
+	}
+	let res: {
+		success: boolean;
+		message: string;
+		data: Awaited<ReturnType<typeof create>> | null;
+	};
+	try {
+		res = {
+			success: true,
+			message: "Role created successfully",
+			data: await create(data),
+		};
+		revalidatePath("/manage/employee");
+	} catch (error) {
+		if (error) {
+		}
+		res = {
+			success: false,
+			message: "Failed to create role",
+			data: null,
+		};
+	}
+	return res;
+}
+async function EditRole(data: z.infer<typeof roleSchema>, id: string) {
+	async function Edit(cdata: typeof data, id: string) {
+		return await prisma.userRole.update({
+			data: {
+				name: cdata.name,
+				admin: cdata.admin,
+				authority_level: cdata.authority_level,
+			},
+			where: {
+				id,
+			},
+		});
+	}
+	let res: {
+		success: boolean;
+		message: string;
+		data: Awaited<ReturnType<typeof Edit>> | null;
+	};
+	try {
+		res = {
+			success: true,
+			message: "Role created successfully",
+			data: await Edit(data, id),
+		};
+		revalidatePath("/manage/employee");
+	} catch (error) {
+		if (error) {
+		}
+		res = {
+			success: false,
+			message: "Failed to create role",
+			data: null,
+		};
+	}
+	return res;
+}
+
+async function DeleteRoleById(id: string) {
+	async function Delete(id: string) {
+		return await prisma.userRole.delete({
+			where: {
+				id,
+			},
+			select: {
+				id: true,
+			},
+		});
+	}
+	let res: {
+		success: boolean;
+		message: string;
+		data: Awaited<ReturnType<typeof Delete>> | null;
+	};
+	try {
+		res = {
+			success: true,
+			message: "Role deleted successfully",
+			data: await Delete(id),
+		};
+	} catch (error) {
+		if (error) {
+		}
+		res = {
+			success: false,
+			message: "Someone using this role",
+			data: null,
+		};
+	}
+
+	revalidatePath("/manage/employee");
+	return res;
+}
+
 async function EditChangeUserRole(id: string, roleId: string) {
 	async function update(id: string, roleId: string) {
 		return await prisma.user.update({
@@ -168,7 +305,11 @@ export {
 	GetProfileById,
 	GetAllProfile,
 	GetAllRoles,
+	GetRoleById,
+	EditRole,
 	// Update / Edit
 	UpdateProfile,
 	EditChangeUserRole,
+	AddNewRole,
+	DeleteRoleById,
 };

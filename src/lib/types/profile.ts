@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const profileSchema = z
+const profileSchema = z
 	.object({
 		username: z
 			.string()
@@ -21,3 +21,11 @@ export const profileSchema = z
 		},
 		{ message: "Password tidak sama" },
 	);
+
+const roleSchema = z.object({
+	name: z.string().min(5, "Name must be at least 5 characters long"),
+	authority_level: z.number(),
+	admin: z.boolean(),
+});
+
+export { profileSchema, roleSchema };
