@@ -21,6 +21,7 @@ import {
 	Package,
 	ChevronRight,
 	PenSquareIcon,
+	PackageOpen,
 } from "lucide-react";
 import Link from "next/link";
 import type { JSX } from "react";
@@ -69,7 +70,7 @@ export default async function AaaadminPage({
 						</Link>
 					</Button>
 					<Separator />
-					<div className="flex gap-4">
+					<div className="grid grid-cols-2 gap-4">
 						<Button asChild variant={"secondary"}>
 							<Link href={"/manage/cucian"}>
 								Manage Cucian <WashingMachine />
@@ -79,6 +80,12 @@ export default async function AaaadminPage({
 							<Link href={"manage/employee"}>
 								Manage Employees
 								<PenSquareIcon />
+							</Link>
+						</Button>
+						<Button asChild variant={"secondary"}>
+							<Link href={"manage/inventory"}>
+								Inventory
+								<PackageOpen />
 							</Link>
 						</Button>
 					</div>

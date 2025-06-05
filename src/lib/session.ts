@@ -97,7 +97,7 @@ export async function LogOut() {
 					id: true,
 				},
 			});
-			revalidatePath("/");
+			revalidatePath("/", "layout");
 		} catch (error) {
 			const { meta } = error as unknown as PrismaClientError;
 			return { meta };

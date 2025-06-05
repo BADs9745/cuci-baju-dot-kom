@@ -4,6 +4,6 @@ import { prisma } from "@/lib/prisma";
 
 export default async function UserProfilePage({
 	params,
-}: { params: { id: string } }) {
+}: { params: Promise<{ id: string }> }) {
 	return <>eljhkjhkhjk</>;
 }

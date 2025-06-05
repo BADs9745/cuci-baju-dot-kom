@@ -62,6 +62,7 @@ export default async function ListOrderCucianPage({
 							<TableHead>Paket Cucian</TableHead>
 							<TableHead>Layanan Tambahan</TableHead>
 							<TableHead>Waktu Pesanan Dibuat</TableHead>
+							<TableHead>Total harga</TableHead>
 						</TableRow>
 					</TableHeader>
 					<Suspense

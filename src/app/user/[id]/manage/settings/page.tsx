@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default async function ProfileSettingPage({
 	params,
-}: { params: { id: string } }) {
+}: { params: Promise<{ id: string }> }) {
 	const param = await params;
 	const profile = await GetProfileById(param.id);
 

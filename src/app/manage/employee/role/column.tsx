@@ -9,18 +9,13 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { DeleteRoleById } from "@/lib/profile";
+import { DeleteRoleById, type GetAllRoles } from "@/lib/profile";
 import type { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 
-type RoleColumn = {
-	name: string;
-	authority_level: number;
-	admin: boolean;
-	id: string;
-};
+type RoleColumn = Awaited<ReturnType<typeof GetAllRoles>>[number];
 
 const roleColumn: ColumnDef<RoleColumn>[] = [
 	{

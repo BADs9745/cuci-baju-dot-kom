@@ -300,14 +300,59 @@ async function EditChangeUserRole(id: string, roleId: string) {
 	}
 }
 
+async function GetOwnOrder(id: string) {
+	async function Get(id: string) {
+		return (
+			await prisma.cucianOrder.findMany({
+				where: {
+					userId: id,
+				},
+				include: {
+					Paket: {
+						select: {
+							name: true,
+							id: true,
+						},
+					},
+				},
+			})
+		).map((e) => ({
+			...e,
+			hargaTetap: e.hargaTetap?.toNumber(),
+		}));
+	}
+	let res: {
+		success: boolean;
+		data: Awaited<ReturnType<typeof Get>>;
+		message: string;
+	};
+	try {
+		res = {
+			success: true,
+			data: await Get(id),
+			message: "Berhasil MEngambila order",
+		};
+	} catch (error) {
+		if (error) {
+		}
+		res = {
+			success: false,
+			data: [],
+			message: "Gagal mengambil order",
+		};
+	}
+	return res;
+}
+
 export {
 	// Get
 	GetProfileById,
 	GetAllProfile,
 	GetAllRoles,
 	GetRoleById,
-	EditRole,
+	GetOwnOrder,
 	// Update / Edit
+	EditRole,
 	UpdateProfile,
 	EditChangeUserRole,
 	AddNewRole,

@@ -71,6 +71,16 @@ export default async function TableOrderCucianBody({
 									</span>
 								</div>
 							</TableCell>
+							<TableCell>
+								{data.hargaTetap !== null ? (
+									data.hargaTetap.toNumber().toLocaleString("id-ID", {
+										style: "currency",
+										currency: "IDR",
+									})
+								) : (
+									<Badge>Belum Di Konfirmasi</Badge>
+								)}
+							</TableCell>
 						</TableRow>
 					))}
 			</TableBody>

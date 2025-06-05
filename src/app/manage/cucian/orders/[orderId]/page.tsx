@@ -9,7 +9,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { GetOrderById } from "@/lib/cucian";
 import { iconStatus } from "@/lib/manage-icon-pack";
-import { User2, UserCheck2 } from "lucide-react";
+import { Check, User2, UserCheck2 } from "lucide-react";
 import PaymentAction from "./action";
 
 export default async function ProcessedOrderPage({
@@ -187,10 +187,30 @@ export default async function ProcessedOrderPage({
 							</CardDescription>
 						</CardHeader>
 						<CardContent>
-							<PaymentAction
-								totalPerUnit={totalPrice}
-								orderId={order.id ?? ""}
-							/>
+							{order.status === "PENDING" ? (
+								<PaymentAction
+									totalPerUnit={totalPrice}
+									orderId={order.id ?? ""}
+								/>
+							) : (
+								<>
+									<h3 className="text-3xl font-bold flex items-center gap-5">
+										<span>Terkonfirmasi </span>
+										<Check className="size-10 stroke-3" />
+									</h3>
+									<div className="flex mt-10 float-end gap-5">
+										<span className="text-3xl font-semibold">
+											Harga yang harus dibayar :{" "}
+										</span>
+										<span className="text-3xl font-bold">
+											{order.hargaTetap?.toNumber().toLocaleString("id-ID", {
+												style: "currency",
+												currency: "IDR",
+											})}
+										</span>
+									</div>
+								</>
+							)}
 						</CardContent>
 					</Card>
 				</CardContent>

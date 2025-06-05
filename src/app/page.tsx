@@ -8,7 +8,7 @@ export default async function HomePage() {
 		redirect("/home");
 	}
 	const profile = await GetProfileByToken(login);
-	if (profile.data?.Role.admin) {
+	if (profile.data?.Role?.admin) {
 		return <AaaadminPage profile={profile} />;
 	}
 	return (

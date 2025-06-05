@@ -9,7 +9,10 @@
 		"ignoreUnknown": false,
 		"ignore": [
 			"node_modules",
-			"**/prisma/**"
+			"**/prisma",
+			"**/components",
+			"**/test",
+			"**/globals.css"
 		]
 	},
 	"formatter": {

@@ -199,6 +199,13 @@ exports.Prisma.PaymentScalarFieldEnum = {
   receivedById: 'receivedById'
 };
 
+exports.Prisma.InventoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  desc: 'desc',
+  qty: 'qty'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -239,7 +246,8 @@ exports.Prisma.ModelName = {
   ReservasiPengambilan: 'ReservasiPengambilan',
   Service: 'Service',
   Package: 'Package',
-  Payment: 'Payment'
+  Payment: 'Payment',
+  Inventory: 'Inventory'
 };
 
 /**

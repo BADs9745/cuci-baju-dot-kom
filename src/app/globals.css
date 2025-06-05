@@ -137,12 +137,12 @@
   --word-spacing-widest: 3;
 }
 @utility word-spacing-* {
-  word-spacing: calc(--value(integer, --word-spacing- *) * 0.1em);
-  word-spacing: --value([ *]);
+  word-spacing: calc(--value(integer, --word-spacing-*) * 0.1em);
+  word-spacing: --value([*]);
 }
 @utility -word-spacing-* {
-  word-spacing: calc(--value(integer, --word-spacing- *) * -0.1em);
-  word-spacing: calc(--value([ *]) * -1);
+  word-spacing: calc(--value(integer, --word-spacing-*) * -0.1em);
+  word-spacing: calc(--value([*]) * -1);
 }
 
 input::-webkit-inner-spin-button,

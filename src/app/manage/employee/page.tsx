@@ -35,12 +35,19 @@ export default async function ManageEmployeePage() {
 						</span>
 						<Separator orientation="vertical" />
 						<span className="text-yellow-700 dark:text-yellow-300 text-xl mx-1">
-							{users.data.filter((e) => e.Role?.authority_level &&0 > 0).length}{" "}
+							{
+								users.data.filter(
+									(e) => e.Role?.authority_level && e.Role?.authority_level > 0,
+								).length
+							}{" "}
 							Employees
 						</span>
 						<Separator orientation="vertical" />
 						<span className="text-green-700 dark:text-green-300 text-xl mx-1">
-							{users.data.filter((e) => e.Role?.authority_level && 0< 1).length}{" "}
+							{
+								users.data.filter((e) => e.Role?.authority_level && 0 < 1)
+									.length
+							}{" "}
 							Users
 						</span>
 					</div>

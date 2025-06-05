@@ -16,6 +16,7 @@ import {
 	CircleUserRoundIcon,
 	EyeIcon,
 	LogOutIcon,
+	PackageSearch,
 	SettingsIcon,
 } from "lucide-react";
 import {
@@ -55,7 +56,9 @@ function LoginAvatar({
 							<div className="font-bold">{profile.fullName.trim()}</div>
 							<div className="text-muted-foreground truncate">
 								{profile.username.trim()}@
-								<Badge className="float-end">{profile.Role.name}</Badge>
+								<Badge className="float-end">
+									{profile.Role?.name ?? "User"}
+								</Badge>
 							</div>
 						</HoverCardTrigger>
 						<HoverCardContent className="z-100">
@@ -69,7 +72,7 @@ function LoginAvatar({
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem asChild>
-						<Link href={`/user/${profile.id}/settings`}>
+						<Link href={`/user/${profile.id}/manage/settings`}>
 							<SettingsIcon />
 							Edit Profile
 						</Link>
@@ -78,6 +81,12 @@ function LoginAvatar({
 						<Link href={`/user/${profile.id}`}>
 							<EyeIcon />
 							View Profile
+						</Link>
+					</DropdownMenuItem>
+					<DropdownMenuItem asChild>
+						<Link href={`/user/${profile.id}/my-order`}>
+							<PackageSearch />
+							Order Cucian
 						</Link>
 					</DropdownMenuItem>
 					<DropdownMenuItem asChild variant="destructive">

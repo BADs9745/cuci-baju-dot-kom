@@ -145,3 +145,12 @@ model Payment {
 
   @@map("payments")
 }
+
+model Inventory {
+  id   String @id @default(uuid())
+  name String
+  desc String
+  qty  Int
+
+  @@map("inventory")
+}
