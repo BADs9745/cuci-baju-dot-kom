@@ -9,9 +9,9 @@
 		"ignoreUnknown": false,
 		"ignore": [
 			"node_modules",
-			"**/prisma",
-			"**/components",
-			"**/test",
+			"**/prisma/**",
+			"**/components/**",
+			"**/test/**",
 			"**/globals.css"
 		]
 	},

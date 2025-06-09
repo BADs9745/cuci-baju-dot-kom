@@ -22,13 +22,13 @@ export default async function CucianPage({
 	const guestId = (await cookies()).get("guest")?.value as string;
 	const cucianForm: z.infer<typeof CucianFormSchema> = {
 		paket: cucian.paket,
-		email: profile.email ?? guestId,
-		fullName: profile.fullName,
-		phone: profile.phone?.toString() ?? "",
-		alamat: profile.alamat ?? "",
+		email: profile?.email ?? guestId,
+		fullName: profile?.fullName,
+		phone: profile?.phone?.toString() ?? "",
+		alamat: profile?.alamat ?? "",
 	};
 	const PaketList = await GetPaketList({ getActivate: true });
-	const cucianOrderCount = await CountUserCucianOrder(profile.id, guestId);
+	const cucianOrderCount = await CountUserCucianOrder(profile?.id, guestId);
 	let limit = false;
 	if (cucianOrderCount >= 3) {
 		limit = true;
@@ -59,7 +59,7 @@ export default async function CucianPage({
 						pesanan anda selesai untuk membuat pesanan lagi
 					</AlertDialogDescription>
 					<AlertDialogAction asChild>
-						<Link href={`/user/${profile.id}/cucian/`}>
+						<Link href={`/user/${profile?.id ? profile.id : guestId}/cucian/`}>
 							Lihat Detail Pesanan Anda
 						</Link>
 					</AlertDialogAction>
