@@ -1,6 +1,10 @@
 "use client";
 import EditServisForm from "@/components/counterpart/manage/cucian/servis/edit-form";
-import { DialogContent, DialogTitle } from "@/components/ui/dialog";
+import {
+	DialogContent,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog";
 import type { GetServiceById } from "@/lib/cucian";
 import { Dialog } from "@radix-ui/react-dialog";
 import { useRouter } from "next/navigation";
@@ -20,7 +24,11 @@ export default function EditDialog({
 			}}
 		>
 			<DialogContent>
-				<DialogTitle>Edit Paket</DialogTitle>
+				<DialogHeader>
+					<DialogTitle className="text-center text-4xl font-bold">
+						Edit Service
+					</DialogTitle>
+				</DialogHeader>
 				<EditServisForm currentData={currentData} />
 			</DialogContent>
 		</Dialog>

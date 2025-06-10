@@ -13,7 +13,7 @@ export default async function ManageUsersPage() {
 	const login_profile = await GetProfileByToken(login_token ?? "");
 	return (
 		<>
-			<h1 className="text-3xl font-bold">Employees Management</h1>
+			<h1 className="text-3xl font-bold">Employees User Management</h1>
 			<p className="text-muted-foreground">
 				Manage the staff and the employees if the laundry
 			</p>

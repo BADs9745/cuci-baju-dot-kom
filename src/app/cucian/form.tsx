@@ -14,9 +14,8 @@ import { CucianFormSchema } from "@/lib/types/cucian";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
-import type { Package } from "@/prisma/client";
 import { useEffect, useState } from "react";
-import { PostCucianOrder } from "@/lib/cucian";
+import { type GetPaketList, PostCucianOrder } from "@/lib/cucian";
 import { toast } from "sonner";
 import { CheckIcon, Eye } from "lucide-react";
 import { tw } from "@/lib/utils";
@@ -35,7 +34,7 @@ export default function CucianForm({
 	...prop
 }: z.infer<typeof CucianFormSchema> & {
 	isLogin: boolean;
-	paketList: Package[];
+	paketList: Awaited<ReturnType<typeof GetPaketList>>;
 	limit: boolean;
 }) {
 	const {
